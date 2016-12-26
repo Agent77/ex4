@@ -1,9 +1,9 @@
 all: server client
-server: BFS.o Node.o Coordinate.o Point.o Graph.o Grid.o City.o Driver.o GameFlow.o LuxuryCab.o StandardCab.o Passenger.o Searchable.o Taxi.o TaxiCenterServer.o TaxiCenter.o Trip.o sockets/Udp.o sockets/Socket.o
-	g++ -o server BFS.o Node.o Coordinate.o Point.o Graph.o Grid.o City.o Driver.o GameFlow.o LuxuryCab.o StandardCab.o Passenger.o Searchable.o Taxi.o TaxiCenterServer.o TaxiCenter.o Trip.o sockets/Udp.o sockets/Socket.o
+server: BFS.o Node.o Coordinate.o Point.o Graph.o Grid.o City.o Driver.o GameFlow.o LuxuryCab.o StandardCab.o Passenger.o Searchable.o Taxi.o TaxiCenter.o Trip.o sockets/Udp.o sockets/Socket.o
+	g++ -o server BFS.o Node.o Coordinate.o Point.o Graph.o Grid.o City.o Driver.o GameFlow.o LuxuryCab.o StandardCab.o Passenger.o Searchable.o Taxi.o TaxiCenter.o Trip.o sockets/Udp.o sockets/Socket.o
 
-client: BFS.o Node.o Coordinate.o Point.o Graph.o Grid.o City.o DriverClient.o Driver.o GameFlow.o LuxuryCab.o StandardCab.o Passenger.o TaxiCenter.o Searchable.o Taxi.o Trip.o sockets/Udp.o sockets/Socket.o
-	g++ -o client BFS.o Node.o Coordinate.o Point.o Graph.o Grid.o City.o DriverClient.o Driver.o GameFlow.o LuxuryCab.o StandardCab.o Passenger.o TaxiCenter.o Searchable.o Taxi.o Trip.o sockets/Udp.o sockets/Socket.o
+client: BFS.o Node.o Coordinate.o Point.o Graph.o Grid.o DriverClient.o Driver.o LuxuryCab.o StandardCab.o Passenger.o Searchable.o Taxi.o Trip.o sockets/Udp.o sockets/Socket.o
+	g++ -o client BFS.o Node.o Coordinate.o Point.o Graph.o Grid.o DriverClient.o Driver.o LuxuryCab.o StandardCab.o Passenger.o Searchable.o Taxi.o Trip.o sockets/Udp.o sockets/Socket.o
 
 BFS.o: BFS.cpp BFS.h
 	g++ -c BFS.cpp

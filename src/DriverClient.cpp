@@ -1,24 +1,37 @@
+#include "sockets/Udp.h"
+
 //
 // Created by Tiki Lobel on 12/26/16.
 //
+#include <iostream>
+#include <sys/socket.h>
+#include <stdio.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <string.h>
 
-#include "DriverClient.h"
-#include "sockets/Socket.h"
-#include "sockets/Udp.h"
+using namespace std;
 
-
-int main(int argc, char *argv[]) {
+int main() {
 
     std::cout << "** IN CLIENT MAIN **\n" << std::endl;
-    Socket* client = new Udp(0, 777);
-    client->initialize();
+    Udp client = Udp(0, 5555);
+    int result = client.initialize();
+    cout << "RESULT: " << result << endl;
+    cout << "CLIENT PORT: " << client.getPortNum() << endl;
+    std::cout << "** AFTER INITIALIZE **\n" << std::endl;
     char buffer[1024];
-    client->reciveData(buffer, sizeof(buffer));
-    client ->sendData("HEYYYYYYOOOOO");
+    client.sendData("HEYYYYYYOOOOO");
+    std::cout << "** AFTER send Data **\n" << std::endl;
+
+    client.reciveData(buffer, sizeof(buffer));
+    cout << buffer << endl;
+    std::cout << "** AFTER SEND DATA **\n" << std::endl;
 
 
-
-
+    return 0;
+}
     //RECEIVE INFO FOR DRIVER FROM CONSOLE
 
     //CREATE DRIVER OBJECT
@@ -28,7 +41,3 @@ int main(int argc, char *argv[]) {
     //WAITS FOR VEHICLE
 
     //WAITS FOR 'GO'
-
-
-    return 0;
-}

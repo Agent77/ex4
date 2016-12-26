@@ -49,6 +49,8 @@ public:
 	* the data															   *
 	***********************************************************************/
 	int reciveData(char* buffer, int size);
+	int getPortNum();
+	int initialize(const char* ip_address, int port_no);
 };
 
 #endif /* UDP_H_ */

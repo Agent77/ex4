@@ -80,6 +80,7 @@ public:
 	* the data															   *
 	***********************************************************************/
 	virtual int reciveData(char* buffer, int size) = 0;
+	virtual int getPortNum() = 0;
 
 
 
