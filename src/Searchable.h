@@ -9,10 +9,11 @@
 #include <queue>
 #include "Node.h"
 #include "Graph.h"
+
 /*
- * generic virtual class that has function
- * to search, but not in any specific order.
- */
+* general class that searches, in no partcilar order,
+* a given grid.
+*/
 class Searchable {
 
 protected:

@@ -23,12 +23,10 @@ Driver::Driver(int driverId, int age, char mStatus, int exp, int vehicleId) {
     this->exp=exp;
 }
 
-
 /*
- * The driver uses its 'gps', which is a grid with maybe obstacles,
- * and runs a bfs algorithm on its start and end point, until it reaches
- * its destination.
- */
+* using its grid, the driver uses a bfs algorithms to
+* continue travelling until it arrives at its destination.
+*/
 void Driver::drive() {
     BFS bfs = BFS(gps);
     Coordinate* start = myTrip.getStart();
@@ -40,8 +38,6 @@ void Driver::drive() {
         start = myTrip.getStart();
         end = myTrip.getEnd();
     } while((!start->equalTo(end)));
-    //Resets the previous of all nodes, and
-    //whether they were visited or not.
     gps->resetGraph();
 }
 
@@ -83,8 +79,8 @@ void Driver::setTrip(Trip t) {
 }
 
 /*
- * adds a new rating and calculates the average.
- */
+* adds another rating and calculates average.
+*/
 void Driver::rateMe(int rating) {
     numberOfcustomers=+1;
     totalRate+=rating;

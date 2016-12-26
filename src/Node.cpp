@@ -64,9 +64,8 @@ Coordinate* Node::getMyLocation() {
 }
 
 /*
- * sets member to true so it
- * knows it is an obstacle
- */
+* sets a certain node to be an obstacle, so it cannot be visited.
+*/
 void Node::makeObstacle() {
     obstacle = true;
 }
@@ -76,11 +75,9 @@ bool Node::isObstacle() {
 }
 
 /*
- * resets its members so when asked again
- * for example "if visited" next time a bfs is
- * run on the same grid, it won't say yes just because
- * last time it was set to true.
- */
+* resets members so node can be analyzed properly next time
+* it is looked at in an algorithm for finding neighbors.
+*/
 void Node::resetNode() {
     visited=false;
     prev=NULL;

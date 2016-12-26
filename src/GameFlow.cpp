@@ -4,10 +4,10 @@
 #include "LuxuryCab.h"
 #include <iostream>
 
+
 /*
- * This initializes the general grid for the map and
- * creates the taxi center with it.
- */
+* Initializes the grid and taxi center.
+*/
 void GameFlow::initialize() {
     string obstacles;
     string size1;
@@ -22,6 +22,7 @@ void GameFlow::initialize() {
     //Checks for obstacles
     cin >> obstacles;
     std::istringstream(obstacles) >> obstacleCount;
+    //int obstacleCount ;//= atoi(obstacles);
     if (obstacleCount != 0) {
         string obstacle;
         for (int count = 0; count < obstacleCount; count++) {
@@ -34,10 +35,11 @@ void GameFlow::initialize() {
     tc = TaxiCenter(grid);
 }
 
+
 /*
- * function to run main the
- * switch case to accept user input constantly.
- */
+* runs the switch case so the user can constantly 
+* add input.
+*/
 void GameFlow::run() {
     int run = 1;
     char action1;
@@ -45,6 +47,7 @@ void GameFlow::run() {
     string input;
     string s;
 
+//Actions the user can perform
     while (run) {
         cin >> action1;
         int action = (int)action1 - 48;
@@ -56,24 +59,24 @@ void GameFlow::run() {
                 tc.addDriver(d);
                 break;
             }
-            case 2: { //Insert Trip
+            case 2: {
                 cin >> input;
                 Trip t = city.createTrip(input);
                 tc.addTrip(t);
                 break;
             }
-            case 3: { //Insert taxi
+            case 3: {
                 cin >> s;
                 Taxi t = city.createTaxi(s);
                 tc.addTaxi(t);
                 break;
             }
-            case 4: { //Insert driver
+            case 4: {
                 cin >> driverId;
                 tc.requestDriverLocation(driverId);
                 break;
             }
-            case 6: { //Drives all to destinations
+            case 6: {
                 tc.driveAll();
                 break;
             }

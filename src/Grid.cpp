@@ -32,9 +32,8 @@ Node* Grid::getLocationOfPrev(Node* n) {
  * of the node's neighbors. Once it finds them,
  * if it hasn't been visited yet, it 'visits' them, and
  * sets their previous to be the node which was sent.
- * It returns them in a vector. If node is an obstacle,
- * it is completely ignored as a possible neighbor/place to
- * move to.
+ * It returns them in a vector. If a node is a obstacle,
+ * it is not even considered a possible neighbor.
  */
 std::vector<Node*> Grid::getNeighbors(Node* n) {
     //Vector to return with neighbors inside
@@ -49,7 +48,6 @@ std::vector<Node*> Grid::getNeighbors(Node* n) {
         //9 o'clock neighbor
         Node* node = (arrayOfPtrsToNodes[(point.getX()) - 1][(point).getY()]);
         if(!(node->isVisited())){
-            //If an obstacle, can't go there no matter what
             if(!node->isObstacle()) {
                 node->setPrev(*n);
                 neighbors.push_back(node);
@@ -125,12 +123,11 @@ void Grid::addObstacle(Coordinate* p) {
     node->makeObstacle();
 }
 
-
 /*
- * resets the previous and whether the nodes have
- * been visited so it will work again next time the same
- * grid is used.
- */
+*  resets the nodes so the same graph with the
+* same obstacles can be used, without their previous
+* assignments affecting the algorithm.
+*/
 void Grid::resetGraph(){
     for (int i=0; i<sizeX;i++){
         for (int j=0;j<sizeY;j++){

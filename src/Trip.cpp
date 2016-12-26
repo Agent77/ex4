@@ -18,8 +18,7 @@ Trip::Trip(int tripId, int xStart, int yStart, int xEnd, int yEnd, int numOfPass
 }
 
 Trip::~Trip() {
-    delete start;
-    delete end;
+
 }
 
 int Trip::getId() {
@@ -48,6 +47,9 @@ void Trip::addMeters() {
     metersPassed =+1;
 }
 
+/*
+* each time the driver moves, the start point of its trip is updated.
+*/
 void Trip::updateStartPoint(Coordinate *c){
     xStart = c->getNextCoordinate(0);
     yStart = c->getNextCoordinate(1);

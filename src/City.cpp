@@ -1,4 +1,3 @@
-#include <sstream>
 #include "City.h"
 #include "StandardCab.h"
 #include "LuxuryCab.h"
@@ -15,9 +14,7 @@ Passenger City::checkForPassengerCalls() {
 
 }
 
-/*
- * creates a driver by parsing and returning object.
- */
+
 Driver City::createDriver(string s) {
     int info[6];
     char status;
@@ -41,9 +38,7 @@ Driver City::createDriver(string s) {
     return d;
 }
 
-/*
- * creates a trip by parsing and returning object.
- */
+
 Trip City::createTrip(string s) {
     //7 ints
     int i = 0;
@@ -64,9 +59,6 @@ Trip City::createTrip(string s) {
     return trip;
 }
 
-/*
- * creates a coordinate by parsing and returning object.
- */
 Coordinate* City::createCoordinate(string s) {
     int x = (int)s[0] - 48;
     int y = (int)s[2] - 48;
@@ -74,10 +66,6 @@ Coordinate* City::createCoordinate(string s) {
     return point;
 }
 
-
-/*
- * creates a graph by parsing and returning object.
- */
 Graph* City::createGraph(string s, string s1) {
     int x = (int)s[0] - 48;
     int y = (int)s1[0] - 48;
@@ -85,9 +73,6 @@ Graph* City::createGraph(string s, string s1) {
     return graphPointer;
 }
 
-/*
- * creates a taxi by parsing and returning object.
- */
 Taxi City::createTaxi(string s) {
     int id = (int)s[0] - 48;
     int type = (int)s[2] - 48;

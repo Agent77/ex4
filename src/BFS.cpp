@@ -9,11 +9,7 @@ using namespace std;
  */
 
 
-BFS::BFS(Graph* g) { //TODO when initializing source, visit it.
-    //this->source =  g->getNode(sLoc);
-    //(*(source)).visit();
-    //(*(source)).setPrev(*source);
-    //this->destination = g->getNode(dLoc);
+BFS::BFS(Graph* g) {
     this->graph = g;
 }
 /*
@@ -94,7 +90,6 @@ std::vector<Node*> BFS::visitNeighbors(Node* n) {
     return neighbors;
 }
 
-
 /*
  * This function first calls to the getPath function to set all the
  * previous Nodes, and then goes from
@@ -107,12 +102,12 @@ Coordinate* BFS::getNextInPath(Coordinate* sLoc, Coordinate* dLoc){
     this->getPath();
     Node *node= destination;
     Node* previousNode;
-    //Goes back till previous is source
     while (node != source && node->getPrev()!= NULL){
         previousNode = node;
         node = node->getPrev();
+
+
     }
-    //returns node after source in path
     return previousNode->getMyLocation();
 }
 

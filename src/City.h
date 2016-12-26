@@ -11,7 +11,9 @@
 #include <boost/token_functions.hpp>
 #include <boost/tokenizer.hpp>
 
-typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
+/*
+* City parses and returns requested object.
+*/
 
 class City {
 private:
