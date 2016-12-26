@@ -1,0 +1,5 @@
+/Users/Tiki/ClionProjects/AdvancedProgramming/ex4/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/Tiki/ClionProjects/AdvancedProgramming/ex4/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/Tiki/ClionProjects/AdvancedProgramming/ex4/cmake-build-debug/CMakeFiles/client.dir
+/Users/Tiki/ClionProjects/AdvancedProgramming/ex4/cmake-build-debug/CMakeFiles/server.dir
+/Users/Tiki/ClionProjects/AdvancedProgramming/ex4/cmake-build-debug/CMakeFiles/sockets.dir
