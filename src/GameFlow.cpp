@@ -21,7 +21,7 @@ void GameFlow::initialize() {
 
     //Checks for obstacles
     cin >> obstacles;
-    std::istringstream(obstacles) >> obstacleCount;
+   // std::istringstream(obstacles) >> obstacleCount;
     //int obstacleCount ;//= atoi(obstacles);
     if (obstacleCount != 0) {
         string obstacle;

@@ -49,6 +49,7 @@ int Udp::initialize() {
 		sin.sin_addr.s_addr = INADDR_ANY;
 		sin.sin_port = htons(this->port_number);
 		//bind
+
 		if (bind(this->socketDescriptor,
 				(struct sockaddr *) &sin, sizeof(sin)) < 0) {
 			return ERROR_BIND;
@@ -96,7 +97,7 @@ int Udp::reciveData(char* buffer, int size) {
 	struct sockaddr_in to;
 	unsigned int to_len = sizeof(struct sockaddr_in);
 	//receive
-	int bytes = recvfrom(this->socketDescriptor,
+	double bytes = recvfrom(this->socketDescriptor,
 			buffer, size, 0, (struct sockaddr *) &to, &to_len);
 	//set the port number to the new one which we get with the data
 	this->port_number = ntohs(to.sin_port);
