@@ -44,6 +44,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/Users/Tiki/Downloads/boost_1_62_0"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../lib/clang/7.0.2/include"/>
 					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
@@ -66,6 +67,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/Users/Tiki/Downloads/boost_1_62_0"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../lib/clang/7.0.2/include"/>
 					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
@@ -88,6 +90,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/Users/Tiki/Downloads/boost_1_62_0"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../lib/clang/7.0.2/include"/>
 					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
@@ -110,6 +113,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/Users/Tiki/Downloads/boost_1_62_0"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../lib/clang/7.0.2/include"/>
 					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
@@ -132,6 +136,7 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/Users/Tiki/Downloads/boost_1_62_0"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../lib/clang/7.0.2/include"/>
 					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
@@ -154,6 +159,7 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/Users/Tiki/Downloads/boost_1_62_0"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../lib/clang/7.0.2/include"/>
 					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>

@@ -10,6 +10,7 @@ set(CMAKE_CXX_COMPILER_ID "AppleClang")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
+  "/Users/Tiki/Downloads/boost_1_62_0"
   )
 
 # Targets to which this target links.
