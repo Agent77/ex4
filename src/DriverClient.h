@@ -6,8 +6,12 @@
 #define PRACTICE6_DRIVERCLIENT_H
 
 
-class DriverClient {
+#include <boost/iostreams/device/array.hpp>
 
+class DriverClient {
+public:
+    boost::iostreams::basic_array_source<char> device;
+    void openSocket();
 };
 
 

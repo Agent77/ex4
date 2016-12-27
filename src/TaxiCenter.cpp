@@ -28,17 +28,17 @@ using namespace std;
 int main() {
     std::cout << "** IN TAXI CENTER MAIN **\n" << std::endl;
 
-    Udp taxiCenterServer = Udp(1, 5555);
-    int result = taxiCenterServer.initialize();
+    Socket* taxiCenterServer = new Udp(1, 5555);
+    int result = taxiCenterServer->initialize();
     cout << "RESULT: " << result << endl;
     std::cout << "** AFTER INITIALIZE **\n" << std::endl;
 
     char buffer[1024];
-    taxiCenterServer.reciveData(buffer, sizeof(buffer));
+    taxiCenterServer->reciveData(buffer, sizeof(buffer));
     std::cout << "** AFTER REC DATA **\n" << std::endl;
 
     cout << buffer << endl;
-    taxiCenterServer.sendData("Hello from the server!\n");
+    taxiCenterServer->sendData("Hello from the server!\n");
     return 0;
 }
 //RECEIVES ALL INITIAL INPUT

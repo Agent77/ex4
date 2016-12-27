@@ -37,8 +37,6 @@ Udp::~Udp() {
 ***********************************************************************/
 int Udp::initialize() {
 
-
-
     //creating new socket and getting his descriptor
     this->socketDescriptor = socket(AF_INET, SOCK_DGRAM, 0);
     if (this->socketDescriptor < 0) {
@@ -53,10 +51,10 @@ int Udp::initialize() {
         sin.sin_port = htons(this->port_number);
         //bind
         cout << "PORT NUMBER: " << port_number<<endl;
-        if (bind(this->socketDescriptor,
-                (struct sockaddr *) &sin, sizeof(sin)) < 0) {
-            return ERROR_BIND;
-        }
+        //if (bind(this->socketDescriptor,
+          //      (struct sockaddr *) &sin, sizeof(sin)) < 0) {
+            //return ERROR_BIND;
+        //}
     }
     //return correct if there were no problems
     return CORRECT;
@@ -70,7 +68,6 @@ int Udp::initialize() {
 * who connect to this socket. check if send successfully				   *
 ***********************************************************************/
 int Udp::sendData(string data) {
-
 
 	//initialize the struct
 	struct sockaddr_in sin;

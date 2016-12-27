@@ -2,10 +2,23 @@
 #define EX2_DRIVER_H
 
 #include <vector>
+#include <boost/serialization/access.hpp>
 #include "Trip.h"
 #include "Passenger.h"
 #include "Taxi.h"
 class Driver {
+
+    friend class boost::serialization::access;
+
+    template<class Archive>
+
+    void serialize(Archive &ar, const unsigned int version)
+    {
+        ar & driverId;
+        ar & age;
+        ar & maritalStatus;
+        ar & vehicleId;
+    }
 private:
     int driverId;
     int age;
