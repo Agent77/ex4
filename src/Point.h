@@ -10,6 +10,14 @@
  * 2, for x and y, so is used for 2D graphs.
  */
 class Point: public Coordinate {
+    friend class boost::serialization::access;
+
+    template<class Archive>
+
+    void serialize(Archive &ar, const unsigned int version)
+    {
+        ar & locs;
+    }
 protected:
     int locs[2];
 public:

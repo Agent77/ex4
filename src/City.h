@@ -16,6 +16,15 @@
 */
 
 class City {
+    friend class boost::serialization::access;
+
+    template<class Archive>
+
+    void serialize(Archive &ar, const unsigned int version)
+    {
+        ar & tc;
+    }
+
 private:
     TaxiCenter tc;
 public:

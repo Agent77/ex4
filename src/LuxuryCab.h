@@ -8,6 +8,14 @@
 #include "Taxi.h"
 
 class LuxuryCab: public Taxi {
+    friend class boost::serialization::access;
+
+    template<class Archive>
+
+    void serialize(Archive &ar, const unsigned int version)
+    {
+
+    }
 public:
     LuxuryCab(int id, char type, char c){};
 

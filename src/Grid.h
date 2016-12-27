@@ -14,6 +14,16 @@
  * a Node based off of a given Coordinate.
  */
 class Grid : public Graph {
+    friend class boost::serialization::access;
+
+    template<class Archive>
+
+    void serialize(Archive &ar, const unsigned int version)
+    {
+        ar & arrayOfPtrsToNodes;
+        ar & sizeX;
+        ar & sizeY;
+    }
 private:
     Node* arrayOfPtrsToNodes[10][10];
     int sizeX;

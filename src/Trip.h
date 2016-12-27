@@ -3,7 +3,23 @@
 
 #include "Point.h"
 class Trip {
-//c
+    friend class boost::serialization::access;
+
+    template<class Archive>
+
+    void serialize(Archive &ar, const unsigned int version)
+    {
+        ar & tripId;
+        ar & xStart;
+        ar & yStart;
+        ar & xEnd;
+        ar & yEnd;
+        ar & start;
+        ar & end;
+        ar & numOfPassengers;
+        ar & metersPassed;
+        ar & tariff;
+    }
 private:
 
     int tripId;

@@ -6,6 +6,20 @@
 #include "BFS.h"
 
 class Taxi {
+    friend class boost::serialization::access;
+
+    template<class Archive>
+
+    void serialize(Archive &ar, const unsigned int version)
+    {
+        ar & gps;
+        ar & cabId;
+        ar & kmPassed;
+        ar & manufacturer;
+        ar & color;
+        ar & tariff;
+        ar & speed;
+    }
 protected:
     BFS* gps;
     int cabId;

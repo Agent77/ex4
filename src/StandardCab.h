@@ -9,6 +9,14 @@
 #include "Taxi.h"
 
 class StandardCab: public Taxi {
+    friend class boost::serialization::access;
+
+    template<class Archive>
+
+    void serialize(Archive &ar, const unsigned int version)
+    {
+
+    }
 public:
     StandardCab() {};
     StandardCab(int id, char type, char c) :Taxi(id,type,c) {

@@ -10,6 +10,14 @@
  * for the diagram that are in charge of providing the information needed.
  */
 class Graph {
+    friend class boost::serialization::access;
+
+    template<class Archive>
+
+    void serialize(Archive &ar, const unsigned int version)
+    {
+
+    }
 public:
     Graph(){};
     ~Graph(){};

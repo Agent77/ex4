@@ -15,6 +15,17 @@
 * a given grid.
 */
 class Searchable {
+    friend class boost::serialization::access;
+
+    template<class Archive>
+
+    void serialize(Archive &ar, const unsigned int version)
+    {
+        ar & myDeque;
+        ar & source;
+        ar & graph;
+        ar & destination;
+    }
 
 protected:
     std::queue<Node*> myDeque;

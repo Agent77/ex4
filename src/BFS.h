@@ -17,6 +17,17 @@
  */
 using namespace std;
 class BFS: public Searchable {
+    friend class boost::serialization::access;
+
+    template<class Archive>
+
+    void serialize(Archive &ar, const unsigned int version)
+    {
+        ar & myDeque;
+        ar & source;
+        ar & graph;
+        ar & destination;
+    }
 private:
     std::queue<Node*> myDeque;
     Node* source;

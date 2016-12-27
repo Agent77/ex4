@@ -16,6 +16,17 @@ using namespace std;
  * to move, assigning trips, and getting locations
  */
 class TaxiCenter {
+    friend class boost::serialization::access;
+
+    template<class Archive>
+
+    void serialize(Archive &ar, const unsigned int version)
+    {
+        ar & drivers;
+        ar & taxis;
+        ar & locations;
+        ar & started;
+    }
 private:
     std::vector<Driver> drivers;
     std::vector<Taxi> taxis;

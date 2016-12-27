@@ -11,6 +11,17 @@
  */
 
 class Node {
+    friend class boost::serialization::access;
+
+    template<class Archive>
+
+    void serialize(Archive &ar, const unsigned int version)
+    {
+        ar & myLocation;
+        ar & prev;
+        ar & visited;
+        ar & obstacle;
+    }
 private:
     Coordinate* myLocation;
     Node* prev;
