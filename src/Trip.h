@@ -19,9 +19,9 @@ class Trip {
         ar & numOfPassengers;
         ar & metersPassed;
         ar & tariff;
+        ar & startTime;
     }
 private:
-
     int tripId;
     int xStart;
     int yStart;
@@ -32,6 +32,7 @@ private:
     int numOfPassengers;
     int metersPassed;
     double tariff;
+    int startTime;
 
 public:
     Trip();
@@ -45,6 +46,7 @@ public:
     Coordinate* getStart();
     Coordinate* getEnd();
     void updateStartPoint(Coordinate *c);
+    int getTripTime();
 
 };
 
