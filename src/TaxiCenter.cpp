@@ -187,3 +187,30 @@ void TaxiCenter::addDriver(int driverId, int age, char mStatus, int vehicleId, i
     Driver *d = new Driver (driverId, age, mStatus, vehicleId, exp, map);
     drivers.push_back(*d);
 }
+
+void TaxiCenter::updateDriverTrip(Trip newTrip){
+    vector<Driver>::iterator driver = drivers.begin();
+    while (newTrip.getId()!=(*(driver)).getTrip().getId()){
+        driver++;
+    }
+    (*(driver)).setTrip(newTrip);
+}
+
+Taxi TaxiCenter::assignTaxi(int driverId){
+    vector<Driver>::iterator driver = drivers.begin();
+    vector<Taxi>::iterator taxi = taxis.begin();
+    while ((*(driver)).getDriverId()!=driverId){
+        driver++;
+        taxi++;
+
+    }
+    (*(driver)).setTaxi((*(taxi)));
+    return *(taxi);
+}
+
+Trip TaxiCenter::getNextTrip() {
+    Trip nextTrip= trips.front();
+    trips.erase (trips.begin());
+    return nextTrip;
+}
+

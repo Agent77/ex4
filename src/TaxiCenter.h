@@ -52,6 +52,9 @@ public:
     vector<Trip> getTrips();
     void addTaxi(Taxi t);
     void addDriver(Driver d);
+    void updateDriverTrip(Trip newTrip);
+    Taxi assignTaxi(int driverId);
+    Trip getNextTrip ();
 };
 
 
