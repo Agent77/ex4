@@ -177,12 +177,6 @@ void TaxiCenter::addTrip(Trip t) {
     trips.push_back(t);
 }
 
-void TaxiCenter::addTrip(int tripId, int xStart, int yStart, int xEnd, int yEnd,
-                         int numPassengers, double tariff) {
-    Trip* trip = new Trip (tripId, xStart, yStart,xEnd,yEnd,numPassengers,tariff);
-    trips.push_back(*trip);
-}
-
 void TaxiCenter::addDriver(int driverId, int age, char mStatus, int vehicleId, int exp) {
     Driver *d = new Driver (driverId, age, mStatus, vehicleId, exp, map);
     drivers.push_back(*d);

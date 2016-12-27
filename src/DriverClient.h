@@ -7,13 +7,16 @@
 
 
 #include <boost/iostreams/device/array.hpp>
+#include "Clock.h"
 
 class DriverClient {
 private:
     Socket* client;
     Driver driver;
+    Clock clock;
 public:
-    void openSocket();
+    DriverClient();
+    void openSocket(Driver* d);
     void ReceiveTrip();
     void ReceiveCommand();
     Driver getDriver();

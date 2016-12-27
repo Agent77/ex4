@@ -1,3 +1,4 @@
+CXXFLAGS= -lboost_serialization
 all: server client
 server: BFS.o Node.o Coordinate.o Point.o Graph.o Grid.o City.o Driver.o GameFlow.o LuxuryCab.o StandardCab.o Passenger.o Searchable.o Taxi.o TaxiCenter.o Trip.o sockets/Udp.o sockets/Socket.o
 	g++ -o server BFS.o Node.o Coordinate.o Point.o Graph.o Grid.o City.o Driver.o GameFlow.o LuxuryCab.o StandardCab.o Passenger.o Searchable.o Taxi.o TaxiCenter.o Trip.o sockets/Udp.o sockets/Socket.o

@@ -45,8 +45,6 @@ public:
     void addTrip(Trip t);
     void updateMeters();
     int checkDestinations();
-    void addTrip(int tripId, int xStart, int yStart, int xEnd, int yEnd,
-                 int numPassengers, double tariff);
     void requestDriverLocation(int driverId);
     vector <Driver> getDrivers();
     vector<Trip> getTrips();
@@ -55,7 +53,7 @@ public:
     void updateDriverTrip(Trip newTrip);
     Taxi assignTaxi(int driverId);
     Trip getNextTrip (int currentTime);
-    bool checkTripTimes(int currentTime);
+    int checkTripTimes(int currentTime);
 };
 
 

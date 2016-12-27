@@ -8,9 +8,10 @@
 #include "Coordinate.h"
 #include "TaxiCenter.h"
 #include "sockets/Socket.h"
+#include "Clock.h"
+
 using namespace std;
 using namespace boost::archive;
-std::stringstream ss;
 #ifndef EX2_GAMEFLOW_H
 #define EX2_GAMEFLOW_H
 
@@ -21,15 +22,17 @@ private:
     Socket* socket;
     City city;
     TaxiCenter tc;
+    Clock clock;
+    Driver currentDriver;
 public:
-    Server() {};
-    //void doOneFrame();
+    Server();
     void run();
     void initialize();
     Trip getTripFromClient();
     void SendTripToClient();
     int createClients(int amountOfDrivers);
     void assignVehicleToClient();
+    void receiveDriver();
 
 
 };

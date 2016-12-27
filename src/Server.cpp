@@ -30,19 +30,22 @@ using namespace std;
 
 int main() {
 
-    Server gf = Server();
+    Server server = Server();
 
-    // Gets initial information before server/client interaction,
-    // along with switch case in run()
-    gf.initialize();
-    gf.createClients(1);
+    // INITIALIZES MAP
+    server.initialize();
 
-    // Creates new socket for new drivers
-    gf.assignVehicleToClient();
+    // OPENS SOCKET FOR ONE CLIENT
+    server.createClients(1);
 
-    // Begin to move based on input
-    gf.run();
+    // RUNS SWITCH CASE
+    server.run();
+
     return 0;
+}
+
+Server::Server() {
+    clock = Clock();
 }
 /*
 * Initializes the grid and taxi center.
@@ -94,7 +97,7 @@ void Server::SendTripToClient() {
 
     string serializedTrip;
     // SEND TRIP TO CLIENT
-    Trip trip = tc.getNextTrip();
+    Trip trip = tc.getNextTrip(clock.getTime());
     boost::iostreams::back_insert_device<std::string> inserter(serializedTrip);
     boost::iostreams::stream<boost::iostreams::back_insert_device<std::string> > s(inserter);
     boost::archive::binary_oarchive oa(s);
@@ -112,7 +115,7 @@ int Server::createClients(int amountOfDrivers) {
     int result = socket->initialize();
 
 }
-void Server::assignVehicleToClient() {
+void Server::receiveDriver() { //TODO CHECK CLOCK
     // RECEIVE DRIVER FROM CLIENT
     char buffer[1024];
     socket->reciveData(buffer, sizeof(buffer));
@@ -124,12 +127,15 @@ void Server::assignVehicleToClient() {
     boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s2(device);
     boost::archive::binary_iarchive ia(s2);
     ia >> receivedDriver;
-
+    currentDriver = *receivedDriver;
     // ADDS DRIVER TO TAXI CENTER
     tc.addDriver(*receivedDriver);
 
+}
+void Server::assignVehicleToClient() {
+
     // FINDS CORRECT TAXI FOR DRIVER ID
-    Taxi t = tc.assignTaxi(receivedDriver->getDriverId());
+    Taxi t = tc.assignTaxi(currentDriver.getDriverId());
     Taxi* taxiPointer = &t;
 
     // SERIALIZATION OF TAXI
@@ -162,7 +168,8 @@ void Server::run() {
             case 1: //Insert Driver
             {
                 cin >> input; //how many drivers
-                Server::assignVehicleToClient();
+                // ASSIGNS A VEHICLE TO CLIENT ONLY IF TRIP TIME ARRIVES
+                Server::receiveDriver();
                 break;
             }
             case 2: {
@@ -183,19 +190,20 @@ void Server::run() {
                 break;
             }
             case 9: {
+                int numOfTrips=tc.checkTripTimes(clock.getTime());
+                if(numOfTrips>0) {
+                    for (int i = 0; i <= numOfTrips;i++) {
+                        Server::assignVehicleToClient();
+                        Server::SendTripToClient();
+                        socket->sendData("9");
+                        Trip t = Server::getTripFromClient();
+                        tc.updateDriverTrip(t);
+                    }
+                }
                 // ADVANCE TIME
-
-                //SEND 9 TO ALL CLIENTS
-                socket->sendData("9");
-
-                //RECEIVE TRIP FROM CLIENT
-                Trip t = Server::getTripFromClient();
-
+                clock.increaseTime();
                 // CHECK IF AT DESTINATION, IF IT IS:
                 // SEND A NEW TRIP TO DRIVER, and DELETE THAT TRIP FROM LIST AND UPDATE DRIVER'S TRIP
-
-                // UPDATE CORRECT DRIVER'S TRIP
-                tc.updateDriverTrip(t);
                 break;
             }
             case 7:
