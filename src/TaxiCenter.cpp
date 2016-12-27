@@ -208,9 +208,22 @@ Taxi TaxiCenter::assignTaxi(int driverId){
     return *(taxi);
 }
 
-Trip TaxiCenter::getNextTrip() {
-    Trip nextTrip= trips.front();
-    trips.erase (trips.begin());
+Trip TaxiCenter::getNextTrip(int currentTime) {
+    vector<Trip>::iterator trip = trips.begin();
+    while ((*(trip)).getTripTime()!= currentTime){
+        trip++;
+    }
+    Trip nextTrip= *(trip);
+    trips.erase (trip);
     return nextTrip;
 }
 
+int TaxiCenter::checkTripTimes(int currentTime) {
+    int counter =0;
+    for (int i=0; i<trips.size();i++) {
+        if (trips[i].getTripTime() == currentTime) {
+            counter++;
+        }
+    }
+    return counter;
+}

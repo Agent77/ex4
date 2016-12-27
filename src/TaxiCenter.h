@@ -54,7 +54,8 @@ public:
     void addDriver(Driver d);
     void updateDriverTrip(Trip newTrip);
     Taxi assignTaxi(int driverId);
-    Trip getNextTrip ();
+    Trip getNextTrip (int currentTime);
+    bool checkTripTimes(int currentTime);
 };
 
 
