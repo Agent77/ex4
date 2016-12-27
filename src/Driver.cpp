@@ -33,20 +33,17 @@ Driver::Driver(int driverId, int age, char mStatus, int exp, int vehicleId) {
 * using its grid, the driver uses a bfs algorithms to
 * continue travelling until it arrives at its destination.
 */
-void Driver::drive() {
+Trip Driver::drive() {
     BFS bfs = BFS(gps);
     Coordinate* start = myTrip.getStart();
     Coordinate* end = myTrip.getEnd();
-    Coordinate *c;
-    do {
+    Coordinate* c;
+
         c  = bfs.getNextInPath(start, end);
         myTrip.updateStartPoint(c);
-        start = myTrip.getStart();
-        end = myTrip.getEnd();
-    } while((!start->equalTo(end)));
     gps->resetGraph();
+    return myTrip;
 }
-
 
 int Driver::getAge() {
     return age;
@@ -103,4 +100,11 @@ Driver::~Driver() {
 
 int Driver::getVehicleId() {
      return vehicleId;
+}
+
+bool Driver::arrived() {
+    if(myTrip.getStart()->equalTo(myTrip.getEnd())) {
+        return true;
+    }
+    return false;
 }

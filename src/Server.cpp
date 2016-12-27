@@ -2,9 +2,6 @@
 #include "Server.h"
 #include "StandardCab.h"
 #include "LuxuryCab.h"
-#include <iostream>
-
-#include <iostream>
 #include "Point.h"
 #include "BFS.h"
 #include "Driver.h"
@@ -38,9 +35,10 @@ int main() {
     // Gets initial information before server/client interaction,
     // along with switch case in run()
     gf.initialize();
+    gf.createClients(1);
 
     // Creates new socket for new drivers
-    gf.createDriverClients(1);
+    gf.assignVehicleToClient();
 
     // Begin to move based on input
     gf.run();
@@ -74,17 +72,49 @@ void Server::initialize() {
     }
     tc = TaxiCenter(grid);
 }
+Trip Server::getTripFromClient() {
+    char buffer[1024];
 
-int Server::createDriverClients(int amountOfDrivers) {
+    // RECEIVE TRIP FROM CLIENT
+    socket->reciveData(buffer, sizeof(buffer));
+
+    // DESERIALIZE BUFFER INTO TRIP
+    string s = buffer;
+    Trip *trip;
+    boost::iostreams::basic_array_source<char> device(s.c_str(), s.size());
+    boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s2(device);
+    boost::archive::binary_iarchive ia(s2);
+    ia >> trip;
+
+    return *trip;
+
+}
+
+void Server::SendTripToClient() {
+
+    string serializedTrip;
+    // SEND TRIP TO CLIENT
+    Trip trip = tc.getNextTrip();
+    boost::iostreams::back_insert_device<std::string> inserter(serializedTrip);
+    boost::iostreams::stream<boost::iostreams::back_insert_device<std::string> > s(inserter);
+    boost::archive::binary_oarchive oa(s);
+    oa << trip;
+    s.flush();
+    socket->sendData(serializedTrip);
+}
+
+int Server::createClients(int amountOfDrivers) {
 
     // creates port for clients
     socket = new Udp(1, 5555);
 
     //creates new socket for single client
     int result = socket->initialize();
-    char buffer[1024];
 
+}
+void Server::assignVehicleToClient() {
     // RECEIVE DRIVER FROM CLIENT
+    char buffer[1024];
     socket->reciveData(buffer, sizeof(buffer));
 
     // DESERIALIZE BUFFER INTO DRIVER
@@ -112,18 +142,6 @@ int Server::createDriverClients(int amountOfDrivers) {
 
     // RETURN TAXI TO CLIENT
     socket->sendData(serial_str);
-
-    // SEND TRIP TO CLIENT
-    Trip* trip = &tc.getTrip();
-    boost::iostreams::back_insert_device<std::string> inserter2(serial_str);
-    boost::iostreams::stream<boost::iostreams::back_insert_device<std::string> > s3(inserter2);
-    boost::archive::binary_oarchive oa2(s3);
-    oa << trip;
-    s3.flush();
-    socket->sendData(serial_str);
-
-    // CONTINUES IN SWITCH CASES
-    return 0;
 }
 /*
 * runs the switch case so the user can constantly 
@@ -144,7 +162,7 @@ void Server::run() {
             case 1: //Insert Driver
             {
                 cin >> input; //how many drivers
-                Server::createDriverClients(1);
+                Server::assignVehicleToClient();
                 break;
             }
             case 2: {
@@ -168,11 +186,16 @@ void Server::run() {
                 // ADVANCE TIME
 
                 //SEND 9 TO ALL CLIENTS
-                socket->sendData("9"); //Need to serialize?
+                socket->sendData("9");
 
-                // UPDATE DRIVERS IN TAXI CENTER
-                tc.driveAll(); //TODO NOW ONLY ONE STEP
+                //RECEIVE TRIP FROM CLIENT
+                Trip t = Server::getTripFromClient();
 
+                // CHECK IF AT DESTINATION, IF IT IS:
+                // SEND A NEW TRIP TO DRIVER, and DELETE THAT TRIP FROM LIST AND UPDATE DRIVER'S TRIP
+
+                // UPDATE CORRECT DRIVER'S TRIP
+                tc.updateDriverTrip(t);
                 break;
             }
             case 7:

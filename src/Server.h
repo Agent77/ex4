@@ -26,7 +26,10 @@ public:
     //void doOneFrame();
     void run();
     void initialize();
-    int createDriverClients(int amountOfDrivers);
+    Trip getTripFromClient();
+    void SendTripToClient();
+    int createClients(int amountOfDrivers);
+    void assignVehicleToClient();
 
 
 };

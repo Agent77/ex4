@@ -9,9 +9,14 @@
 #include <boost/iostreams/device/array.hpp>
 
 class DriverClient {
+private:
+    Socket* client;
+    Driver driver;
 public:
-    boost::iostreams::basic_array_source<char> device;
     void openSocket();
+    void ReceiveTrip();
+    void ReceiveCommand();
+    Driver getDriver();
 };
 
 

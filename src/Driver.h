@@ -52,7 +52,8 @@ public:
     void setTrip(Trip t);
     void rateMe(int rating);
     void addPassenger(Passenger p);
-    void drive(); //TODO update trip at end
+    Trip drive();
+    bool arrived();
 
 
 
