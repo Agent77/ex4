@@ -90,10 +90,10 @@ Trip Server::getTripFromClient() {
     // DESERIALIZE BUFFER INTO TRIP
     string s = buffer;
     Trip *trip;
-    /*boost::iostreams::basic_array_source<char> device(s.c_str(), s.size());
+    boost::iostreams::basic_array_source<char> device(s.c_str(), s.size());
     boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s2(device);
     boost::archive::binary_iarchive ia(s2);
-    ia >> trip;*/
+    ia >> trip;
 
     return *trip;
 
@@ -104,11 +104,11 @@ void Server::SendTripToClient() {
     string serializedTrip;
     // SEND TRIP TO CLIENT
     Trip trip = tc.getNextTrip(clock.getTime());
-   /* boost::iostreams::back_insert_device<std::string> inserter(serializedTrip);
+    boost::iostreams::back_insert_device<std::string> inserter(serializedTrip);
     boost::iostreams::stream<boost::iostreams::back_insert_device<std::string> > s(inserter);
     boost::archive::binary_oarchive oa(s);
     oa << trip;
-    s.flush();*/
+    s.flush();
     socket->sendData(serializedTrip);
 }
 
@@ -120,6 +120,7 @@ int Server::createClients(int amountOfDrivers) {
 
     //creates new socket for single client
     int result = socket->initialize();
+    cout <<"RESULT SOCKET:"<< result<<endl;
 
 }
 void Server::receiveDriver() { //TODO CHECK CLOCK
@@ -127,15 +128,15 @@ void Server::receiveDriver() { //TODO CHECK CLOCK
     char buffer[1024];
     cout<<"##before driver recieved##"<<endl;
     socket->reciveData(buffer, sizeof(buffer));
-    cout<<"##driver recieved##"<<endl;
+    cout<<"##driver recieved###"<<endl;
     // DESERIALIZE BUFFER INTO DRIVER
     string s = buffer;
     Driver *receivedDriver;
-    boost::iostreams::basic_array_source<char> device(s.c_str(), s.size());
+    /*boost::iostreams::basic_array_source<char> device(s.c_str(), s.size());
     boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s2(device);
     boost::archive::binary_iarchive ia(s2);
-    ia >> receivedDriver;
-
+    ia >> receivedDriver;*/
+    cout<<"###DIRVER ID:###"<<3<<endl;
     currentDriver = *receivedDriver;
     // ADDS DRIVER TO TAXI CENTER
     tc.addDriver(*receivedDriver);
@@ -149,11 +150,11 @@ void Server::assignVehicleToClient() {
 
     // SERIALIZATION OF TAXI
     std::string serial_str;
-   /* boost::iostreams::back_insert_device<std::string> inserter(serial_str);
+    boost::iostreams::back_insert_device<std::string> inserter(serial_str);
     boost::iostreams::stream<boost::iostreams::back_insert_device<std::string> > s1(inserter);
     boost::archive::binary_oarchive oa(s1);
     oa << taxiPointer;
-    s1.flush();*/
+    s1.flush();
 
     // RETURN TAXI TO CLIENT
     socket->sendData(serial_str);

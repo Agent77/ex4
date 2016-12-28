@@ -51,10 +51,10 @@ int Udp::initialize() {
         sin.sin_port = htons(this->port_number);
         //bind
         cout << "PORT NUMBER: " << port_number<<endl;
-        //if (bind(this->socketDescriptor,
-          //      (struct sockaddr *) &sin, sizeof(sin)) < 0) {
-            //return ERROR_BIND;
-        //}
+        if (bind(this->socketDescriptor,
+                (struct sockaddr *) &sin, sizeof(sin)) < 0) {
+            return ERROR_BIND;
+        }
     }
     //return correct if there were no problems
     return CORRECT;
@@ -76,12 +76,12 @@ int Udp::sendData(string data) {
 	sin.sin_addr.s_addr = inet_addr(this->ip_address.c_str());
 	sin.sin_port = htons(this->port_number);
 	const char * datas = data.c_str();
-    cout << "STRING: " << datas << endl;
+    cout << "STRING: " << data << endl;
 	double data_len = data.length() + 1;
 	//send
 	double sent_bytes = sendto(this->socketDescriptor,
 			datas, data_len, 0, (struct sockaddr *) &sin, sizeof(sin));
-//	cout << sent_bytes << endl;
+	cout << "SENDTO: "<<sent_bytes << endl;
 	//check if send successfully
 	if (sent_bytes < 0) {
 		return ERROR_SEND;
