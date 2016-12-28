@@ -2,6 +2,7 @@
 #define EX2_TRIP_H
 
 #include "Point.h"
+#include <boost/serialization/access.hpp>
 class Trip {
     friend class boost::serialization::access;
 

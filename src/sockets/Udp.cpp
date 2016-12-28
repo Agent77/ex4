@@ -102,6 +102,7 @@ int Udp::reciveData(char* buffer, int size) {
     cout << "SIZE: "<< size << endl;
     cout << "BUFFER: "<< buffer << endl;
     cout << "SCKT DESC: "<< socketDescriptor << endl;
+	cout << "PORT NUM: "<< port_number << endl;
 
     //receive
 	double bytes = recvfrom(this->socketDescriptor,

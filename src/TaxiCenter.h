@@ -9,6 +9,7 @@
 #include "Driver.h"
 #include "Point.h"
 #include <vector>
+#include <boost/serialization/access.hpp>
 
 using namespace std;
 /*
@@ -35,7 +36,7 @@ private:
     Graph* map;
     bool started;
 public:
-    TaxiCenter();
+    TaxiCenter(){};
     TaxiCenter(Graph* map1);
     ~TaxiCenter() {};
     int assignDrivers();

@@ -10,7 +10,7 @@ Driver::Driver() {
 
 }
 
-Driver::Driver(int driverId, int age, char mStatus, int exp, int vehicleId, Graph* map) {
+/*Driver::Driver(int driverId, int age, char mStatus, int exp, int vehicleId, Graph* map) {
     numberOfcustomers=0;
     this->driverId=driverId;
     this->age=age;
@@ -18,7 +18,7 @@ Driver::Driver(int driverId, int age, char mStatus, int exp, int vehicleId, Grap
     this->vehicleId=vehicleId;
     this->exp = exp;
     this->gps = map;
-}
+}*/
 
 Driver::Driver(int driverId, int age, char mStatus, int exp, int vehicleId) {
     numberOfcustomers=0;

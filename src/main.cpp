@@ -5,43 +5,54 @@
  * BFS in order to get the right path.
  */
 
-#include <iostream>
-#include <boost/archive/text_oarchive.hpp>
+
 #include <fstream>
-#include <boost/archive/text_iarchive.hpp>
+
 #include "Point.h"
 #include "BFS.h"
 #include "Driver.h"
 #include "City.h"
 #include "TaxiCenter.h"
-//#include <boost/lexical_cast.hpp>
-//#include <boost/tokenizer.hpp>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/tokenizer.hpp>
+#include <boost/algorithm/string/predicate.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/assign/list_of.hpp>
+#include <boost/algorithm/string.hpp>
+#include <boost/iostreams/device/back_inserter.hpp>
+#include <boost/iostreams/stream.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/archive/binary_iarchive.hpp>
 #include "Server.h"
 
 
 using namespace std;
 
 int main() {
-// create and open a character archive for output
-    std::ofstream ofs("serializedDriver.txt");
+    Point *gp = new Point(1,5);
 
-    // create class instance
-    Driver *driver = new Driver(34 ,4 ,'W', 0, 77);
+    std::string serial_str;
+    boost::iostreams::back_insert_device<std::string> inserter(serial_str);
+    boost::iostreams::stream<boost::iostreams::back_insert_device<std::string> > s(inserter);
+    boost::archive::binary_oarchive oa(s);
+    oa << gp;
+    s.flush();
 
+    cout << serial_str << endl;
 
-    // save data to archive
-    boost::archive::text_oarchive oa(ofs);
-    // write class instance to archive
-    oa << driver;
-    // archive and stream closed when destructors are called
+    Point *gp2;
+    boost::iostreams::basic_array_source<char> device(serial_str.c_str(), serial_str.size());
+    boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s2(device);
+    boost::archive::binary_iarchive ia(s2);
+    ia >> gp2;
 
-    // ... some time later restore the class instance to its orginal state
-    int driverId;
+    cout << *gp2;
 
-    // create and open an archive for input
-    std::ifstream ifs("serializedDriver.txt");
-    boost::archive::text_iarchive ia(ifs);
-    // read class state from archive
-    ia >> driverId;
-    // archive and stream closed when destructors are called
+    delete gp;
+    delete gp2;
+    return 0;
 }

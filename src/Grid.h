@@ -5,6 +5,7 @@
 #include "Graph.h"
 #include <string.h>
 #include <vector>
+#include <boost/serialization/access.hpp>
 /*
  * Grid is a specific implementation of Graph, an
  * abstract class to place objects in a certain location.

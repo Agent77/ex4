@@ -5,7 +5,7 @@
 #ifndef TRY_STANDARDCAB_H
 #define TRY_STANDARDCAB_H
 
-
+#include <boost/serialization/access.hpp>
 #include "Taxi.h"
 
 class StandardCab: public Taxi {

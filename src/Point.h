@@ -4,6 +4,7 @@
 #define EX1_POINT_H
 #include <iostream>
 #include "Coordinate.h"
+#include <boost/serialization/access.hpp>
 /*
  * Point class is a specific implementation of
  * the Coordinate abstract class. It has an array of size

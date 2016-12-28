@@ -1,6 +1,6 @@
 #ifndef EX1_COORDINATE_H
 #define EX1_COORDINATE_H
-
+#include <boost/serialization/access.hpp>
 #include <iostream>
 /*
  * Abstract class to represent an objects location,

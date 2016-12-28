@@ -35,8 +35,12 @@ int main() {
     // INITIALIZES MAP
     server.initialize();
 
+    cout<<"server initialized"<<endl;
+
     // OPENS SOCKET FOR ONE CLIENT
     server.createClients(1);
+
+    cout<<"sockect created"<<endl;
 
     // RUNS SWITCH CASE
     server.run();
@@ -61,9 +65,11 @@ void Server::initialize() {
     cin >> size2;
     Graph *grid = city.createGraph(size1, size2);
 
+    cout<<"grid created"<<endl;
+
     //Checks for obstacles
     cin >> obstacles;
-    //std::istringstream(obstacles) >> obstacleCount;
+    std::istringstream(obstacles) >> obstacleCount;
     //int obstacleCount ;//= atoi(obstacles);
     if (obstacleCount != 0) {
         string obstacle;
@@ -84,10 +90,10 @@ Trip Server::getTripFromClient() {
     // DESERIALIZE BUFFER INTO TRIP
     string s = buffer;
     Trip *trip;
-    boost::iostreams::basic_array_source<char> device(s.c_str(), s.size());
+    /*boost::iostreams::basic_array_source<char> device(s.c_str(), s.size());
     boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s2(device);
     boost::archive::binary_iarchive ia(s2);
-    ia >> trip;
+    ia >> trip;*/
 
     return *trip;
 
@@ -98,15 +104,16 @@ void Server::SendTripToClient() {
     string serializedTrip;
     // SEND TRIP TO CLIENT
     Trip trip = tc.getNextTrip(clock.getTime());
-    boost::iostreams::back_insert_device<std::string> inserter(serializedTrip);
+   /* boost::iostreams::back_insert_device<std::string> inserter(serializedTrip);
     boost::iostreams::stream<boost::iostreams::back_insert_device<std::string> > s(inserter);
     boost::archive::binary_oarchive oa(s);
     oa << trip;
-    s.flush();
+    s.flush();*/
     socket->sendData(serializedTrip);
 }
 
 int Server::createClients(int amountOfDrivers) {
+    cout<<"creating socket"<<endl;
 
     // creates port for clients
     socket = new Udp(1, 5555);
@@ -118,8 +125,9 @@ int Server::createClients(int amountOfDrivers) {
 void Server::receiveDriver() { //TODO CHECK CLOCK
     // RECEIVE DRIVER FROM CLIENT
     char buffer[1024];
+    cout<<"##before driver recieved##"<<endl;
     socket->reciveData(buffer, sizeof(buffer));
-
+    cout<<"##driver recieved##"<<endl;
     // DESERIALIZE BUFFER INTO DRIVER
     string s = buffer;
     Driver *receivedDriver;
@@ -127,6 +135,7 @@ void Server::receiveDriver() { //TODO CHECK CLOCK
     boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s2(device);
     boost::archive::binary_iarchive ia(s2);
     ia >> receivedDriver;
+
     currentDriver = *receivedDriver;
     // ADDS DRIVER TO TAXI CENTER
     tc.addDriver(*receivedDriver);
@@ -140,11 +149,11 @@ void Server::assignVehicleToClient() {
 
     // SERIALIZATION OF TAXI
     std::string serial_str;
-    boost::iostreams::back_insert_device<std::string> inserter(serial_str);
+   /* boost::iostreams::back_insert_device<std::string> inserter(serial_str);
     boost::iostreams::stream<boost::iostreams::back_insert_device<std::string> > s1(inserter);
     boost::archive::binary_oarchive oa(s1);
     oa << taxiPointer;
-    s1.flush();
+    s1.flush();*/
 
     // RETURN TAXI TO CLIENT
     socket->sendData(serial_str);

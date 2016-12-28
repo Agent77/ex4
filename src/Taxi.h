@@ -4,6 +4,7 @@
 
 #include <string>
 #include "BFS.h"
+#include <boost/serialization/access.hpp>
 
 class Taxi {
     friend class boost::serialization::access;
@@ -12,7 +13,7 @@ class Taxi {
 
     void serialize(Archive &ar, const unsigned int version)
     {
-        ar & gps;
+        //ar & gps;
         ar & cabId;
         ar & kmPassed;
         ar & manufacturer;

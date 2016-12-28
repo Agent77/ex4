@@ -1,5 +1,7 @@
 #ifndef EX1_NODE_H
 #define EX1_NODE_H
+
+#include <boost/serialization/access.hpp>
 #include "Node.h"
 #include "Point.h"
 #include "Coordinate.h"

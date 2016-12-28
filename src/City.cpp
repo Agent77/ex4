@@ -2,6 +2,7 @@
 #include "City.h"
 #include "StandardCab.h"
 #include "LuxuryCab.h"
+#include "TaxiCenter.h"
 
 
 City::City() {

@@ -7,7 +7,6 @@
 #include "Passenger.h"
 #include "Taxi.h"
 class Driver {
-
     friend class boost::serialization::access;
 
     template<class Archive>
@@ -18,6 +17,11 @@ class Driver {
         ar & age;
         ar & maritalStatus;
         ar & vehicleId;
+        ar & exp;
+        /*ar & totalRate;
+        ar & avgSatisfaction;
+        ar & maritalStatus;
+        ar & gps;*/
     }
 private:
     int driverId;
@@ -32,10 +36,11 @@ private:
     Taxi taxi;
     Trip myTrip;
     std::vector <Passenger> myPassengers;
+
 public:
     Driver();
     ~Driver();
-    Driver(int driverId, int age, char mStatus, int exp, int vehicleId, Graph* gps);
+    //Driver(int driverId, int age, char mStatus, int exp, int vehicleId, Graph* gps);
     Driver(int driverId, int age, char mStatus, int exp, int vehicleId);
     int getAge();
     int getVehicleId();

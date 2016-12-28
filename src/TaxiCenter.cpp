@@ -5,7 +5,7 @@
 
 using namespace std;
 
-#include "TaxiCenterServer.h"
+
 #include "sockets/Udp.h"
 
 #include <iostream>
@@ -25,7 +25,7 @@ using namespace std;
 #include <string.h>
 
 using namespace std;
-int main() {
+/*int main() {
     std::cout << "** IN TAXI CENTER MAIN **\n" << std::endl;
 
     Socket* taxiCenterServer = new Udp(1, 5555);
@@ -47,7 +47,7 @@ int main() {
 
 TaxiCenter::TaxiCenter() {
     started = false;
-}
+}*/
 
 TaxiCenter::TaxiCenter(Graph* map1) {
     map = map1;
@@ -178,8 +178,8 @@ void TaxiCenter::addTrip(Trip t) {
 }
 
 void TaxiCenter::addDriver(int driverId, int age, char mStatus, int vehicleId, int exp) {
-    Driver *d = new Driver (driverId, age, mStatus, vehicleId, exp, map);
-    drivers.push_back(*d);
+//    Driver *d = new Driver (driverId, age, mStatus, vehicleId, exp, map);
+//    drivers.push_back(*d);
 }
 
 void TaxiCenter::updateDriverTrip(Trip newTrip){

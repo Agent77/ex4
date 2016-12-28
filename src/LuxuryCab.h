@@ -6,6 +6,7 @@
 #define TRY_LUXURYCAB_H
 
 #include "Taxi.h"
+#include <boost/serialization/access.hpp>
 
 class LuxuryCab: public Taxi {
     friend class boost::serialization::access;

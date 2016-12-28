@@ -10,6 +10,7 @@
 #include "Grid.h"
 #include "Coordinate.h"
 #include "Searchable.h"
+#include <boost/serialization/access.hpp>
 
 /*
  * Class which performs the Breadth-First Search on any given graph/diagram.

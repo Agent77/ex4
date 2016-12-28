@@ -39,19 +39,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /Applications/CLion.app/Contents/bin/cmake/bin/cmake
+CMAKE_COMMAND = /home/nirbs/clion-2016.3/bin/cmake/bin/cmake
 
 # The command to remove a file.
-RM = /Applications/CLion.app/Contents/bin/cmake/bin/cmake -E remove -f
+RM = /home/nirbs/clion-2016.3/bin/cmake/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/Tiki/ClionProjects/AdvancedProgramming/ex4
+CMAKE_SOURCE_DIR = /home/nirbs/ClionProjects/AdvancedProgramming1/ex4
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/Tiki/ClionProjects/AdvancedProgramming/ex4/cmake-build-debug
+CMAKE_BINARY_DIR = /home/nirbs/ClionProjects/AdvancedProgramming1/ex4/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /Users/Tiki/ClionProjects/AdvancedProgramming/ex4/cmake-build
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/home/nirbs/clion-2016.3/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -70,7 +70,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/nirbs/clion-2016.3/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -80,9 +80,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/Tiki/ClionProjects/AdvancedProgramming/ex4/cmake-build-debug/CMakeFiles /Users/Tiki/ClionProjects/AdvancedProgramming/ex4/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nirbs/ClionProjects/AdvancedProgramming1/ex4/cmake-build-debug/CMakeFiles /home/nirbs/ClionProjects/AdvancedProgramming1/ex4/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/Tiki/ClionProjects/AdvancedProgramming/ex4/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nirbs/ClionProjects/AdvancedProgramming1/ex4/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -136,72 +136,629 @@ server/fast:
 	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/build
 .PHONY : server/fast
 
-#=============================================================================
-# Target rules for targets named sockets
+src/BFS.o: src/BFS.cpp.o
 
-# Build rule for target.
-sockets: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 sockets
-.PHONY : sockets
-
-# fast build rule for target.
-sockets/fast:
-	$(MAKE) -f CMakeFiles/sockets.dir/build.make CMakeFiles/sockets.dir/build
-.PHONY : sockets/fast
-
-client.o: client.cpp.o
-
-.PHONY : client.o
+.PHONY : src/BFS.o
 
 # target to build an object file
-client.cpp.o:
-	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/client.cpp.o
-.PHONY : client.cpp.o
+src/BFS.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/BFS.cpp.o
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/BFS.cpp.o
+.PHONY : src/BFS.cpp.o
 
-client.i: client.cpp.i
+src/BFS.i: src/BFS.cpp.i
 
-.PHONY : client.i
+.PHONY : src/BFS.i
 
 # target to preprocess a source file
-client.cpp.i:
-	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/client.cpp.i
-.PHONY : client.cpp.i
+src/BFS.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/BFS.cpp.i
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/BFS.cpp.i
+.PHONY : src/BFS.cpp.i
 
-client.s: client.cpp.s
+src/BFS.s: src/BFS.cpp.s
 
-.PHONY : client.s
+.PHONY : src/BFS.s
 
 # target to generate assembly for a file
-client.cpp.s:
-	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/client.cpp.s
-.PHONY : client.cpp.s
+src/BFS.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/BFS.cpp.s
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/BFS.cpp.s
+.PHONY : src/BFS.cpp.s
 
-server.o: server.cpp.o
+src/City.o: src/City.cpp.o
 
-.PHONY : server.o
+.PHONY : src/City.o
 
 # target to build an object file
-server.cpp.o:
-	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/server.cpp.o
-.PHONY : server.cpp.o
+src/City.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/City.cpp.o
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/City.cpp.o
+.PHONY : src/City.cpp.o
 
-server.i: server.cpp.i
+src/City.i: src/City.cpp.i
 
-.PHONY : server.i
+.PHONY : src/City.i
 
 # target to preprocess a source file
-server.cpp.i:
-	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/server.cpp.i
-.PHONY : server.cpp.i
+src/City.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/City.cpp.i
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/City.cpp.i
+.PHONY : src/City.cpp.i
 
-server.s: server.cpp.s
+src/City.s: src/City.cpp.s
 
-.PHONY : server.s
+.PHONY : src/City.s
 
 # target to generate assembly for a file
-server.cpp.s:
-	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/server.cpp.s
-.PHONY : server.cpp.s
+src/City.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/City.cpp.s
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/City.cpp.s
+.PHONY : src/City.cpp.s
+
+src/Clock.o: src/Clock.cpp.o
+
+.PHONY : src/Clock.o
+
+# target to build an object file
+src/Clock.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Clock.cpp.o
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Clock.cpp.o
+.PHONY : src/Clock.cpp.o
+
+src/Clock.i: src/Clock.cpp.i
+
+.PHONY : src/Clock.i
+
+# target to preprocess a source file
+src/Clock.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Clock.cpp.i
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Clock.cpp.i
+.PHONY : src/Clock.cpp.i
+
+src/Clock.s: src/Clock.cpp.s
+
+.PHONY : src/Clock.s
+
+# target to generate assembly for a file
+src/Clock.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Clock.cpp.s
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Clock.cpp.s
+.PHONY : src/Clock.cpp.s
+
+src/Coordinate.o: src/Coordinate.cpp.o
+
+.PHONY : src/Coordinate.o
+
+# target to build an object file
+src/Coordinate.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Coordinate.cpp.o
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Coordinate.cpp.o
+.PHONY : src/Coordinate.cpp.o
+
+src/Coordinate.i: src/Coordinate.cpp.i
+
+.PHONY : src/Coordinate.i
+
+# target to preprocess a source file
+src/Coordinate.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Coordinate.cpp.i
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Coordinate.cpp.i
+.PHONY : src/Coordinate.cpp.i
+
+src/Coordinate.s: src/Coordinate.cpp.s
+
+.PHONY : src/Coordinate.s
+
+# target to generate assembly for a file
+src/Coordinate.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Coordinate.cpp.s
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Coordinate.cpp.s
+.PHONY : src/Coordinate.cpp.s
+
+src/Driver.o: src/Driver.cpp.o
+
+.PHONY : src/Driver.o
+
+# target to build an object file
+src/Driver.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Driver.cpp.o
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Driver.cpp.o
+.PHONY : src/Driver.cpp.o
+
+src/Driver.i: src/Driver.cpp.i
+
+.PHONY : src/Driver.i
+
+# target to preprocess a source file
+src/Driver.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Driver.cpp.i
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Driver.cpp.i
+.PHONY : src/Driver.cpp.i
+
+src/Driver.s: src/Driver.cpp.s
+
+.PHONY : src/Driver.s
+
+# target to generate assembly for a file
+src/Driver.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Driver.cpp.s
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Driver.cpp.s
+.PHONY : src/Driver.cpp.s
+
+src/DriverClient.o: src/DriverClient.cpp.o
+
+.PHONY : src/DriverClient.o
+
+# target to build an object file
+src/DriverClient.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/DriverClient.cpp.o
+.PHONY : src/DriverClient.cpp.o
+
+src/DriverClient.i: src/DriverClient.cpp.i
+
+.PHONY : src/DriverClient.i
+
+# target to preprocess a source file
+src/DriverClient.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/DriverClient.cpp.i
+.PHONY : src/DriverClient.cpp.i
+
+src/DriverClient.s: src/DriverClient.cpp.s
+
+.PHONY : src/DriverClient.s
+
+# target to generate assembly for a file
+src/DriverClient.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/DriverClient.cpp.s
+.PHONY : src/DriverClient.cpp.s
+
+src/Graph.o: src/Graph.cpp.o
+
+.PHONY : src/Graph.o
+
+# target to build an object file
+src/Graph.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Graph.cpp.o
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Graph.cpp.o
+.PHONY : src/Graph.cpp.o
+
+src/Graph.i: src/Graph.cpp.i
+
+.PHONY : src/Graph.i
+
+# target to preprocess a source file
+src/Graph.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Graph.cpp.i
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Graph.cpp.i
+.PHONY : src/Graph.cpp.i
+
+src/Graph.s: src/Graph.cpp.s
+
+.PHONY : src/Graph.s
+
+# target to generate assembly for a file
+src/Graph.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Graph.cpp.s
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Graph.cpp.s
+.PHONY : src/Graph.cpp.s
+
+src/Grid.o: src/Grid.cpp.o
+
+.PHONY : src/Grid.o
+
+# target to build an object file
+src/Grid.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Grid.cpp.o
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Grid.cpp.o
+.PHONY : src/Grid.cpp.o
+
+src/Grid.i: src/Grid.cpp.i
+
+.PHONY : src/Grid.i
+
+# target to preprocess a source file
+src/Grid.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Grid.cpp.i
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Grid.cpp.i
+.PHONY : src/Grid.cpp.i
+
+src/Grid.s: src/Grid.cpp.s
+
+.PHONY : src/Grid.s
+
+# target to generate assembly for a file
+src/Grid.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Grid.cpp.s
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Grid.cpp.s
+.PHONY : src/Grid.cpp.s
+
+src/LuxuryCab.o: src/LuxuryCab.cpp.o
+
+.PHONY : src/LuxuryCab.o
+
+# target to build an object file
+src/LuxuryCab.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/LuxuryCab.cpp.o
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/LuxuryCab.cpp.o
+.PHONY : src/LuxuryCab.cpp.o
+
+src/LuxuryCab.i: src/LuxuryCab.cpp.i
+
+.PHONY : src/LuxuryCab.i
+
+# target to preprocess a source file
+src/LuxuryCab.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/LuxuryCab.cpp.i
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/LuxuryCab.cpp.i
+.PHONY : src/LuxuryCab.cpp.i
+
+src/LuxuryCab.s: src/LuxuryCab.cpp.s
+
+.PHONY : src/LuxuryCab.s
+
+# target to generate assembly for a file
+src/LuxuryCab.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/LuxuryCab.cpp.s
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/LuxuryCab.cpp.s
+.PHONY : src/LuxuryCab.cpp.s
+
+src/Node.o: src/Node.cpp.o
+
+.PHONY : src/Node.o
+
+# target to build an object file
+src/Node.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Node.cpp.o
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Node.cpp.o
+.PHONY : src/Node.cpp.o
+
+src/Node.i: src/Node.cpp.i
+
+.PHONY : src/Node.i
+
+# target to preprocess a source file
+src/Node.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Node.cpp.i
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Node.cpp.i
+.PHONY : src/Node.cpp.i
+
+src/Node.s: src/Node.cpp.s
+
+.PHONY : src/Node.s
+
+# target to generate assembly for a file
+src/Node.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Node.cpp.s
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Node.cpp.s
+.PHONY : src/Node.cpp.s
+
+src/Passenger.o: src/Passenger.cpp.o
+
+.PHONY : src/Passenger.o
+
+# target to build an object file
+src/Passenger.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Passenger.cpp.o
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Passenger.cpp.o
+.PHONY : src/Passenger.cpp.o
+
+src/Passenger.i: src/Passenger.cpp.i
+
+.PHONY : src/Passenger.i
+
+# target to preprocess a source file
+src/Passenger.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Passenger.cpp.i
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Passenger.cpp.i
+.PHONY : src/Passenger.cpp.i
+
+src/Passenger.s: src/Passenger.cpp.s
+
+.PHONY : src/Passenger.s
+
+# target to generate assembly for a file
+src/Passenger.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Passenger.cpp.s
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Passenger.cpp.s
+.PHONY : src/Passenger.cpp.s
+
+src/Point.o: src/Point.cpp.o
+
+.PHONY : src/Point.o
+
+# target to build an object file
+src/Point.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Point.cpp.o
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Point.cpp.o
+.PHONY : src/Point.cpp.o
+
+src/Point.i: src/Point.cpp.i
+
+.PHONY : src/Point.i
+
+# target to preprocess a source file
+src/Point.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Point.cpp.i
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Point.cpp.i
+.PHONY : src/Point.cpp.i
+
+src/Point.s: src/Point.cpp.s
+
+.PHONY : src/Point.s
+
+# target to generate assembly for a file
+src/Point.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Point.cpp.s
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Point.cpp.s
+.PHONY : src/Point.cpp.s
+
+src/Searchable.o: src/Searchable.cpp.o
+
+.PHONY : src/Searchable.o
+
+# target to build an object file
+src/Searchable.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Searchable.cpp.o
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Searchable.cpp.o
+.PHONY : src/Searchable.cpp.o
+
+src/Searchable.i: src/Searchable.cpp.i
+
+.PHONY : src/Searchable.i
+
+# target to preprocess a source file
+src/Searchable.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Searchable.cpp.i
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Searchable.cpp.i
+.PHONY : src/Searchable.cpp.i
+
+src/Searchable.s: src/Searchable.cpp.s
+
+.PHONY : src/Searchable.s
+
+# target to generate assembly for a file
+src/Searchable.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Searchable.cpp.s
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Searchable.cpp.s
+.PHONY : src/Searchable.cpp.s
+
+src/Server.o: src/Server.cpp.o
+
+.PHONY : src/Server.o
+
+# target to build an object file
+src/Server.cpp.o:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Server.cpp.o
+.PHONY : src/Server.cpp.o
+
+src/Server.i: src/Server.cpp.i
+
+.PHONY : src/Server.i
+
+# target to preprocess a source file
+src/Server.cpp.i:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Server.cpp.i
+.PHONY : src/Server.cpp.i
+
+src/Server.s: src/Server.cpp.s
+
+.PHONY : src/Server.s
+
+# target to generate assembly for a file
+src/Server.cpp.s:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Server.cpp.s
+.PHONY : src/Server.cpp.s
+
+src/StandardCab.o: src/StandardCab.cpp.o
+
+.PHONY : src/StandardCab.o
+
+# target to build an object file
+src/StandardCab.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/StandardCab.cpp.o
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/StandardCab.cpp.o
+.PHONY : src/StandardCab.cpp.o
+
+src/StandardCab.i: src/StandardCab.cpp.i
+
+.PHONY : src/StandardCab.i
+
+# target to preprocess a source file
+src/StandardCab.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/StandardCab.cpp.i
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/StandardCab.cpp.i
+.PHONY : src/StandardCab.cpp.i
+
+src/StandardCab.s: src/StandardCab.cpp.s
+
+.PHONY : src/StandardCab.s
+
+# target to generate assembly for a file
+src/StandardCab.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/StandardCab.cpp.s
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/StandardCab.cpp.s
+.PHONY : src/StandardCab.cpp.s
+
+src/Taxi.o: src/Taxi.cpp.o
+
+.PHONY : src/Taxi.o
+
+# target to build an object file
+src/Taxi.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Taxi.cpp.o
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Taxi.cpp.o
+.PHONY : src/Taxi.cpp.o
+
+src/Taxi.i: src/Taxi.cpp.i
+
+.PHONY : src/Taxi.i
+
+# target to preprocess a source file
+src/Taxi.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Taxi.cpp.i
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Taxi.cpp.i
+.PHONY : src/Taxi.cpp.i
+
+src/Taxi.s: src/Taxi.cpp.s
+
+.PHONY : src/Taxi.s
+
+# target to generate assembly for a file
+src/Taxi.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Taxi.cpp.s
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Taxi.cpp.s
+.PHONY : src/Taxi.cpp.s
+
+src/TaxiCenter.o: src/TaxiCenter.cpp.o
+
+.PHONY : src/TaxiCenter.o
+
+# target to build an object file
+src/TaxiCenter.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/TaxiCenter.cpp.o
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/TaxiCenter.cpp.o
+.PHONY : src/TaxiCenter.cpp.o
+
+src/TaxiCenter.i: src/TaxiCenter.cpp.i
+
+.PHONY : src/TaxiCenter.i
+
+# target to preprocess a source file
+src/TaxiCenter.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/TaxiCenter.cpp.i
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/TaxiCenter.cpp.i
+.PHONY : src/TaxiCenter.cpp.i
+
+src/TaxiCenter.s: src/TaxiCenter.cpp.s
+
+.PHONY : src/TaxiCenter.s
+
+# target to generate assembly for a file
+src/TaxiCenter.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/TaxiCenter.cpp.s
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/TaxiCenter.cpp.s
+.PHONY : src/TaxiCenter.cpp.s
+
+src/Trip.o: src/Trip.cpp.o
+
+.PHONY : src/Trip.o
+
+# target to build an object file
+src/Trip.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Trip.cpp.o
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Trip.cpp.o
+.PHONY : src/Trip.cpp.o
+
+src/Trip.i: src/Trip.cpp.i
+
+.PHONY : src/Trip.i
+
+# target to preprocess a source file
+src/Trip.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Trip.cpp.i
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Trip.cpp.i
+.PHONY : src/Trip.cpp.i
+
+src/Trip.s: src/Trip.cpp.s
+
+.PHONY : src/Trip.s
+
+# target to generate assembly for a file
+src/Trip.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/Trip.cpp.s
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/Trip.cpp.s
+.PHONY : src/Trip.cpp.s
+
+src/sockets/Socket.o: src/sockets/Socket.cpp.o
+
+.PHONY : src/sockets/Socket.o
+
+# target to build an object file
+src/sockets/Socket.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/sockets/Socket.cpp.o
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/sockets/Socket.cpp.o
+.PHONY : src/sockets/Socket.cpp.o
+
+src/sockets/Socket.i: src/sockets/Socket.cpp.i
+
+.PHONY : src/sockets/Socket.i
+
+# target to preprocess a source file
+src/sockets/Socket.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/sockets/Socket.cpp.i
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/sockets/Socket.cpp.i
+.PHONY : src/sockets/Socket.cpp.i
+
+src/sockets/Socket.s: src/sockets/Socket.cpp.s
+
+.PHONY : src/sockets/Socket.s
+
+# target to generate assembly for a file
+src/sockets/Socket.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/sockets/Socket.cpp.s
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/sockets/Socket.cpp.s
+.PHONY : src/sockets/Socket.cpp.s
+
+src/sockets/Tcp.o: src/sockets/Tcp.cpp.o
+
+.PHONY : src/sockets/Tcp.o
+
+# target to build an object file
+src/sockets/Tcp.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/sockets/Tcp.cpp.o
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/sockets/Tcp.cpp.o
+.PHONY : src/sockets/Tcp.cpp.o
+
+src/sockets/Tcp.i: src/sockets/Tcp.cpp.i
+
+.PHONY : src/sockets/Tcp.i
+
+# target to preprocess a source file
+src/sockets/Tcp.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/sockets/Tcp.cpp.i
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/sockets/Tcp.cpp.i
+.PHONY : src/sockets/Tcp.cpp.i
+
+src/sockets/Tcp.s: src/sockets/Tcp.cpp.s
+
+.PHONY : src/sockets/Tcp.s
+
+# target to generate assembly for a file
+src/sockets/Tcp.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/sockets/Tcp.cpp.s
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/sockets/Tcp.cpp.s
+.PHONY : src/sockets/Tcp.cpp.s
+
+src/sockets/Udp.o: src/sockets/Udp.cpp.o
+
+.PHONY : src/sockets/Udp.o
+
+# target to build an object file
+src/sockets/Udp.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/sockets/Udp.cpp.o
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/sockets/Udp.cpp.o
+.PHONY : src/sockets/Udp.cpp.o
+
+src/sockets/Udp.i: src/sockets/Udp.cpp.i
+
+.PHONY : src/sockets/Udp.i
+
+# target to preprocess a source file
+src/sockets/Udp.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/sockets/Udp.cpp.i
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/sockets/Udp.cpp.i
+.PHONY : src/sockets/Udp.cpp.i
+
+src/sockets/Udp.s: src/sockets/Udp.cpp.s
+
+.PHONY : src/sockets/Udp.s
+
+# target to generate assembly for a file
+src/sockets/Udp.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/sockets/Udp.cpp.s
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/sockets/Udp.cpp.s
+.PHONY : src/sockets/Udp.cpp.s
 
 # Help Target
 help:
@@ -213,13 +770,69 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... client"
 	@echo "... server"
-	@echo "... sockets"
-	@echo "... client.o"
-	@echo "... client.i"
-	@echo "... client.s"
-	@echo "... server.o"
-	@echo "... server.i"
-	@echo "... server.s"
+	@echo "... src/BFS.o"
+	@echo "... src/BFS.i"
+	@echo "... src/BFS.s"
+	@echo "... src/City.o"
+	@echo "... src/City.i"
+	@echo "... src/City.s"
+	@echo "... src/Clock.o"
+	@echo "... src/Clock.i"
+	@echo "... src/Clock.s"
+	@echo "... src/Coordinate.o"
+	@echo "... src/Coordinate.i"
+	@echo "... src/Coordinate.s"
+	@echo "... src/Driver.o"
+	@echo "... src/Driver.i"
+	@echo "... src/Driver.s"
+	@echo "... src/DriverClient.o"
+	@echo "... src/DriverClient.i"
+	@echo "... src/DriverClient.s"
+	@echo "... src/Graph.o"
+	@echo "... src/Graph.i"
+	@echo "... src/Graph.s"
+	@echo "... src/Grid.o"
+	@echo "... src/Grid.i"
+	@echo "... src/Grid.s"
+	@echo "... src/LuxuryCab.o"
+	@echo "... src/LuxuryCab.i"
+	@echo "... src/LuxuryCab.s"
+	@echo "... src/Node.o"
+	@echo "... src/Node.i"
+	@echo "... src/Node.s"
+	@echo "... src/Passenger.o"
+	@echo "... src/Passenger.i"
+	@echo "... src/Passenger.s"
+	@echo "... src/Point.o"
+	@echo "... src/Point.i"
+	@echo "... src/Point.s"
+	@echo "... src/Searchable.o"
+	@echo "... src/Searchable.i"
+	@echo "... src/Searchable.s"
+	@echo "... src/Server.o"
+	@echo "... src/Server.i"
+	@echo "... src/Server.s"
+	@echo "... src/StandardCab.o"
+	@echo "... src/StandardCab.i"
+	@echo "... src/StandardCab.s"
+	@echo "... src/Taxi.o"
+	@echo "... src/Taxi.i"
+	@echo "... src/Taxi.s"
+	@echo "... src/TaxiCenter.o"
+	@echo "... src/TaxiCenter.i"
+	@echo "... src/TaxiCenter.s"
+	@echo "... src/Trip.o"
+	@echo "... src/Trip.i"
+	@echo "... src/Trip.s"
+	@echo "... src/sockets/Socket.o"
+	@echo "... src/sockets/Socket.i"
+	@echo "... src/sockets/Socket.s"
+	@echo "... src/sockets/Tcp.o"
+	@echo "... src/sockets/Tcp.i"
+	@echo "... src/sockets/Tcp.s"
+	@echo "... src/sockets/Udp.o"
+	@echo "... src/sockets/Udp.i"
+	@echo "... src/sockets/Udp.s"
 .PHONY : help
 
 

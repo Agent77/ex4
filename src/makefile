@@ -1,16 +1,18 @@
-CXXFLAGS= -lboost_serialization
 all: server client
-server: BFS.o Node.o Coordinate.o Point.o Graph.o Grid.o City.o Driver.o GameFlow.o LuxuryCab.o StandardCab.o Passenger.o Searchable.o Taxi.o TaxiCenter.o Trip.o sockets/Udp.o sockets/Socket.o
-	g++ -o server BFS.o Node.o Coordinate.o Point.o Graph.o Grid.o City.o Driver.o GameFlow.o LuxuryCab.o StandardCab.o Passenger.o Searchable.o Taxi.o TaxiCenter.o Trip.o sockets/Udp.o sockets/Socket.o
+server: Server.o BFS.o Node.o Clock.o Coordinate.o Point.o Graph.o Grid.o City.o Driver.o LuxuryCab.o StandardCab.o Passenger.o Searchable.o Taxi.o TaxiCenter.o Trip.o sockets/Udp.o sockets/Socket.o
+	g++ -o server Server.o BFS.o Node.o Clock.o Coordinate.o Point.o Graph.o Grid.o City.o Driver.o LuxuryCab.o StandardCab.o Passenger.o Searchable.o Taxi.o TaxiCenter.o Trip.o sockets/Udp.o sockets/Socket.o -lboost_serialization
 
-client: BFS.o Node.o Coordinate.o Point.o Graph.o Grid.o DriverClient.o Driver.o LuxuryCab.o StandardCab.o Passenger.o Searchable.o Taxi.o Trip.o sockets/Udp.o sockets/Socket.o
-	g++ -o client BFS.o Node.o Coordinate.o Point.o Graph.o Grid.o DriverClient.o Driver.o LuxuryCab.o StandardCab.o Passenger.o Searchable.o Taxi.o Trip.o sockets/Udp.o sockets/Socket.o
+client: BFS.o Node.o Clock.o Coordinate.o City.o Point.o Graph.o Grid.o DriverClient.o Driver.o LuxuryCab.o StandardCab.o Passenger.o Searchable.o Taxi.o Trip.o sockets/Udp.o sockets/Socket.o
+	g++ -o client BFS.o Node.o Clock.o Coordinate.o City.o Point.o Graph.o Grid.o DriverClient.o Driver.o LuxuryCab.o StandardCab.o Passenger.o Searchable.o Taxi.o Trip.o sockets/Udp.o sockets/Socket.o -lboost_serialization
 
 BFS.o: BFS.cpp BFS.h
 	g++ -c BFS.cpp
 
 Node.o: Node.cpp Node.h
 	g++ -c Node.cpp
+
+Clock.o: Clock.cpp Clock.h
+	g++ -c Clock.cpp
 
 Coordinate.o: Coordinate.cpp Coordinate.h
 	g++ -c Coordinate.cpp
@@ -30,8 +32,6 @@ City.o: City.cpp City.h
 Driver.o: Driver.cpp Driver.h
 	g++ -c Driver.cpp
 
-GameFlow.o: GameFlow.cpp GameFlow.h
-	g++ -c GameFlow.cpp
 
 LuxuryCab.o: LuxuryCab.cpp LuxuryCab.h
 	g++ -c LuxuryCab.cpp
@@ -57,8 +57,11 @@ Trip.o: Trip.cpp Trip.h
 Socket.o: Socket.cpp Socket.h
 	g++ -c Socket.cpp
 
-src/Udp.o: Udp.cpp Udp.h
+src/sockets/Udp.o: Udp.cpp Udp.h
 	g++ -c Udp.cpp
 
 DriverClient.o: DriverClient.cpp DriverClient.h
-	g++ -c DriverClient.cpp
+	g++ -c DriverClient.cpp -lboost_serialization
+
+Server.o: Server.cpp Server.h
+	g++ -c Server.cpp -lboost_serialization

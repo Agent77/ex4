@@ -5,7 +5,7 @@
 #ifndef GTESTEX3_SEARCHABLE_H
 #define GTESTEX3_SEARCHABLE_H
 
-
+#include <boost/serialization/access.hpp>
 #include <queue>
 #include "Node.h"
 #include "Graph.h"

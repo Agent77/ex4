@@ -5,9 +5,26 @@
 #ifndef PRACTICE6_DRIVERCLIENT_H
 #define PRACTICE6_DRIVERCLIENT_H
 
-
+#include "City.h"
 #include <boost/iostreams/device/array.hpp>
 #include "Clock.h"
+#include <boost/serialization/access.hpp>
+#include <iostream>
+#include <sys/socket.h>
+#include <stdio.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <string.h>
+#include <boost/iostreams/device/back_inserter.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/iostreams/stream.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+#include <fstream>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/xml_iarchive.hpp>
+#include <boost/archive/xml_oarchive.hpp>
 
 class DriverClient {
 private:
@@ -16,7 +33,7 @@ private:
     Clock clock;
 public:
     DriverClient();
-    void openSocket(Driver* d);
+    void openSocket(Driver* driver);
     void ReceiveTrip();
     void ReceiveCommand();
     Driver getDriver();

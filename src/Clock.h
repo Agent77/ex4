@@ -4,7 +4,7 @@
 
 #ifndef PRACTICE6_CLOCK_H
 #define PRACTICE6_CLOCK_H
-
+#include <boost/serialization/access.hpp>
 
 class Clock {
 private:

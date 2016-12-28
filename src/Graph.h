@@ -4,6 +4,7 @@
 
 #include <vector>
 #include "Node.h"
+#include <boost/serialization/access.hpp>
 
 /*
  * Graph is an abstract class which represents any kind of diagram. it has the abstract methods

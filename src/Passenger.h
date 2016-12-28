@@ -2,6 +2,7 @@
 #define EX2_PASSENGER_H
 
 #include "Point.h"
+#include <boost/serialization/access.hpp>
 class Passenger {
     friend class boost::serialization::access;
 
