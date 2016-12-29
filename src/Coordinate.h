@@ -2,6 +2,14 @@
 #define EX1_COORDINATE_H
 #include <boost/serialization/access.hpp>
 #include <iostream>
+#include <boost/archive/text_oarchive.hpp>
+
+#include <boost/serialization/access.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/text_oarchive.hpp>
+#include <fstream>
+
+
 /*
  * Abstract class to represent an objects location,
  * based on any number of coordinates given, using an
@@ -10,14 +18,7 @@
  */
 using namespace std;
 class Coordinate {
-    friend class boost::serialization::access;
 
-    template<class Archive>
-
-    void serialize(Archive &ar, const unsigned int version)
-    {
-        ar & locs;
-    }
 
 public:
     Coordinate(){};

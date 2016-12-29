@@ -30,7 +30,7 @@ int main() {
     DriverClient client = DriverClient();
 
     client.openSocket(driver);
-    client.ReceiveTrip();
+    //client.ReceiveTrip();
     client.ReceiveCommand();
     return 0;
 }
@@ -42,7 +42,7 @@ void DriverClient::ReceiveTrip() {
     char buffer[1024];
     // RECEIVE TRIP FROM SERVER
     client->reciveData(buffer, sizeof(buffer));
-    string tripString = buffer;
+    string tripString = createString(buffer, sizeof(buffer));
     Trip *trip;
     boost::iostreams::basic_array_source<char> device1(tripString.c_str(), tripString.size());
     boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s1(device1);
@@ -57,28 +57,32 @@ void DriverClient::ReceiveCommand() {
     char buffer[1024];
     Trip newTrip;
     // GET COMMAND FROM SERVER
-    do {
+
+    cout << "BEFORE RECEIVING COMMAND"<< endl;
+   // do {
         client->reciveData(buffer, sizeof(buffer));
-        string commandString = buffer;
+        string commandString = createString(buffer, sizeof(buffer));
         int command = 0;
         boost::iostreams::basic_array_source<char> device2(commandString.c_str(), commandString.size());
         boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s4(device2);
         boost::archive::binary_iarchive ia2(s4);
         ia2 >> command;
+
+    cout << "COMMAND RECEIVED: " << command << endl;
         // DOES ACTION ACCORDING TO COMMAND
-        newTrip = driver.drive();
+        /*newTrip = driver.drive();
         clock.increaseTime();
         string serial_str;
         boost::iostreams::back_insert_device<std::string> inserter2(serial_str);
         boost::iostreams::stream<boost::iostreams::back_insert_device<std::string> > s3(inserter2);
         boost::archive::binary_oarchive oa2(s3);
         oa2 << newTrip;
-        s3.flush();
+        s3.flush();*/
 
         // SENDS NEW TRIP TO SERVER TO UPDATE
-        client->sendData(serial_str);
+        /*client->sendData(serial_str);
     } while(!driver.arrived());
-    DriverClient::ReceiveTrip();
+    DriverClient::ReceiveTrip();*/
 }
 void DriverClient::openSocket(Driver *driver) {
     // SET UP SOCKET
@@ -102,10 +106,10 @@ void DriverClient::openSocket(Driver *driver) {
     cout<<"##driver sent##"<<endl;
 
     // GETS TAXI IN RETURN
-    int resultData = client->reciveData(buffer, sizeof(buffer));
+   /* int resultData = client->reciveData(buffer, sizeof(buffer));
 
     // DESERIALIZATION
-    string taxiString = buffer;
+    string taxiString = createString(buffer, sizeof(buffer));
     Taxi *taxi;
     boost::iostreams::basic_array_source<char> device(taxiString.c_str(), taxiString.size());
     boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s2(device);
@@ -113,9 +117,14 @@ void DriverClient::openSocket(Driver *driver) {
     ia >> taxi;
 
     //GIVE DRIVER TAXI
-    driver->setTaxi(*taxi);
+    driver->setTaxi(*taxi);*/
 }
 
 Driver DriverClient::getDriver() {
     return this->driver;
+}
+
+string DriverClient::createString(char* buffer, int bufferSize) {
+    std::string str(buffer, bufferSize);
+    return str;
 }

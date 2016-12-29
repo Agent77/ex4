@@ -88,7 +88,7 @@ Trip Server::getTripFromClient() {
     socket->reciveData(buffer, sizeof(buffer));
 
     // DESERIALIZE BUFFER INTO TRIP
-    string s = buffer;
+    string s = createString(buffer, sizeof(buffer));
     Trip *trip;
     boost::iostreams::basic_array_source<char> device(s.c_str(), s.size());
     boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s2(device);
@@ -123,24 +123,44 @@ int Server::createClients(int amountOfDrivers) {
     cout <<"RESULT SOCKET:"<< result<<endl;
 
 }
+string Server::createString(char* buffer, int bufferSize) {
+    std::string s(buffer, bufferSize);
+    return s;
+
+}
 void Server::receiveDriver() { //TODO CHECK CLOCK
     // RECEIVE DRIVER FROM CLIENT
     char buffer[1024];
-    cout<<"##before driver recieved##"<<endl;
+    cout<<"## before driver recieved ##"<<endl;
     socket->reciveData(buffer, sizeof(buffer));
-    cout<<"##driver recieved###"<<endl;
+    cout<<"## driver recieved ###"<<endl;
+
     // DESERIALIZE BUFFER INTO DRIVER
-    string s = buffer;
+    string s = createString(buffer, sizeof(buffer));
     Driver *receivedDriver;
-    /*boost::iostreams::basic_array_source<char> device(s.c_str(), s.size());
+    boost::iostreams::basic_array_source<char> device(s.c_str(), s.size());
     boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s2(device);
     boost::archive::binary_iarchive ia(s2);
-    ia >> receivedDriver;*/
-    cout<<"###DIRVER ID:###"<<3<<endl;
+    ia >> receivedDriver;
+    cout<<"###DIRVER ID:###"<<receivedDriver->getDriverId()<<endl;
     currentDriver = *receivedDriver;
     // ADDS DRIVER TO TAXI CENTER
     tc.addDriver(*receivedDriver);
 
+}
+
+void Server::sendCommand() {
+    int s = 9;
+    // SERIALIZATION OF TAXI
+    std::string serial_str;
+    boost::iostreams::back_insert_device<std::string> inserter(serial_str);
+    boost::iostreams::stream<boost::iostreams::back_insert_device<std::string> > s1(inserter);
+    boost::archive::binary_oarchive oa(s1);
+    oa << s;
+    s1.flush();
+    cout << "BEFORE COMMAND: "<<endl;
+    socket->sendData(serial_str);
+    cout << "AFTER COMMAND SENT"<<endl;
 }
 void Server::assignVehicleToClient() {
 
@@ -180,6 +200,7 @@ void Server::run() {
                 cin >> input; //how many drivers
                 // ASSIGNS A VEHICLE TO CLIENT ONLY IF TRIP TIME ARRIVES
                 Server::receiveDriver();
+                Server::sendCommand();
                 break;
             }
             case 2: {

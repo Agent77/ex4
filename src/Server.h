@@ -33,6 +33,8 @@ public:
     int createClients(int amountOfDrivers);
     void assignVehicleToClient();
     void receiveDriver();
+    string createString(char* buffer, int bufferSize);
+    void sendCommand();
 
 
 };
