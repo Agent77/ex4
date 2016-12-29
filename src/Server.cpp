@@ -228,7 +228,8 @@ void Server::run() {
                 if(numOfTrips>0) {
                     for (int i = 0; i <= numOfTrips;i++) {
                         Server::SendTripToClient();
-                        socket->sendData("9");
+                        Server::sendCommand();
+                        //socket->sendData("9");
                         Trip t = Server::getTripFromClient();
                         tc.updateDriverTrip(t);
                     }
