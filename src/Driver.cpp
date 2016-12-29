@@ -29,8 +29,8 @@ Driver::Driver(int driverId, int age, char mStatus, int exp, int vehicleId) {
     this->driverId=driverId;
     this->age=age;
     this->maritalStatus=mStatus;
-    this->vehicleId=vehicleId;
     this->exp=exp;
+    this->vehicleId=vehicleId;
 }
 
 /*

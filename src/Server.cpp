@@ -100,15 +100,17 @@ Trip Server::getTripFromClient() {
 }
 
 void Server::SendTripToClient() {
-
+    cout << "IN SEND TRIP TO CLIENT" << endl;
     string serializedTrip;
     // SEND TRIP TO CLIENT
-    Trip trip = tc.getNextTrip(clock.getTime());
+    //Trip trip = tc.getNextTrip(clock.getTime());
+    Trip* trip = new Trip(100,1,2,3,4,8,7,8);
     boost::iostreams::back_insert_device<std::string> inserter(serializedTrip);
     boost::iostreams::stream<boost::iostreams::back_insert_device<std::string> > s(inserter);
     boost::archive::binary_oarchive oa(s);
     oa << trip;
     s.flush();
+    cout << "after serialization of trip"<< endl;
     socket->sendData(serializedTrip);
 }
 
@@ -200,7 +202,8 @@ void Server::run() {
                 cin >> input; //how many drivers
                 // ASSIGNS A VEHICLE TO CLIENT ONLY IF TRIP TIME ARRIVES
                 Server::receiveDriver();
-                Server::sendCommand();
+                Server::assignVehicleToClient();
+                //Server::sendCommand();
                 break;
             }
             case 2: {
@@ -224,7 +227,6 @@ void Server::run() {
                 int numOfTrips=tc.checkTripTimes(clock.getTime());
                 if(numOfTrips>0) {
                     for (int i = 0; i <= numOfTrips;i++) {
-                        Server::assignVehicleToClient();
                         Server::SendTripToClient();
                         socket->sendData("9");
                         Trip t = Server::getTripFromClient();

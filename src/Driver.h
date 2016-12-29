@@ -16,8 +16,8 @@ class Driver {
         ar & driverId;
         ar & age;
         ar & maritalStatus;
-        ar & vehicleId;
         ar & exp;
+        ar & vehicleId;
         /*ar & totalRate;
         ar & avgSatisfaction;
         ar & maritalStatus;

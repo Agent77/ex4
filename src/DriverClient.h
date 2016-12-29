@@ -38,6 +38,7 @@ public:
     void ReceiveCommand();
     Driver getDriver();
     string createString(char* buffer, int bufferSize);
+    void receiveVehicle();
 };
 
 

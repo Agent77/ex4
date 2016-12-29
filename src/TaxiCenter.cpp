@@ -60,7 +60,7 @@ Driver TaxiCenter::findClosestDriver(Trip t) {
 
 void TaxiCenter::addDriver(Driver d) {
     addDriver(d.getDriverId(), d.getAge(), d.getMaritalStatus(), d.getExp(), d.getVehicleId());
-            //driverId, int age, char mStatus, int vehicleId, int exp
+
 }
 
 
@@ -177,9 +177,9 @@ void TaxiCenter::addTrip(Trip t) {
     trips.push_back(t);
 }
 
-void TaxiCenter::addDriver(int driverId, int age, char mStatus, int vehicleId, int exp) {
-//    Driver *d = new Driver (driverId, age, mStatus, vehicleId, exp, map);
-//    drivers.push_back(*d);
+void TaxiCenter::addDriver(int driverId, int age, char mStatus, int exp, int vehicleId) {
+   Driver *d = new Driver (driverId, age, mStatus, exp, vehicleId);
+    drivers.push_back(*d);
 }
 
 void TaxiCenter::updateDriverTrip(Trip newTrip){
