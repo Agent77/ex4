@@ -15,14 +15,15 @@ class LuxuryCab: public Taxi {
 
     void serialize(Archive &ar, const unsigned int version)
     {
-
+        ar & boost::serialization::base_object<Taxi>(*this);
     }
-public:
-    LuxuryCab(int id, char type, char c){};
 
+public:
+    LuxuryCab(){};
+    LuxuryCab(int id, int type, char manufacturer, char color):Taxi(id, type, manufacturer, color){};
     void updateKms(){};
     int getSpeed(){};
-    void getManu(){};
+    char getManufacturer(){};
     int getTariff(){};
     int getId() {};
     int getKms(){};

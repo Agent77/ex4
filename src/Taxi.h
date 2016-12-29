@@ -13,34 +13,35 @@ class Taxi {
 
     void serialize(Archive &ar, const unsigned int version)
     {
-        //ar & gps;
         ar & cabId;
+        ar & cabType;
         ar & kmPassed;
-        ar & manufacturer;
-        ar & color;
+        ar & cabManufacturer;
+        ar & cabColor;
         ar & tariff;
         ar & speed;
     }
 protected:
-    BFS* gps;
+    //BFS* gps;
     int cabId;
+    int cabType;
     int kmPassed;
-    char manufacturer;
-    char color;
+    char cabManufacturer;
+    char cabColor;
     int tariff;
     int speed;
 
 public:
     Taxi();
-    Taxi(int id, char type, char c);
-    ~Taxi(){};
+    Taxi(int id, int type, char manufacturer, char color);
+    //~Taxi();
     virtual void updateKms();
     virtual int getSpeed();
-    virtual void getManu();
+    virtual char getManufacturer();
     virtual int getTariff();
     virtual int getId();
     virtual int getKms();
 };
-
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(Taxi);
 
 #endif //EX2_TAXI_H

@@ -27,8 +27,8 @@ private:
     int driverId;
     int age;
     int numberOfcustomers;
-    int vehicleId;
     int exp;
+    int vehicleId;
     double totalRate;
     double avgSatisfaction;
     char maritalStatus;

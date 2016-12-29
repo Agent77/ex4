@@ -26,7 +26,7 @@ Driver City::createDriver(string s) {
     std::istringstream sep(s);
     std::getline(sep, g,',');
     std::istringstream (g)>>f;
-    for (int j=0; j<s.size()/2;j++){
+    for (int j=0; j<(s.size()/2)+1;j++){
         if (i!=2){
             std::istringstream (g)>>f;
             info[i]= f;
@@ -79,10 +79,10 @@ Taxi City::createTaxi(string s) {
     int id = (int)s[0] - 48;
     int type = (int)s[2] - 48;
     if(type == 1) {
-        StandardCab t = StandardCab(id, s[4], s[6]);
+        StandardCab t = StandardCab(id, type, s[4], s[6]);
         return t;
     } else {
-        LuxuryCab t = LuxuryCab(id, s[4], s[6]);
+        LuxuryCab t = LuxuryCab(id, type, s[4], s[6]);
         return t;
     }
 }

@@ -103,8 +103,8 @@ void Server::SendTripToClient() {
     cout << "IN SEND TRIP TO CLIENT" << endl;
     string serializedTrip;
     // SEND TRIP TO CLIENT
-    //Trip trip = tc.getNextTrip(clock.getTime());
-    Trip* trip = new Trip(100,1,2,3,4,8,7,8);
+    Trip trip = tc.getNextTrip(clock.getTime());
+    //Trip* trip = new Trip(100,1,2,3,4,8,7,8);
     boost::iostreams::back_insert_device<std::string> inserter(serializedTrip);
     boost::iostreams::stream<boost::iostreams::back_insert_device<std::string> > s(inserter);
     boost::archive::binary_oarchive oa(s);

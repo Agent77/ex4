@@ -120,7 +120,8 @@ void DriverClient::receiveVehicle() {
      boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s2(device);
      boost::archive::binary_iarchive ia(s2);
      ia >> taxi;
-
+     //Checking taxi deserialization
+     cout<<"NEW TAXI ID: "<<taxi->getId()<<endl;
      //GIVE DRIVER TAXI
      driver.setTaxi(*taxi);
 }

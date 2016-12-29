@@ -6,35 +6,36 @@ Taxi::Taxi() {
 
 }
 
-//Taxi::~Taxi() {
+/*Taxi::~Taxi() {
 
-//}
+}*/
 
 void Taxi::updateKms() {
     this->kmPassed += 1;
 }
 
 int Taxi::getSpeed() {
-
+    return speed;
 }
 
 
-void Taxi::getManu() {
-
+char Taxi::getManufacturer() {
+    return cabManufacturer;
 }
 
 int Taxi::getTariff() {
-
+    return tariff;
 }
 
 int Taxi::getId() {
 return cabId;
 }
 
-Taxi::Taxi(int id, char type, char c) {
+Taxi::Taxi(int id, int type, char manufacturer, char color) {
     cabId = id;
-    manufacturer = type;
-    color = c;
+    cabType=type;
+    cabManufacturer = manufacturer;
+    cabColor = color;
     kmPassed = 0;
 }
 

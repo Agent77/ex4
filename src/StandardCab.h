@@ -15,17 +15,15 @@ class StandardCab: public Taxi {
 
     void serialize(Archive &ar, const unsigned int version)
     {
-
+        ar & boost::serialization::base_object<Taxi>(*this);
     }
 public:
     StandardCab() {};
-    StandardCab(int id, char type, char c) :Taxi(id,type,c) {
-
-    }
+    StandardCab(int id, int type, char manufacturer, char color):Taxi(id, type, manufacturer, color){};
     //~Taxi(){};
     void updateKms(){};
     int getSpeed(){};
-    void getManu(){};
+    char getManufacturer(){};
     int getTariff(){};
     int getId() {};
     int getKms(){};
