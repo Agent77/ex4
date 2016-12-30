@@ -104,6 +104,14 @@ void Server::SendTripToClient() {
     string serializedTrip;
     // SEND TRIP TO CLIENT
     Trip trip = tc.getNextTrip(clock.getTime());
+    currentDriver.setTrip(trip);
+    vector<Driver> drivers = tc.getDrivers();
+    vector<Driver>::iterator drIter = drivers.begin();
+    while((*(drIter)).getDriverId() != currentDriver.getDriverId()) {
+        drIter++;
+    }
+    (*(drIter)).setTrip(trip);
+    cout << "SENDING TRIP ID: "<< trip.getId() << endl;
     //Trip* trip = new Trip(100,1,2,3,4,8,7,8);
     boost::iostreams::back_insert_device<std::string> inserter(serializedTrip);
     boost::iostreams::stream<boost::iostreams::back_insert_device<std::string> > s(inserter);
@@ -118,7 +126,7 @@ int Server::createClients(int amountOfDrivers) {
     cout<<"creating socket"<<endl;
 
     // creates port for clients
-    socket = new Udp(1, 5555);
+    socket = new Udp(1, 1221);
 
     //creates new socket for single client
     int result = socket->initialize();
@@ -146,8 +154,10 @@ void Server::receiveDriver() { //TODO CHECK CLOCK
     ia >> receivedDriver;
     cout<<"###DIRVER ID:###"<<receivedDriver->getDriverId()<<endl;
     currentDriver = *receivedDriver;
+    cout << "CURRENT DRIVER ID: "<< currentDriver.getDriverId()<< endl;
     // ADDS DRIVER TO TAXI CENTER
-    tc.addDriver(*receivedDriver);
+    currentDriver.setMap(tc.getMap());
+    tc.addDriver(currentDriver);
 
 }
 
@@ -164,12 +174,27 @@ void Server::sendCommand() {
     socket->sendData(serial_str);
     cout << "AFTER COMMAND SENT"<<endl;
 }
-void Server::assignVehicleToClient() {
 
+void Server::sendNextLocation() {
+    cout << "IN SEND NEXT LOCATION" << endl;
+    Point p = tc.driveAll();
+    cout << "P START: " << p.getX() << endl;
+    std::string nextLocation;
+    boost::iostreams::back_insert_device<std::string> inserter(nextLocation);
+    boost::iostreams::stream<boost::iostreams::back_insert_device<std::string> > s1(inserter);
+    boost::archive::binary_oarchive oa(s1);
+    oa << p;
+    s1.flush();
+    cout << "AFTER SERIALIZE OF POINT"<<endl;
+    socket->sendData(nextLocation);
+    cout << "AFTER SEND DATA OF POINT"<<endl;
+}
+void Server::assignVehicleToClient() {
+    cout << "IN ASSIGN VEHICLE" << endl;
     // FINDS CORRECT TAXI FOR DRIVER ID
     Taxi t = tc.assignTaxi(currentDriver.getDriverId());
     Taxi* taxiPointer = &t;
-
+    cout << "ASSIGNED TAXI: " << t.getId() << endl;
     // SERIALIZATION OF TAXI
     std::string serial_str;
     boost::iostreams::back_insert_device<std::string> inserter(serial_str);
@@ -177,9 +202,10 @@ void Server::assignVehicleToClient() {
     boost::archive::binary_oarchive oa(s1);
     oa << taxiPointer;
     s1.flush();
-
+    cout << "AFTER SERIALIZATION OF TAXI"<<endl;
     // RETURN TAXI TO CLIENT
     socket->sendData(serial_str);
+    cout << "AFTER SEND DATA OF TAXI" << endl;
 }
 /*
 * runs the switch case so the user can constantly 
@@ -229,9 +255,10 @@ void Server::run() {
                     for (int i = 0; i <= numOfTrips;i++) {
                         Server::SendTripToClient();
                         Server::sendCommand();
+                        Server::sendNextLocation();
                         //socket->sendData("9");
-                        Trip t = Server::getTripFromClient();
-                        tc.updateDriverTrip(t);
+                        //Trip t = Server::getTripFromClient();
+                        //tc.updateDriverTrip(t);
                     }
                 }
                 // ADVANCE TIME

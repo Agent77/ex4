@@ -51,9 +51,11 @@ void DriverClient::ReceiveTrip() {
     boost::archive::binary_iarchive ia1(s1);
     ia1 >> trip;
 
-    cout << "TRIP ID: " << trip->getId() << endl;
+    cout << "RECEIVED TRIP ID: " << trip->getId() << endl;
     // GIVE DRIVER THE TRIP
+    cout << "DOES DRIVER GET AN ID?: "<< driver.getDriverId() << endl;
     driver.setTrip(*trip);
+    cout << "DRIVERS END POINT: "<< driver.getTrip().getEnd()->getX() << endl;
     DriverClient::ReceiveCommand();
 }
 void DriverClient::ReceiveCommand() {
@@ -71,25 +73,37 @@ void DriverClient::ReceiveCommand() {
         boost::archive::binary_iarchive ia2(s4);
         ia2 >> command;
 
+        client->reciveData(buffer, sizeof(buffer));
+        Point* p;
+        string nextLocation = createString(buffer, sizeof(buffer));
+        boost::iostreams::basic_array_source<char> device3(nextLocation.c_str(), nextLocation.size());
+        boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s3(device3);
+        boost::archive::binary_iarchive ia(s3);
+        ia >> p;
+        cout << "CLIENT RECEIVED p.X: " << p->getX() << endl;
+        driver.getTrip().updateStartPoint(p);
+        cout << "TRIP UPDATED?" << driver.getTrip().getStart()->getX()<< endl;
+
     cout << "COMMAND RECEIVED: " << command << endl;
          //DOES ACTION ACCORDING TO COMMAND
-        newTrip = driver.drive();
+        /*newTrip = driver.drive();
         clock.increaseTime();
         string serial_str;
         boost::iostreams::back_insert_device<std::string> inserter2(serial_str);
         boost::iostreams::stream<boost::iostreams::back_insert_device<std::string> > s3(inserter2);
         boost::archive::binary_oarchive oa2(s3);
         oa2 << newTrip;
-        s3.flush();
+        s3.flush();*/
 
         // SENDS NEW TRIP TO SERVER TO UPDATE
-        client->sendData(serial_str);
+       // client->sendData(serial_str);
     } while(!driver.arrived());
     DriverClient::ReceiveTrip();
 }
-void DriverClient::openSocket(Driver *driver) {
+void DriverClient::openSocket(Driver *driverSent) {
+    driver = *driverSent;
     // SET UP SOCKET
-    client = new Udp(0, 5555);
+    client = new Udp(0, 1221);
     int result = client->initialize();
     cout << "RESULT INITIALIZE: " << result << endl;
     char buffer[1024];
@@ -99,7 +113,7 @@ void DriverClient::openSocket(Driver *driver) {
     boost::iostreams::back_insert_device<std::string> inserter(serial_str);
     boost::iostreams::stream<boost::iostreams::back_insert_device<std::string> > s(inserter);
     boost::archive::binary_oarchive oa(s);
-    oa << driver;
+    oa << driverSent;
     s.flush();
 
     cout << serial_str.c_str() << endl;

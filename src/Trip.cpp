@@ -38,9 +38,13 @@ double Trip::getTariff() {
     return tariff;
 }
 Coordinate* Trip::getStart() {
+    cout <<"IN GET START! "<< start->getX()<< endl;
+
     return start;
 }
 Coordinate* Trip::getEnd() {
+    cout <<"IN GET END! "<< end->getX()<< endl;
+
     return end;
 }
 

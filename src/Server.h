@@ -35,6 +35,7 @@ public:
     void receiveDriver();
     string createString(char* buffer, int bufferSize);
     void sendCommand();
+    void sendNextLocation();
 
 
 };

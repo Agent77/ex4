@@ -38,9 +38,16 @@ Driver::Driver(int driverId, int age, char mStatus, int exp, int vehicleId) {
 * continue travelling until it arrives at its destination.
 */
 Trip Driver::drive() {
+    cout << "IN DRIVE OF DRIVER"<< endl;
     BFS bfs = BFS(gps);
+    cout << "DRIVER INFO:"<<endl << this->driverId;
+    cout << "TRIP ID:" << myTrip.getId()<<endl;
+    cout << endl<< myTrip.getStart()->getX();
     Coordinate* start = myTrip.getStart();
+    cout << "START X: " << myTrip.getStart()->getX() << endl;
     Coordinate* end = myTrip.getEnd();
+    cout << "START X: " << end->getX() << endl;
+    cout << "start y: "<<  start->getX() << endl;
     Coordinate* c;
 
         c  = bfs.getNextInPath(start, end);
@@ -82,6 +89,8 @@ void Driver::setTaxi(Taxi t) {
 }
 
 void Driver::setTrip(Trip t) {
+    cout << "IN SET TRIP: id =  " << t.getId()<<endl;
+    cout << "start x =  "<< t.getEnd()<<endl;
     myTrip = t;
 }
 
@@ -111,4 +120,8 @@ bool Driver::arrived() {
         return true;
     }
     return false;
+}
+
+void Driver::setMap(Graph* map) {
+    gps = map;
 }

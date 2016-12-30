@@ -155,13 +155,18 @@ vector <Driver> TaxiCenter::getDrivers (){
 /*
 * alerts all drivers to move.
 */
-void TaxiCenter::driveAll() {
+Coordinate* TaxiCenter::driveAll() {
+    cout << "in DRIVE ALL" << endl;
     assignDrivers();
+    cout << "AFTER ASSIGN DRVIERS"<< endl;
+    Trip t;
     vector<Driver>::iterator currentDriver = drivers.begin();
     while(currentDriver != drivers.end()) {
-        (*(currentDriver)).drive();
+         t = (*(currentDriver)).drive();
         currentDriver++;
     }
+    cout << "AFTER LOOP: " << t.getStart()->getX();
+    return t.getStart();
 }
 
 void TaxiCenter::addTaxi(Taxi t) {
@@ -203,6 +208,8 @@ Taxi TaxiCenter::assignTaxi(int driverId){
 }
 
 Trip TaxiCenter::getNextTrip(int currentTime) {
+    cout << "IN GET NEXT TRIP" << endl;
+    cout << "TRIP SIZE: " << sizeof(trips);
     vector<Trip>::iterator trip = trips.begin();
     while ((*(trip)).getTripTime()!= currentTime){
         trip++;
@@ -220,4 +227,8 @@ int TaxiCenter::checkTripTimes(int currentTime) {
         }
     }
     return counter;
+}
+
+Graph* TaxiCenter::getMap() {
+    return map;
 }

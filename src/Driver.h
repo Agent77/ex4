@@ -59,6 +59,7 @@ public:
     void addPassenger(Passenger p);
     Trip drive();
     bool arrived();
+    void setMap(Graph* map);
 
 
 
