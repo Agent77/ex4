@@ -102,6 +102,7 @@ Trip Server::getTripFromClient() {
 void Server::SendTripToClient() {
     cout << "IN SEND TRIP TO CLIENT" << endl;
     string serializedTrip;
+    int counter=0;
     // SEND TRIP TO CLIENT
     Trip trip = tc.getNextTrip(clock.getTime());
     currentDriver.setTrip(trip);
@@ -109,7 +110,9 @@ void Server::SendTripToClient() {
     vector<Driver>::iterator drIter = drivers.begin();
     while((*(drIter)).getDriverId() != currentDriver.getDriverId()) {
         drIter++;
+        counter++;
     }
+    tc.getDrivers().at(counter).setTrip(trip);
     (*(drIter)).setTrip(trip);
     cout << "SENDING TRIP ID: "<< trip.getId() << endl;
     //Trip* trip = new Trip(100,1,2,3,4,8,7,8);

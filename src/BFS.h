@@ -24,16 +24,9 @@ class BFS: public Searchable {
 
     void serialize(Archive &ar, const unsigned int version)
     {
-        ar & myDeque;
-        ar & source;
-        ar & graph;
-        ar & destination;
+        ar & boost::serialization::base_object<Searchable>(*this);
     }
-private:
-    std::queue<Node*> myDeque;
-    Node* source;
-    Graph* graph;
-    Node* destination;
+
 
 public:
     BFS(){};

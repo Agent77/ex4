@@ -209,7 +209,7 @@ Taxi TaxiCenter::assignTaxi(int driverId){
 
 Trip TaxiCenter::getNextTrip(int currentTime) {
     cout << "IN GET NEXT TRIP" << endl;
-    cout << "TRIP SIZE: " << sizeof(trips);
+    cout << "TRIP SIZE: " << sizeof(trips)<<endl;
     vector<Trip>::iterator trip = trips.begin();
     while ((*(trip)).getTripTime()!= currentTime){
         trip++;

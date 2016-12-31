@@ -17,10 +17,9 @@ class Point: public Coordinate {
 
     void serialize(Archive &ar, const unsigned int version)
     {
-        ar & locs;
+        ar & boost::serialization::base_object<Coordinate>(*this);
     }
-protected:
-    int locs[2];
+
 public:
     Point();
     ~Point();

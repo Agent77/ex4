@@ -45,16 +45,16 @@ void DriverClient::ReceiveTrip() {
     client->reciveData(buffer, sizeof(buffer));
     cout << "AFTER RECEIVE DATA IN TRIP"<<endl;
     string tripString = createString(buffer, sizeof(buffer));
-    Trip *trip;
+    Trip trip;
     boost::iostreams::basic_array_source<char> device1(tripString.c_str(), tripString.size());
     boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s1(device1);
     boost::archive::binary_iarchive ia1(s1);
     ia1 >> trip;
 
-    cout << "RECEIVED TRIP ID: " << trip->getId() << endl;
+    cout << "RECEIVED TRIP ID: " << trip.getId() << endl;
     // GIVE DRIVER THE TRIP
     cout << "DOES DRIVER GET AN ID?: "<< driver.getDriverId() << endl;
-    driver.setTrip(*trip);
+    driver.setTrip(trip);
     cout << "DRIVERS END POINT: "<< driver.getTrip().getEnd()->getX() << endl;
     DriverClient::ReceiveCommand();
 }

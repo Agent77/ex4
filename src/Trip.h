@@ -15,9 +15,12 @@ class Trip {
         ar & yStart;
         ar & xEnd;
         ar & yEnd;
+        ar & start;
+        ar & end;
         ar & numOfPassengers;
         ar & metersPassed;
         ar & tariff;
+        ar & startTime;
     }
 private:
     int tripId;

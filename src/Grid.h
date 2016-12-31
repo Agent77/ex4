@@ -21,14 +21,8 @@ class Grid : public Graph {
 
     void serialize(Archive &ar, const unsigned int version)
     {
-        ar & arrayOfPtrsToNodes;
-        ar & sizeX;
-        ar & sizeY;
+        ar & boost::serialization::base_object<Graph>(*this);
     }
-private:
-    Node* arrayOfPtrsToNodes[10][10];
-    int sizeX;
-    int sizeY;
 public:
     Grid(){};
     ~Grid();

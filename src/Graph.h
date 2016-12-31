@@ -19,8 +19,15 @@ class Graph {
 
     void serialize(Archive &ar, const unsigned int version)
     {
-
+        ar & arrayOfPtrsToNodes;
+        ar & sizeX;
+        ar & sizeY;
     }
+
+protected:
+    Node* arrayOfPtrsToNodes[10][10];
+    int sizeX;
+    int sizeY;
 public:
     Graph(){};
     ~Graph(){};
@@ -31,6 +38,6 @@ public:
     virtual void addObstacle(Coordinate* p){};
     virtual void resetGraph(){};
 };
-
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(Graph);
 
 #endif //EX1_GRAPH_H

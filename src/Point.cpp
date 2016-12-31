@@ -1,4 +1,4 @@
-
+#include <boost/serialization/export.hpp>
 #include "Point.h"
 using namespace std;
 /*
@@ -86,3 +86,5 @@ Coordinate* Point::getMyLocation() {
 Point::~Point() {
 
 }
+
+BOOST_CLASS_EXPORT(Point);

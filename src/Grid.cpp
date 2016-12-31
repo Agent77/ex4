@@ -1,5 +1,7 @@
 #include "Grid.h"
 #include "Node.h"
+#include <boost/serialization/export.hpp>
+
 /*
  * The constructor initializes the grid with new Nodes,
  * which contain a Point of their location within
@@ -135,3 +137,5 @@ void Grid::resetGraph(){
         }
     }
 }
+
+BOOST_CLASS_EXPORT(Grid);

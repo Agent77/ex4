@@ -90,7 +90,7 @@ void Driver::setTaxi(Taxi t) {
 
 void Driver::setTrip(Trip t) {
     cout << "IN SET TRIP: id =  " << t.getId()<<endl;
-    cout << "start x =  "<< t.getEnd()<<endl;
+//    cout << "start x =  "<< t.getEnd()->getX()<<endl;
     myTrip = t;
 }
 
