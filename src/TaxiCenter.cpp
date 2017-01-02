@@ -59,7 +59,8 @@ Driver TaxiCenter::findClosestDriver(Trip t) {
 }
 
 void TaxiCenter::addDriver(Driver d) {
-    addDriver(d.getDriverId(), d.getAge(), d.getMaritalStatus(), d.getExp(), d.getVehicleId());
+    drivers.push_back(d);
+   // addDriver(d.getDriverId(), d.getAge(), d.getMaritalStatus(), d.getExp(), d.getVehicleId());
 
 }
 
@@ -82,7 +83,8 @@ void TaxiCenter::requestDriverLocation(int driverId){
     while((*(iter)).getDriverId() != driverId) {
         iter++;
     }
-    Coordinate* p = (*(iter)).getTrip().getStart();
+    Point point = (*(iter)).getTrip()->getStart();
+    Coordinate* p = &point;
     cout<<*p<<endl;
     delete p;
 
@@ -115,13 +117,16 @@ int TaxiCenter::assignDrivers() {
     //Meaning drivers already drove away from (0,0)
     if(started) {
         vector<Driver>::iterator driverList = drivers.begin();
-        vector<Trip>::iterator trip = trips.begin();
+        vector<Trip>::iterator trip;// = trips.begin();
         while(driverList != drivers.end()) {
             trip = trips.begin();
             while (trip != trips.end()) {
             		//matching up trips and driver current locations
-                if ((*(driverList)).getTrip().getStart()->equalTo((*(trip)).getStart())) {
-                    (*(driverList)).setTrip(*trip);
+                if ((*(driverList)).getTrip()->getStartX() == ((*(trip)).getStartX())) {
+                    if ((*(driverList)).getTrip()->getStartY() == (*(trip)).getStartY()) {
+                        Trip t = (*(trip));
+                        (*(driverList)).setTrip((&t));
+                    }
                 }
                 trip++;
             }
@@ -134,7 +139,7 @@ int TaxiCenter::assignDrivers() {
         vector<Driver>::iterator driverList = drivers.begin();
         vector<Trip>::iterator trip = trips.begin();
         while (driverList != drivers.end() && trip != trips.end()) {
-            (*(driverList)).setTrip((*(trip)));
+            (*(driverList)).setTrip(&(*(trip)));
             driverList++;
             trip++;
             count++;
@@ -148,6 +153,13 @@ int TaxiCenter::assignDrivers() {
 
 }
 
+void TaxiCenter::assignTrip(Trip t) {
+/*    vector<Driver>::iterator driverIter = drivers.begin();
+    while((*(driverIter)).getTrip().getEnd() !=  NULL) {
+        driverIter++;
+    }
+    (*(driverIter)).setTrip(t);*/
+}
 vector <Driver> TaxiCenter::getDrivers (){
     return drivers;
 }
@@ -158,15 +170,19 @@ vector <Driver> TaxiCenter::getDrivers (){
 Coordinate* TaxiCenter::driveAll() {
     cout << "in DRIVE ALL" << endl;
     assignDrivers();
-    cout << "AFTER ASSIGN DRVIERS"<< endl;
-    Trip t;
+    cout << "AFTER ASSIGN DRIVER"<< endl;
+    Trip* t;
     vector<Driver>::iterator currentDriver = drivers.begin();
-    while(currentDriver != drivers.end()) {
-         t = (*(currentDriver)).drive();
-        currentDriver++;
-    }
-    cout << "AFTER LOOP: " << t.getStart()->getX();
-    return t.getStart();
+   // while(currentDriver != drivers.end()) {
+        (drivers).at(0).setMap(map);
+        map->getNodes();
+         t = drivers.at(0).drive();
+      //  currentDriver++;
+    //}
+    cout << "AFTER LOOP: " << t->getStart().getX();
+    Point p = t->getStart();
+    Coordinate* c = &p;
+    return c;
 }
 
 void TaxiCenter::addTaxi(Taxi t) {
@@ -188,11 +204,8 @@ void TaxiCenter::addDriver(int driverId, int age, char mStatus, int exp, int veh
 }
 
 void TaxiCenter::updateDriverTrip(Trip newTrip){
-    vector<Driver>::iterator driver = drivers.begin();
-    while (newTrip.getId()!=(*(driver)).getTrip().getId()){
-        driver++;
-    }
-    (*(driver)).setTrip(newTrip);
+    vector<Driver>::iterator driver = drivers.end();
+    (*(driver)).setTrip(&newTrip);
 }
 
 Taxi TaxiCenter::assignTaxi(int driverId){
@@ -211,11 +224,13 @@ Trip TaxiCenter::getNextTrip(int currentTime) {
     cout << "IN GET NEXT TRIP" << endl;
     cout << "TRIP SIZE: " << sizeof(trips)<<endl;
     vector<Trip>::iterator trip = trips.begin();
-    while ((*(trip)).getTripTime()!= currentTime){
+    while ((*(trip)).getTripTime()< currentTime && trip != trips.end()){ //TODO does this stop loop
         trip++;
+        cout << "IN LOOP of GET NEXT TRIP" << endl;
     }
     Trip nextTrip= *(trip);
-    trips.erase (trip);
+    trips.erase(trip);
+    cout << "ERASE TRIP" << endl;
     return nextTrip;
 }
 
@@ -231,4 +246,8 @@ int TaxiCenter::checkTripTimes(int currentTime) {
 
 Graph* TaxiCenter::getMap() {
     return map;
+}
+
+void TaxiCenter::resetDrivers(vector<Driver> ds) {
+    drivers = ds;
 }

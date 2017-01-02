@@ -23,7 +23,8 @@ private:
     City city;
     TaxiCenter tc;
     Clock clock;
-    Driver currentDriver;
+    vector<Driver> waitingDrivers;
+    vector<Taxi*> vehicles;
 public:
     Server();
     void run();

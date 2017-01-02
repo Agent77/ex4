@@ -32,16 +32,16 @@ public:
     Coordinate(Coordinate* p);
     Coordinate(int* a);
     ~Coordinate(){};
-    virtual int* getCoordinates(){};
+    virtual int* getCoordinates();
     virtual int getX(){};
     virtual int getY(){};
     virtual int getNextCoordinate(int place);
     friend std:: ostream& operator<<(std :: ostream& out, Coordinate& t);
     virtual void printFormat(ostream& o) =0;
-    virtual bool equalTo(Coordinate* c) {};
-    virtual Coordinate* getMyLocation(){};
+    virtual bool equalTo(Coordinate* c){};
+    virtual Coordinate* getMyLocation();
 protected:
-    int locs[10];
+    int locs[2];
 };
 BOOST_SERIALIZATION_ASSUME_ABSTRACT(Coordinate);
 #endif //EX1_COORDINATE_H

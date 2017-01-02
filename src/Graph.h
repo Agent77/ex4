@@ -19,7 +19,7 @@ class Graph {
 
     void serialize(Archive &ar, const unsigned int version)
     {
-        ar & arrayOfPtrsToNodes;
+        //ar & arrayOfPtrsToNodes;
         ar & sizeX;
         ar & sizeY;
     }
@@ -37,6 +37,7 @@ public:
     virtual void deleteGraph() {};
     virtual void addObstacle(Coordinate* p){};
     virtual void resetGraph(){};
+    virtual void getNodes() {};
 };
 BOOST_SERIALIZATION_ASSUME_ABSTRACT(Graph);
 

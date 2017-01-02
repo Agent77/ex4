@@ -33,6 +33,7 @@ public:
     void deleteGraph();
     void addObstacle(Coordinate* p);
     void resetGraph();
+    void getNodes();
 
 };
 #endif //EX1_GRID_H

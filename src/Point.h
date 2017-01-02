@@ -28,10 +28,10 @@ public:
     bool equalTo(Coordinate* c);
     friend bool operator== (Point const& p, Point const& p2);
     int getX();
-    int* getCoordinates();
+    //int* getCoordinates();
     Point(Coordinate* cor);
     int getY();
-    int getNextCoordinate(int place);
-    Coordinate* getMyLocation();
+    //int getNextCoordinate(int place);
+    //Coordinate* getMyLocation();
 };
 #endif //EXONE_POINT_H

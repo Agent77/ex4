@@ -56,6 +56,8 @@ public:
     Trip getNextTrip (int currentTime);
     int checkTripTimes(int currentTime);
     Graph* getMap();
+    void assignTrip(Trip t);
+    void resetDrivers(vector<Driver> d);
 };
 
 

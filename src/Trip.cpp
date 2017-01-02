@@ -2,7 +2,7 @@
 #include "Trip.h"
 
 Trip::Trip() {
-
+    //end = NULL;
 }
 
 Trip::Trip(int tripId, int xStart, int yStart, int xEnd, int yEnd, int numOfPassengers, double tariff, int time) {
@@ -11,15 +11,41 @@ Trip::Trip(int tripId, int xStart, int yStart, int xEnd, int yEnd, int numOfPass
     this->yStart=yStart;
     this->xEnd=xEnd;
     this->yEnd=yEnd;
-    this->start = new Point(xStart, yStart);
-    this->end = new Point(xEnd, yEnd);
+    this->start =   Point(xStart, yStart);
+    this->end =   Point(xEnd, yEnd);
     this->numOfPassengers=numOfPassengers;
     this->tariff = tariff;
     this->startTime = time;
 }
+Trip::Trip(Trip* t) {
+  this->tripId = t->getId();
+  this-> xStart = t->getStartX();
+  this-> xEnd = t->getEndX();
+   this-> yStart = t->getStartY();
+   this->yEnd = t->getEndY();
+    this->startTime = t->getTripTime();
+
+
+}
 
 Trip::~Trip() {
 
+}
+
+int Trip::getStartX() {
+     return xStart;
+}
+ int Trip::getStartY() {
+     return yStart;
+
+ }
+
+
+int Trip::getEndX() {
+      return xEnd;
+}
+int Trip::getEndY() {
+     return yEnd;
 }
 
 int Trip::getId() {
@@ -37,14 +63,10 @@ int Trip::getNumOfPassengers() {
 double Trip::getTariff() {
     return tariff;
 }
-Coordinate* Trip::getStart() {
-    cout <<"IN GET START! "<< start->getX()<< endl;
-
+Point Trip::getStart() {
     return start;
 }
-Coordinate* Trip::getEnd() {
-    cout <<"IN GET END! "<< end->getX()<< endl;
-
+Point Trip::getEnd() {
     return end;
 }
 
@@ -55,10 +77,13 @@ void Trip::addMeters() {
 /*
 * each time the driver moves, the start point of its trip is updated.
 */
-void Trip::updateStartPoint(Coordinate *c){
-    xStart = c->getNextCoordinate(0);
-    yStart = c->getNextCoordinate(1);
-    start = new Point(xStart, yStart);
+void Trip::updateStartPoint(Point p){
+    xStart = p.getCoordinates()[0];
+    yStart = p.getCoordinates()[1];
+    ///yStart = c->getCoordinates()[1];
+    //cout << "ySTART: " << yStart <<   endl;
+    //start =   p;
+    //cout << "new start Y: " << start.getCoordinates()[1];
 }
 
 int Trip::getTripTime() {

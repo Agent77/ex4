@@ -15,6 +15,7 @@ Point::Point() {
 Point::Point(int xAxis, int yAxis) {
     locs[0] = xAxis;
     locs[1] = yAxis;
+    cout << "POINT RECEIVED NUM: " << xAxis<<","<<yAxis<<endl;
 }
 
 /*
@@ -55,7 +56,7 @@ int Point::getX() {
  */
 Point::Point(Coordinate *cor) {
     int size = sizeof(locs)/4;
-    for(int i = 0; i< size; i++) {
+    for(int i = 0; i< 2; i++) {
         locs[i] = cor->getNextCoordinate(i);
     }
 }
@@ -64,21 +65,22 @@ Point::Point(Coordinate *cor) {
  * Returns the requested coordinate from the
  * location array (can return x, y, etc...).
  */
-int Point::getNextCoordinate(int place) {
+/*int Point::getNextCoordinate(int place) {
     return locs[place];
-}
+}*/
 
 /*
  * Returns a generic Coordinate with the locations of
  * the Point.
  */
-int* Point::getCoordinates() {
+/*int* Point::getCoordinates() {
+    cout << "LOCS FULL? " << locs[0] << "," << locs[1] << endl;
     return locs;
-}
-Coordinate* Point::getMyLocation() {
+}*/
+/*Coordinate* Point::getMyLocation() {
     Point* point = new Point(locs[0], locs[1]);
     return point;
-}
+}*/
 
 /*
  * Destructor for Point class.

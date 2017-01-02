@@ -34,7 +34,7 @@ private:
     char maritalStatus;
     Graph* gps;
     Taxi taxi;
-    Trip myTrip;
+    Trip* myTrip;
     std::vector <Passenger> myPassengers;
 
 public:
@@ -50,16 +50,17 @@ public:
     };
     double getSatisfaction();
     Taxi getTaxi();
-    Trip getTrip();
+    Trip* getTrip();
     vector <Passenger> getPassengers();
     char getMaritalStatus();
     void setTaxi(Taxi t);
-    void setTrip(Trip t);
+    void setTrip(Trip* t);
     void rateMe(int rating);
     void addPassenger(Passenger p);
-    Trip drive();
+    Trip* drive();
     bool arrived();
     void setMap(Graph* map);
+    void needNewTrip();
 
 
 
