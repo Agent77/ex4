@@ -44,6 +44,7 @@ int main() {
 
     // RUNS SWITCH CASE
     server.run();
+    server.closeSockets();
 
     return 0;
 }
@@ -167,6 +168,7 @@ void Server::receiveDriver() { //TODO CHECK CLOCK
     boost::archive::binary_iarchive ia(s2);
     ia >> receivedDriver;
     waitingDrivers.push_back(*receivedDriver);
+    delete receivedDriver;
 
 
 

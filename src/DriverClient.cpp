@@ -92,7 +92,6 @@ void DriverClient::ReceiveCommand() {
         boost::archive::binary_iarchive ia(s3);
         ia >> p;
 
-
         cout << "P.X :" << p->getNextCoordinate(0);
         cout << "P.Y: " << p->getCoordinates()[1];
         Trip* tripP = driver.getTrip();
@@ -105,6 +104,7 @@ void DriverClient::ReceiveCommand() {
         cout << "END OF TRIP: " << driver.getTrip()->getEndX() << "," << driver.getTrip()->getEndY()<<endl;
 
         driver.getTrip()->updateStartPoint(p);
+        delete p;
         // SENDS NEW TRIP TO SERVER TO UPDATE
        // client->sendData(serial_str);
     } while(!driver.arrived());
@@ -149,7 +149,8 @@ void DriverClient::receiveVehicle() {
      ia >> taxi;
      //Checking taxi deserialization
      //GIVE DRIVER TAXI
-     driver.setTaxi(*taxi);
+    driver.setTaxi(*taxi);
+    delete taxi;
     cout << "INFO IN RECEIVE VEHICLE:" << endl;
     cout << "DRIVER INFO: "<<endl;
     cout << "ID: " << driver.getDriverId()<<endl;

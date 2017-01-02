@@ -35,7 +35,7 @@ private:
     Graph* gps;
     Taxi taxi;
     Trip* myTrip;
-    std::vector <Passenger> myPassengers;
+   // std::vector <Passenger> myPassengers;
 
 public:
     Driver();

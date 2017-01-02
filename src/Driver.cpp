@@ -93,9 +93,9 @@ Trip* Driver::getTrip() {
     return myTrip;
 }
 
-vector<Passenger> Driver::getPassengers() {
+/*vector<Passenger> Driver::getPassengers() {
     return myPassengers;
-}
+}*/
 
 char Driver::getMaritalStatus() {
     return maritalStatus;
@@ -108,6 +108,7 @@ void Driver::setTaxi(Taxi t) {
 void Driver::setTrip(Trip* t) {
     delete myTrip;
     myTrip = new Trip(t);
+    delete t;
 }
 
 /*
@@ -119,9 +120,9 @@ void Driver::rateMe(int rating) {
     avgSatisfaction =totalRate/numberOfcustomers;
 }
 
-void Driver::addPassenger(Passenger p) {
+/*void Driver::addPassenger(Passenger p) {
     myPassengers.push_back(p);
-}
+}*/
 
 Driver::~Driver() {
 
