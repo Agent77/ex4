@@ -83,10 +83,9 @@ void TaxiCenter::requestDriverLocation(int driverId){
     while((*(iter)).getDriverId() != driverId) {
         iter++;
     }
-    Point point = (*(iter)).getTrip()->getStart();
+    Point point = Point((*(iter)).getTrip()->getStartX(),(*(iter)).getTrip()->getStartY());
     Coordinate* p = &point;
     cout<<*p<<endl;
-    delete p;
 
 }
 
@@ -250,4 +249,8 @@ Graph* TaxiCenter::getMap() {
 
 void TaxiCenter::resetDrivers(vector<Driver> ds) {
     drivers = ds;
+}
+
+void TaxiCenter::deleteDriver(int i) {
+    drivers.erase(drivers.begin()+i);
 }

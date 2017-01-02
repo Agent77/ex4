@@ -58,6 +58,7 @@ public:
     Graph* getMap();
     void assignTrip(Trip t);
     void resetDrivers(vector<Driver> d);
+    void deleteDriver(int i);
 };
 
 

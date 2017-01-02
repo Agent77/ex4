@@ -107,7 +107,7 @@ void Server::SendTripToClient() {
         oa << trip1;
         s.flush();
         socket->sendData(serializedTrip);
-        Server::sendCommand();
+        //Server::sendCommand();
     }
 
 
@@ -172,7 +172,7 @@ void Server::receiveDriver() { //TODO CHECK CLOCK
 
 }
 
-void Server::sendCommand() {
+/*void Server::sendCommand() {
     int s = 9;
     // SERIALIZATION OF TAXI
     std::string serial_str;
@@ -182,7 +182,7 @@ void Server::sendCommand() {
     oa << s;
     s1.flush();
     socket->sendData(serial_str);
-}
+}*/
 
 void Server::sendNextLocation() {
     int x = 0;
@@ -190,16 +190,15 @@ void Server::sendNextLocation() {
     cout << " ** IN SEND NEXT LOCATION ** " << endl;
 
     if(tc.getDrivers().size() > 0) {
-        vector<Driver>::iterator driverIter = tc.getDrivers().begin();
-        while(driverIter != tc.getDrivers().end()) {
-            Trip* t = (*(driverIter)).drive();
+        //vector<Driver>::iterator driverIter = tc.getDrivers().begin();
+        int i=0;
+        while(i<tc.getDrivers().size()) {
+            Trip* t = tc.getDrivers()[i].drive();
+            tc.getDrivers()[i].setTrip(t);
              x = t->getStartX();
              y = t->getStartY();
             Point* ptrPoint = new Point(x, y);
-            if((*(driverIter)).arrived()) {
-                waitingDrivers.push_back((*(driverIter)));
-                Server::SendTripToClient();
-            }
+
             std::string nextLocation;
             boost::iostreams::back_insert_device<std::string> inserter(nextLocation);
             boost::iostreams::stream<boost::iostreams::back_insert_device<std::string> > s1(inserter);
@@ -208,6 +207,14 @@ void Server::sendNextLocation() {
             s1.flush();
             socket->sendData(nextLocation);
             delete ptrPoint;
+            if(tc.getDrivers()[i].arrived()) {
+                waitingDrivers.push_back(tc.getDrivers()[i]);
+                tc.deleteDriver(i);
+                Server::SendTripToClient();
+                i++;
+                continue;
+            }
+            i++;
         }
     }
 }

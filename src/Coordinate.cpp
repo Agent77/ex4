@@ -22,6 +22,7 @@ Coordinate::Coordinate(Coordinate* p) {
 
 std:: ostream& operator<<(std :: ostream& out, Coordinate& t) {
     t.printFormat(out);
+    //out << "("<< t.locs[0] << "," << t.locs[1] << ")"<<endl;
     return out;
 }
 

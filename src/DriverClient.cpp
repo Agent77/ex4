@@ -76,13 +76,13 @@ void DriverClient::ReceiveCommand() {
 
     cout << "BEFORE RECEIVING COMMAND"<< endl;
     do {
-        client->reciveData(buffer, sizeof(buffer));
+        /*client->reciveData(buffer, sizeof(buffer));
         string commandString = createString(buffer, sizeof(buffer));
         int command = 0;
         boost::iostreams::basic_array_source<char> device2(commandString.c_str(), commandString.size());
         boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s4(device2);
         boost::archive::binary_iarchive ia2(s4);
-        ia2 >> command;
+        ia2 >> command;*/
 
         client->reciveData(buffer, sizeof(buffer));
         Point* p;
@@ -104,6 +104,7 @@ void DriverClient::ReceiveCommand() {
         cout << "START OF TRIP: " << driver.getTrip()->getStartX() << "," << driver.getTrip()->getStartY()<<endl;
         cout << "END OF TRIP: " << driver.getTrip()->getEndX() << "," << driver.getTrip()->getEndY()<<endl;
 
+        driver.getTrip()->updateStartPoint(p);
         // SENDS NEW TRIP TO SERVER TO UPDATE
        // client->sendData(serial_str);
     } while(!driver.arrived());
