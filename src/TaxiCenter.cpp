@@ -84,8 +84,7 @@ void TaxiCenter::requestDriverLocation(int driverId){
         iter++;
     }
     Point point = Point((*(iter)).getTrip()->getStartX(),(*(iter)).getTrip()->getStartY());
-    cout << "X: "<<(*(iter)).getTrip()->getStartX()<< endl;
-    cout << "Y: "<<(*(iter)).getTrip()->getStartY()<< endl;
+
     Coordinate* p = &point;
     cout<<*p<<endl;
 
@@ -165,9 +164,7 @@ vector <Driver> TaxiCenter::getDrivers (){
 * alerts all drivers to move.
 */
 Coordinate* TaxiCenter::driveAll() {
-    cout << "in DRIVE ALL" << endl;
     assignDrivers();
-    cout << "AFTER ASSIGN DRIVER"<< endl;
     Trip* t;
     vector<Driver>::iterator currentDriver = drivers.begin();
    // while(currentDriver != drivers.end()) {
@@ -176,7 +173,6 @@ Coordinate* TaxiCenter::driveAll() {
          t = drivers.at(0).drive();
       //  currentDriver++;
     //}
-    cout << "AFTER LOOP: " << t->getStart().getX();
     Point p = t->getStart();
     Coordinate* c = &p;
     return c;

@@ -38,7 +38,9 @@ private:
 public:
     TaxiCenter(){};
     TaxiCenter(Graph* map1);
-    ~TaxiCenter() {};
+    ~TaxiCenter() {
+        map->~Graph();
+    };
     int assignDrivers();
     Coordinate* driveAll();
     Driver findClosestDriver(Trip t);

@@ -104,6 +104,7 @@ Node* Grid::getNode(Coordinate* p){
  * destructor for Grid.
  */
 Grid::~Grid() {
+    deleteGraph();
 }
 
 /*

@@ -16,10 +16,10 @@
 #include <boost/iostreams/stream.hpp>
 #include <boost/archive/binary_oarchive.hpp>
 #include <boost/archive/binary_iarchive.hpp>
-//typedef enum commands{NEWTRIP = 2, NEWPOINT = 9, CLOSE = 7};
+typedef enum commands{NEWTRIP = 2, NEWPOINT = 9, CLOSE = 7};
 using namespace std;
 using namespace boost::archive;
-int main() {
+int main(int argc, char* argv[]) {
     City c = City();
 
     string d;
@@ -29,14 +29,18 @@ int main() {
 
     DriverClient client = DriverClient();
 
-    client.openSocket(driver);
+    client.openSocket(driver, atoi(argv[1]));
     client.receiveVehicle();
     client.receiveCommand();
     return 0;
 }
+
+
 DriverClient::DriverClient() {
     clock = Clock();
 }
+
+
 void DriverClient::receiveTrip() {
     char buffer[1024];
     // RECEIVE TRIP FROM SERVER
@@ -62,13 +66,13 @@ int DriverClient::receiveCommand() {
     boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s4(device2);
     boost::archive::binary_iarchive ia2(s4);
     ia2 >> command;
-    if(command == 9) {
+    if(command == NEWPOINT) {
         DriverClient::receiveNextPoint();
     }
-    if(command == 2) {
+    if(command == NEWTRIP) {
         DriverClient::receiveTrip();
     }
-    if(command == 7) {
+    if(command == CLOSE) {
         DriverClient::closeSocket();
     }
 }
@@ -93,9 +97,12 @@ void DriverClient::receiveNextPoint() {
         delete p;
         DriverClient::receiveCommand();
 }
-void DriverClient::openSocket(Driver *driverSent) {
 
-    client = new Udp(0, 46323);
+
+
+void DriverClient::openSocket(Driver *driverSent, int portNum) {
+
+    client = new Udp(0, portNum);
     int result = client->initialize();
     char buffer[1024];
     // SERIALIZATION
@@ -106,14 +113,13 @@ void DriverClient::openSocket(Driver *driverSent) {
     boost::archive::binary_oarchive oa(s);
     oa << driverSent;
     s.flush();
-
-    cout << serial_str.c_str() << endl;
     // SENDS DRIVER TO SERVER
     int result1 = client->sendData(serial_str);
 }
 void DriverClient::receiveVehicle() {
     char buffer[1024];
     // GETS TAXI IN RETURN
+
     int resultData = client->reciveData(buffer, sizeof(buffer));
 
      // DESERIALIZATION

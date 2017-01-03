@@ -40,21 +40,26 @@ Driver::Driver(int driverId, int age, char mStatus, int exp, int vehicleId) {
 */
 Trip* Driver::drive() {
     BFS bfs = BFS(gps);
-    Coordinate* start;
-    int x = myTrip->getStartX();
-    int y = myTrip->getStartY();
-    start = new Point(x, y);
-    Coordinate* end;
-    x = myTrip->getEndX();
-    y = myTrip->getEndY();
-    end = new Point(x, y);
-    Coordinate* c;
-    c  = bfs.getNextInPath(start, end);
-    Trip* newTrip = new Trip(myTrip->getId(), c->getCoordinates()[0], c->getCoordinates()[1], myTrip->getEndX(), myTrip->getEndY(),1,20,0);
-    delete start;
-    delete end;
-    myTrip = newTrip;
-    gps->resetGraph();
+    int driveCount = 0;
+    while (driveCount <= taxi.getType()) {
+        Coordinate *start;
+        int x = myTrip->getStartX();
+        int y = myTrip->getStartY();
+        start = new Point(x, y);
+        Coordinate *end;
+        x = myTrip->getEndX();
+        y = myTrip->getEndY();
+        end = new Point(x, y);
+        Coordinate *c;
+        c = bfs.getNextInPath(start, end);
+        Trip *newTrip = new Trip(myTrip->getId(), c->getCoordinates()[0], c->getCoordinates()[1], myTrip->getEndX(),
+                                 myTrip->getEndY(), myTrip->getNumOfPassengers(), myTrip->getTariff(), myTrip->getTripTime());
+        delete start;
+        delete end;
+        myTrip = newTrip;
+        gps->resetGraph();
+        driveCount++;
+    }
     return myTrip;
 }
 

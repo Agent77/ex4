@@ -28,17 +28,15 @@
 
 using namespace std;
 
-int main() {
+int main(int argc, char* argv[]) {
 
     Server server = Server();
 
     // INITIALIZES MAP
     server.initialize();
 
-
     // OPENS SOCKET FOR ONE CLIENT
-    server.createClients(1);
-
+    server.createClients(atoi(argv[1]));
 
     // RUNS SWITCH CASE
     server.run();
@@ -51,6 +49,7 @@ Server::Server() {
 }
 
 void Server::closeSockets() {
+    tc.~TaxiCenter();
     socket->~Socket();
 }
 /*
@@ -85,7 +84,6 @@ void Server::initialize() {
 
 
 void Server::SendTripToClient() {
-    cout << "IN SEND TRIP TO CLIENT"<< endl;
 
     std::string serializedTrip;
     int counter=0;
@@ -111,10 +109,10 @@ void Server::SendTripToClient() {
     }
 }
 
-int Server::createClients(int amountOfDrivers) {
+int Server::createClients(int portNum) {
 
     // creates port for clients
-    socket = new Udp(1, 46323);
+    socket = new Udp(1, portNum);
 
     //creates new socket for single client
     int result = socket->initialize();
@@ -125,8 +123,7 @@ string Server::createString(char* buffer, int bufferSize) {
     return s;
 
 }
-void Server::receiveDriver() { //TODO CHECK CLOCK
-    cout << "IN RECEIVE DRIVER"<< endl;
+void Server::receiveDriver() {
 
     // RECEIVE DRIVER FROM CLIENT
     char buffer[1024];
@@ -147,7 +144,6 @@ void Server::receiveDriver() { //TODO CHECK CLOCK
 }
 
 void Server::sendCommand(int command) {
-    cout << "IN SEND COMMAND"<< endl;
 
     // SERIALIZATION OF TAXI
     std::string commandString;
@@ -160,7 +156,6 @@ void Server::sendCommand(int command) {
 }
 
 void Server::sendNextLocation() {
-    cout << "IN SEND NEXT LOCATION"<< endl;
 
     int x = 0;
     int y = 0;
@@ -192,26 +187,20 @@ void Server::sendNextLocation() {
 }
 
 void Server::assignVehicleToClient() {
-    cout << "IN ASSIGN VEHICLE"<< endl;
     // FINDS CORRECT TAXI FOR DRIVER ID
     int counter = 0;
     vector<Taxi*>::iterator taxiIter = vehicles.begin();
-    cout << "SIZE OF VEHICLES: "<< vehicles.size()<< endl;
-    cout << "TAXI ID: "<<(*(taxiIter))->getId()<<endl;
-    cout << "AFTER INTIALIZE ITERATOR"<< endl;
+
 
     int id = waitingDrivers.front().getDriverId();
-    cout << "AFTER GET DRIVER ID"<< endl;
 
     while ((*(taxiIter))->getId() != id && taxiIter!= vehicles.end()){
         taxiIter++;
         counter++;
 
     }
-    cout << "AFTER FIND RIGHT TAXI"<< endl;
 
     waitingDrivers.front().setTaxi((*(*taxiIter))); //still in vector because needs a trip before adding to taxi center
-    cout << "AFTER SET TAXI"<< endl;
 
     Taxi* taxiPointer = (*(taxiIter));
     // SERIALIZATION OF TAXI
@@ -222,12 +211,9 @@ void Server::assignVehicleToClient() {
     oa << taxiPointer;
     s1.flush();
     // RETURN TAXI TO CLIENT
-    //TODO ADD COMMAND OF WHICH TYPE OF TAXI DRIVER NEEDS TO RECEIVE AND DO SPECIAL DRIVE
     socket->sendData(serial_str);
-    cout << "AFTER SERIALIZE TAXI"<< endl;
 
     vehicles.erase(vehicles.begin() + counter);
-    cout << "AFTER ERASE TAXI"<< endl;
 
 }
 /*
@@ -243,8 +229,6 @@ void Server::run() {
 
 //Actions the user can perform
     while (run) {
-        cout << "IN WHILE LOOP"<< endl;
-
         cin >> action1;
         int action = (int)action1 - 48;
         switch(action) {

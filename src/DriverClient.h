@@ -33,7 +33,7 @@ private:
     Clock clock;
 public:
     DriverClient();
-    void openSocket(Driver* driver);
+    void openSocket(Driver* driver, int portNumber);
     void receiveTrip();
     int receiveCommand();
     void receiveNextPoint();

@@ -38,6 +38,9 @@ public:
     virtual void updateKms();
     virtual int getSpeed();
     virtual char getManufacturer();
+    virtual int getType() {
+        return cabType;
+    };
     virtual int getTariff();
     virtual int getId();
     virtual int getKms();
