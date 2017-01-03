@@ -40,7 +40,7 @@ Driver::Driver(int driverId, int age, char mStatus, int exp, int vehicleId) {
 */
 Trip* Driver::drive() {
     BFS bfs = BFS(gps);
-    int driveCount = 0;
+    int driveCount = 1;
     while (driveCount <= taxi.getType()) {
         Coordinate *start;
         int x = myTrip->getStartX();

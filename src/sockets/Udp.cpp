@@ -119,3 +119,7 @@ int Udp::reciveData(char* buffer, int size) {
 int Udp::getPortNum() {
     return port_number;
 }
+
+int Udp::setIP(string ip) {
+    ip_address = ip;
+}

@@ -29,7 +29,7 @@ int main(int argc, char* argv[]) {
 
     DriverClient client = DriverClient();
 
-    client.openSocket(driver, atoi(argv[1]));
+    client.openSocket(driver, argv[2], atoi(argv[1]));
     client.receiveVehicle();
     client.receiveCommand();
     return 0;
@@ -100,13 +100,15 @@ void DriverClient::receiveNextPoint() {
 
 
 
-void DriverClient::openSocket(Driver *driverSent, int portNum) {
+void DriverClient::openSocket(Driver *driverSent, string ip, int portNum) {
 
     client = new Udp(0, portNum);
     int result = client->initialize();
+    client->setIP(ip);
     char buffer[1024];
     // SERIALIZATION
-
+    cout << "RESULT: " <<result<<endl;
+    cout << "PORT NUM: "<<portNum<<endl;
     std::string serial_str;
     boost::iostreams::back_insert_device<std::string> inserter(serial_str);
     boost::iostreams::stream<boost::iostreams::back_insert_device<std::string> > s(inserter);

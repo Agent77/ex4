@@ -139,8 +139,6 @@ void Server::receiveDriver() {
     waitingDrivers.push_back(*receivedDriver);
     delete receivedDriver;
 
-
-
 }
 
 void Server::sendCommand(int command) {
