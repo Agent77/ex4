@@ -165,8 +165,8 @@ void Server::sendNextLocation() {
     int x = 0;
     int y = 0;
     if(tc.getDrivers().size() > 0) {
-        int i=0;
-        while(i<tc.getDrivers().size()) {
+
+        for(int i=0; i<tc.getDrivers().size() && tc.getDrivers()[i].getTrip()->getTripTime()<clock.getTime()+1; i++) {
             Trip* t = tc.getDrivers()[i].drive();
             tc.updateDriverTrip(t, i);
              x = t->getStartX();
@@ -186,10 +186,7 @@ void Server::sendNextLocation() {
                 waitingDrivers.push_back(tc.getDrivers()[i]);
                 tc.deleteDriver(i);
                 Server::SendTripToClient();
-                i++;
-                continue;
             }
-            i++;
         }
     }
 }
@@ -277,12 +274,13 @@ void Server::run() {
                 tc.requestDriverLocation(driverId);
                 break;
             }
-            case 9: {
-                        Server::SendTripToClient();
-                        Server::sendNextLocation();
-                    }
+            case 9:
                 // ADVANCE TIME
                 clock.increaseTime();
+                Server::SendTripToClient();
+                Server::sendNextLocation();
+
+
                 break;
             case 7:
             Server::sendCommand(7);
