@@ -84,6 +84,8 @@ void TaxiCenter::requestDriverLocation(int driverId){
         iter++;
     }
     Point point = Point((*(iter)).getTrip()->getStartX(),(*(iter)).getTrip()->getStartY());
+    cout << "X: "<<(*(iter)).getTrip()->getStartX()<< endl;
+    cout << "Y: "<<(*(iter)).getTrip()->getStartY()<< endl;
     Coordinate* p = &point;
     cout<<*p<<endl;
 
@@ -153,11 +155,7 @@ int TaxiCenter::assignDrivers() {
 }
 
 void TaxiCenter::assignTrip(Trip t) {
-/*    vector<Driver>::iterator driverIter = drivers.begin();
-    while((*(driverIter)).getTrip().getEnd() !=  NULL) {
-        driverIter++;
-    }
-    (*(driverIter)).setTrip(t);*/
+
 }
 vector <Driver> TaxiCenter::getDrivers (){
     return drivers;
@@ -202,9 +200,12 @@ void TaxiCenter::addDriver(int driverId, int age, char mStatus, int exp, int veh
     drivers.push_back(*d);
 }
 
-void TaxiCenter::updateDriverTrip(Trip newTrip){
+void TaxiCenter::updateDriverTrip(Trip newTrip, int place){
+    drivers.at(place).setTrip(&newTrip);
+}
+void TaxiCenter::updateDriverTrip(Trip t) {
     vector<Driver>::iterator driver = drivers.end();
-    (*(driver)).setTrip(&newTrip);
+    (*(driver)).setTrip(&t);
 }
 
 Taxi TaxiCenter::assignTaxi(int driverId){
@@ -220,16 +221,12 @@ Taxi TaxiCenter::assignTaxi(int driverId){
 }
 
 Trip TaxiCenter::getNextTrip(int currentTime) {
-    cout << "IN GET NEXT TRIP" << endl;
-    cout << "TRIP SIZE: " << sizeof(trips)<<endl;
     vector<Trip>::iterator trip = trips.begin();
     while ((*(trip)).getTripTime()< currentTime && trip != trips.end()){ //TODO does this stop loop
         trip++;
-        cout << "IN LOOP of GET NEXT TRIP" << endl;
     }
     Trip nextTrip= *(trip);
     trips.erase(trip);
-    cout << "ERASE TRIP" << endl;
     return nextTrip;
 }
 

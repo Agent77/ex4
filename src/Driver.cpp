@@ -39,36 +39,21 @@ Driver::Driver(int driverId, int age, char mStatus, int exp, int vehicleId) {
 * continue travelling until it arrives at its destination.
 */
 Trip* Driver::drive() {
-    cout << "IN DRIVE OF DRIVER"<< endl;
-    cout <<endl;
     BFS bfs = BFS(gps);
-    cout << "INFO IN SERVER DRIVE OF DRIVER:" << endl;
-    cout << "DRIVER INFO: "<<endl;
-    cout << "ID: " << this->getDriverId()<<endl;
-    cout << "START OF TRIP: " << this->getTrip()->getStartX() << "," << this->getTrip()->getStartY()<<endl;
-    cout << "END OF TRIP: " << this->getTrip()->getEndX() << "," << this->getTrip()->getEndY()<<endl;
     Coordinate* start;
     int x = myTrip->getStartX();
     int y = myTrip->getStartY();
     start = new Point(x, y);
     Coordinate* end;
     x = myTrip->getEndX();
-    cout << "END X: "<< x << endl;
     y = myTrip->getEndY();
-    cout << "END Y: "<< y << endl;
     end = new Point(x, y);
     Coordinate* c;
     c  = bfs.getNextInPath(start, end);
-    cout << "** AFTER GET NEXT IN PATH" << endl;
     Trip* newTrip = new Trip(myTrip->getId(), c->getCoordinates()[0], c->getCoordinates()[1], myTrip->getEndX(), myTrip->getEndY(),1,20,0);
-    //myTrip->updateStartPoint(c);
     delete start;
     delete end;
-    cout << "NEWTRIP: "<<newTrip->getStartX() << "," << newTrip->getStartY() << endl;
-
     myTrip = newTrip;
-    cout << "MyTrip: " << myTrip->getStartX() << "," << myTrip->getStartY()<< endl;
-    cout << "** AFTER UPDATING START POINT OF DRIVER ** " << endl;
     gps->resetGraph();
     return myTrip;
 }
@@ -106,9 +91,9 @@ void Driver::setTaxi(Taxi t) {
 }
 
 void Driver::setTrip(Trip* t) {
-    delete myTrip;
+    //delete myTrip;
     myTrip = new Trip(t);
-    delete t;
+    //delete t;
 }
 
 /*
@@ -135,7 +120,6 @@ int Driver::getVehicleId() {
 bool Driver::arrived() {
     if (myTrip->getStartX() == myTrip->getEndX()) {
         if(myTrip->getStartY() == myTrip->getEndY()) {
-            //this->needNewTrip();
             return true;
         }
     }
@@ -145,8 +129,4 @@ bool Driver::arrived() {
 
 void Driver::setMap(Graph* map) {
     gps = map;
-}
-
-void Driver::needNewTrip() {
-    //myTrip = new Trip();
 }

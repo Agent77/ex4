@@ -16,7 +16,6 @@ Grid::Grid(int xSize, int ySize) {
             Node* n;
             n = new Node(&p);
             arrayOfPtrsToNodes[i][j] = n;
-            cout << "NOW ADDING: " << n->getMyLocation()->getNextCoordinate(0) << "," << n->getMyLocation()->getNextCoordinate(1)<< endl;
         }
     }
 }
@@ -98,7 +97,6 @@ std::vector<Node*> Grid::getNeighbors(Node* n) {
  */
 Node* Grid::getNode(Coordinate* p){
     Node* node = (arrayOfPtrsToNodes[p->getNextCoordinate(0)][p->getNextCoordinate(1)]);
-    cout << "GETS NODE AT COORDINATE" << endl;
     return node;
 }
 
@@ -142,6 +140,5 @@ void Grid::resetGraph(){
 void Grid::getNodes() {
     Node* n = arrayOfPtrsToNodes[2][2];
     int num = n->getLocation()[0];
-    cout << "GRAPH FULL?" << num << endl;
 }
 //BOOST_CLASS_EXPORT(Grid);

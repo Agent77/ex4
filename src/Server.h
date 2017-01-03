@@ -35,8 +35,9 @@ public:
     void assignVehicleToClient();
     void receiveDriver();
     string createString(char* buffer, int bufferSize);
-    void sendCommand();
+    void sendCommand(int command);
     void sendNextLocation();
+    void closeSockets();
 
 
 };

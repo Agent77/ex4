@@ -2,7 +2,6 @@
 #include "Trip.h"
 
 Trip::Trip() {
-    //end = NULL;
 }
 
 Trip::Trip(int tripId, int xStart, int yStart, int xEnd, int yEnd, int numOfPassengers, double tariff, int time) {
@@ -21,9 +20,9 @@ Trip::Trip(Trip* t) {
   this->tripId = t->getId();
   this-> xStart = t->getStartX();
   this-> xEnd = t->getEndX();
-   this-> yStart = t->getStartY();
-   this->yEnd = t->getEndY();
-    this->startTime = t->getTripTime();
+  this-> yStart = t->getStartY();
+  this->yEnd = t->getEndY();
+  this->startTime = t->getTripTime();
 
 
 }
@@ -80,10 +79,6 @@ void Trip::addMeters() {
 void Trip::updateStartPoint(Point p){
     xStart = p.getCoordinates()[0];
     yStart = p.getCoordinates()[1];
-    ///yStart = c->getCoordinates()[1];
-    //cout << "ySTART: " << yStart <<   endl;
-    //start =   p;
-    //cout << "new start Y: " << start.getCoordinates()[1];
 }
 
 int Trip::getTripTime() {

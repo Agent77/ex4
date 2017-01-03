@@ -34,8 +34,10 @@ private:
 public:
     DriverClient();
     void openSocket(Driver* driver);
-    void ReceiveTrip();
-    void ReceiveCommand();
+    void receiveTrip();
+    int receiveCommand();
+    void receiveNextPoint();
+    void closeSocket();
     Driver getDriver();
     string createString(char* buffer, int bufferSize);
     void receiveVehicle();

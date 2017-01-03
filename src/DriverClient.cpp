@@ -16,7 +16,7 @@
 #include <boost/iostreams/stream.hpp>
 #include <boost/archive/binary_oarchive.hpp>
 #include <boost/archive/binary_iarchive.hpp>
-
+//typedef enum commands{NEWTRIP = 2, NEWPOINT = 9, CLOSE = 7};
 using namespace std;
 using namespace boost::archive;
 int main() {
@@ -26,23 +26,18 @@ int main() {
     cin >> d;
     Driver dr = c.createDriver(d);
     Driver* driver = &dr;
-    cout << "DRIVER INFO: "<<endl;
-    cout << "ID: " << driver->getDriverId()<<endl;
-    cout << "START OF TRIP: " << driver->getTrip()->getStartX() << "," << driver->getTrip()->getStartY()<<endl;
-    cout << "END OF TRIP: " << driver->getTrip()->getEndX() << "," << driver->getTrip()->getEndY()<<endl;
 
     DriverClient client = DriverClient();
 
     client.openSocket(driver);
     client.receiveVehicle();
-    client.ReceiveTrip();
-   // client.ReceiveCommand();
+    client.receiveCommand();
     return 0;
 }
 DriverClient::DriverClient() {
     clock = Clock();
 }
-void DriverClient::ReceiveTrip() {
+void DriverClient::receiveTrip() {
     char buffer[1024];
     // RECEIVE TRIP FROM SERVER
     client->reciveData(buffer, sizeof(buffer));
@@ -53,37 +48,38 @@ void DriverClient::ReceiveTrip() {
     boost::archive::binary_iarchive ia1(s1);
     ia1 >> trip;
 
-    cout << "TRIP START X: "<< trip->getStartX() << endl;
-    cout << "TRIP START Y: "<< trip->getStartY()  << endl;
-    cout << "TRIP END X: "<< trip->getEndX() << endl;
-    cout << "TRIP END Y: "<< trip->getEndY() << endl;
-
     // GIVE DRIVER THE TRIP
-    //cout << "DOES DRIVER GET AN ID?: "<< driver.getDriverId() << endl;
     driver.setTrip(trip);
-
-    cout << "INFO IN OPEN SOCKET:" << endl;
-    cout << "DRIVER INFO: "<<endl;
-    cout << "ID: " << driver.getDriverId()<<endl;
-    cout << "START OF TRIP: " << driver.getTrip()->getStartX() << "," << driver.getTrip()->getStartY()<<endl;
-    cout << "END OF TRIP: " << driver.getTrip()->getEndX() << "," << driver.getTrip()->getEndY()<<endl;
-    DriverClient::ReceiveCommand();
+    DriverClient::receiveCommand();
 }
-void DriverClient::ReceiveCommand() {
+
+int DriverClient::receiveCommand() {
+    char buffer[1024];
+    client->reciveData(buffer, sizeof(buffer));
+    string commandString = createString(buffer, sizeof(buffer));
+    int command = 0;
+    boost::iostreams::basic_array_source<char> device2(commandString.c_str(), commandString.size());
+    boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s4(device2);
+    boost::archive::binary_iarchive ia2(s4);
+    ia2 >> command;
+    if(command == 9) {
+        DriverClient::receiveNextPoint();
+    }
+    if(command == 2) {
+        DriverClient::receiveTrip();
+    }
+    if(command == 7) {
+        DriverClient::closeSocket();
+    }
+}
+
+void DriverClient::closeSocket() {
+ client->~Socket();
+}
+
+void DriverClient::receiveNextPoint() {
     char buffer[1024];
     Trip newTrip;
-    // GET COMMAND FROM SERVER
-
-    cout << "BEFORE RECEIVING COMMAND"<< endl;
-    do {
-        /*client->reciveData(buffer, sizeof(buffer));
-        string commandString = createString(buffer, sizeof(buffer));
-        int command = 0;
-        boost::iostreams::basic_array_source<char> device2(commandString.c_str(), commandString.size());
-        boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s4(device2);
-        boost::archive::binary_iarchive ia2(s4);
-        ia2 >> command;*/
-
         client->reciveData(buffer, sizeof(buffer));
         Point* p;
         string nextLocation = createString(buffer, sizeof(buffer));
@@ -91,35 +87,15 @@ void DriverClient::ReceiveCommand() {
         boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s3(device3);
         boost::archive::binary_iarchive ia(s3);
         ia >> p;
-
-        cout << "P.X :" << p->getNextCoordinate(0);
-        cout << "P.Y: " << p->getCoordinates()[1];
         Trip* tripP = driver.getTrip();
         tripP->updateStartPoint(p);
-
-        cout << "INFO IN RECEIVE COMMAND AFTER MOVE:" << endl;
-        cout << "DRIVER INFO: "<<endl;
-        cout << "ID: " << driver.getDriverId()<<endl;
-        cout << "START OF TRIP: " << driver.getTrip()->getStartX() << "," << driver.getTrip()->getStartY()<<endl;
-        cout << "END OF TRIP: " << driver.getTrip()->getEndX() << "," << driver.getTrip()->getEndY()<<endl;
-
         driver.getTrip()->updateStartPoint(p);
         delete p;
-        // SENDS NEW TRIP TO SERVER TO UPDATE
-       // client->sendData(serial_str);
-    } while(!driver.arrived());
-
-    DriverClient::ReceiveTrip();
+        DriverClient::receiveCommand();
 }
 void DriverClient::openSocket(Driver *driverSent) {
-    driver = *driverSent;
-    cout << "INFO IN OPEN SOCKET:" << endl;
-    cout << "DRIVER INFO: "<<endl;
-    cout << "ID: " << driver.getDriverId()<<endl;
-    cout << "START OF TRIP: " << driver.getTrip()->getStartX() << "," << driver.getTrip()->getStartY()<<endl;
-    cout << "END OF TRIP: " << driver.getTrip()->getEndX() << "," << driver.getTrip()->getEndY()<<endl;
-    // SET UP SOCKET
-    client = new Udp(0, 5555);
+
+    client = new Udp(0, 46323);
     int result = client->initialize();
     char buffer[1024];
     // SERIALIZATION
@@ -151,11 +127,6 @@ void DriverClient::receiveVehicle() {
      //GIVE DRIVER TAXI
     driver.setTaxi(*taxi);
     delete taxi;
-    cout << "INFO IN RECEIVE VEHICLE:" << endl;
-    cout << "DRIVER INFO: "<<endl;
-    cout << "ID: " << driver.getDriverId()<<endl;
-    cout << "START OF TRIP: " << driver.getTrip()->getStartX() << "," << driver.getTrip()->getStartY()<<endl;
-    cout << "END OF TRIP: " << driver.getTrip()->getEndX() << "," << driver.getTrip()->getEndY()<<endl;
 }
 
 
