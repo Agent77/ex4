@@ -24,14 +24,15 @@ private:
     TaxiCenter tc;
     Clock clock;
     vector<Driver> waitingDrivers;
-    vector<Taxi*> vehicles;
+    vector<Taxi> vehicles;
+    int portNum;
 public:
     Server();
     void run();
     void initialize();
     Trip getTripFromClient();
     void SendTripToClient();
-    int createClients(int amountOfDrivers);
+    int createClients(string port);
     void assignVehicleToClient();
     void receiveDriver();
     string createString(char* buffer, int bufferSize);

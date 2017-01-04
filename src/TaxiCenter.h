@@ -38,9 +38,7 @@ private:
 public:
     TaxiCenter(){};
     TaxiCenter(Graph* map1);
-    ~TaxiCenter() {
-        map->~Graph();
-    };
+    ~TaxiCenter() {};
     int assignDrivers();
     Coordinate* driveAll();
     Driver findClosestDriver(Trip t);
@@ -54,7 +52,7 @@ public:
     void addTaxi(Taxi t);
     void addDriver(Driver d);
     void updateDriverTrip(Trip newTrip, int place);
-    void updateDriverTrip(Trip t);
+    void updateDriverTrip(Trip newTrip);
     Taxi assignTaxi(int driverId);
     Trip getNextTrip (int currentTime);
     int checkTripTimes(int currentTime);

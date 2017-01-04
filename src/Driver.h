@@ -18,7 +18,10 @@ class Driver {
         ar & maritalStatus;
         ar & exp;
         ar & vehicleId;
-
+        /*ar & totalRate;
+        ar & avgSatisfaction;
+        ar & maritalStatus;
+        ar & gps;*/
     }
 private:
     int driverId;
@@ -48,15 +51,16 @@ public:
     double getSatisfaction();
     Taxi getTaxi();
     Trip* getTrip();
-    //vector <Passenger> getPassengers();
+    vector <Passenger> getPassengers();
     char getMaritalStatus();
     void setTaxi(Taxi t);
     void setTrip(Trip* t);
     void rateMe(int rating);
-    //void addPassenger(Passenger p);
+    void addPassenger(Passenger p);
     Trip* drive();
     bool arrived();
     void setMap(Graph* map);
+    void needNewTrip();
 
 
 

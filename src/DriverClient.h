@@ -31,9 +31,11 @@ private:
     Socket* client;
     Driver driver;
     Clock clock;
+    int portNum;
+    string ip;
 public:
     DriverClient();
-    void openSocket(Driver* driver, string ip, int portNumber);
+    void openSocket(Driver* driver, string currentIp, string port);
     void receiveTrip();
     int receiveCommand();
     void receiveNextPoint();

@@ -51,7 +51,7 @@ public:
 	int reciveData(char* buffer, int size);
 	int getPortNum();
 	int initialize(const char* ip_address, int port_no);
-	int setIP(string ip);
+	void setIP(string ip);
 };
 
 #endif /* UDP_H_ */

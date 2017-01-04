@@ -16,11 +16,13 @@ Coordinate::Coordinate(Coordinate* p) {
     int size = (int)sizeof( p->getCoordinates()) / 4;
     for (int i = 0; i < size; i++) {
         locs[i] = p->locs[i];
+        cout << "CREATE COORDINATE: " << p->locs[i] << endl;
     }
 }
 
 std:: ostream& operator<<(std :: ostream& out, Coordinate& t) {
     t.printFormat(out);
+    //out << "("<< t.locs[0] << "," << t.locs[1] << ")"<<endl;
     return out;
 }
 
@@ -31,6 +33,7 @@ std:: ostream& operator<<(std :: ostream& out, Coordinate& t) {
  * the Point.
  */
 int* Coordinate::getCoordinates() {
+    cout << "LOCS FULL? " << locs[0] << "," << locs[1] << endl;
     return locs;
 }
 Coordinate* Coordinate::getMyLocation() {

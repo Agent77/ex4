@@ -51,6 +51,7 @@ int Udp::initialize() {
         sin.sin_port = htons(this->port_number);
 
         //bind
+        cout << "PORT NUMBER: " << port_number << endl;
         if(::bind(this->socketDescriptor,
                 (struct sockaddr *)&sin, sizeof(sin)) < 0) {
             return ERROR_BIND;
@@ -76,10 +77,12 @@ int Udp::sendData(string data) {
 	sin.sin_addr.s_addr = inet_addr(this->ip_address.c_str());
 	sin.sin_port = htons(this->port_number);
 	const char * datas = data.c_str();
+    cout << "STRING: " << data << endl;
 	double data_len = data.length() + 1;
 	//send
 	double sent_bytes = sendto(this->socketDescriptor,
 			datas, data_len, 0, (struct sockaddr *) &sin, sizeof(sin));
+	cout << "SENDTO: "<<sent_bytes << endl;
 	//check if send successfully
 	if (sent_bytes < 0) {
 		return ERROR_SEND;
@@ -97,20 +100,26 @@ int Udp::sendData(string data) {
 int Udp::reciveData(char* buffer, int size) {
 	struct sockaddr_in to;
 	unsigned int to_len = sizeof(struct sockaddr_in);
-
+    cout << "SIZE: "<< size << endl;
+    cout << "BUFFER: "<< buffer << endl;
+    cout << "SCKT DESC: "<< socketDescriptor << endl;
+	cout << "PORT NUM: "<< port_number << endl;
 
     //receive
 	double bytes = recvfrom(this->socketDescriptor,
 			buffer, size, 0, (struct sockaddr *) &to, &to_len);
+    cout << "SOCKET DESC: " << socketDescriptor << endl;
 
     //set the port number to the new one which we get with the data
 	this->port_number = ntohs(to.sin_port);
 	//check if receive successfully
 
+   cout << "SUCCESS?: " << bytes << endl;
 	if (bytes < 0) {
 		return -1;
 	}
 	//print the data
+//	cout<<buffer<<endl;
 	//return correct if there were no error
 	return bytes;
 }
@@ -120,6 +129,6 @@ int Udp::getPortNum() {
     return port_number;
 }
 
-int Udp::setIP(string ip) {
-    ip_address = ip;
+void Udp::setIP(string ip) {
+	ip_address = ip;
 }

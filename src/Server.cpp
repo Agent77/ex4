@@ -35,8 +35,9 @@ int main(int argc, char* argv[]) {
     // INITIALIZES MAP
     server.initialize();
 
+    string s= argv[1];
     // OPENS SOCKET FOR ONE CLIENT
-    server.createClients(atoi(argv[1]));
+    server.createClients(s);
 
     // RUNS SWITCH CASE
     server.run();
@@ -46,10 +47,11 @@ int main(int argc, char* argv[]) {
 
 Server::Server() {
     clock = Clock();
+
 }
 
 void Server::closeSockets() {
-    tc.~TaxiCenter();
+   // tc.~TaxiCenter();
     socket->~Socket();
 }
 /*
@@ -97,7 +99,8 @@ void Server::SendTripToClient() {
         d.setTrip(&trip);
         d.setMap(tc.getMap());
         tc.addDriver(d);
-        tc.updateDriverTrip(trip);
+        //tc.getDrivers()[i].setTrip(&trip);
+        //tc.updateDriverTrip(trip);
         Trip* trip1 = &trip;
         boost::iostreams::back_insert_device<std::string> inserter(serializedTrip);
         boost::iostreams::stream<boost::iostreams::back_insert_device<std::string> > s(inserter);
@@ -109,7 +112,8 @@ void Server::SendTripToClient() {
     }
 }
 
-int Server::createClients(int portNum) {
+int Server::createClients(string port) {
+    portNum=stoi(port);
 
     // creates port for clients
     socket = new Udp(1, portNum);
@@ -159,11 +163,11 @@ void Server::sendNextLocation() {
     int y = 0;
     if(tc.getDrivers().size() > 0) {
 
-        for(int i=0; i<tc.getDrivers().size() && tc.getDrivers()[i].getTrip()->getTripTime()<clock.getTime()+1; i++) {
+        for(int i=0; i<tc.getDrivers().size() && tc.getDrivers()[i].getTrip()->getTripTime()<clock.getTime(); i++) {
             Trip* t = tc.getDrivers()[i].drive();
             tc.updateDriverTrip(t, i);
-             x = t->getStartX();
-             y = t->getStartY();
+            x = t->getStartX();
+            y = t->getStartY();
             Point* ptrPoint = new Point(x, y);
 
             std::string nextLocation;
@@ -187,20 +191,19 @@ void Server::sendNextLocation() {
 void Server::assignVehicleToClient() {
     // FINDS CORRECT TAXI FOR DRIVER ID
     int counter = 0;
-    vector<Taxi*>::iterator taxiIter = vehicles.begin();
-
+    vector<Taxi>::iterator taxiIter = vehicles.begin();
 
     int id = waitingDrivers.front().getDriverId();
 
-    while ((*(taxiIter))->getId() != id && taxiIter!= vehicles.end()){
+    while ((*(taxiIter)).getId()!= id && taxiIter!= vehicles.end()){
         taxiIter++;
         counter++;
 
     }
 
-    waitingDrivers.front().setTaxi((*(*taxiIter))); //still in vector because needs a trip before adding to taxi center
+    waitingDrivers.front().setTaxi((*taxiIter)); //still in vector because needs a trip before adding to taxi center
 
-    Taxi* taxiPointer = (*(taxiIter));
+    Taxi* taxiPointer = &(*(taxiIter));
     // SERIALIZATION OF TAXI
     std::string serial_str;
     boost::iostreams::back_insert_device<std::string> inserter(serial_str);
@@ -215,7 +218,7 @@ void Server::assignVehicleToClient() {
 
 }
 /*
-* runs the switch case so the user can constantly 
+* runs the switch case so the user can constantly
 * add input.
 */
 void Server::run() {
@@ -248,7 +251,7 @@ void Server::run() {
                 cin >> s;
                 Taxi t = city.createTaxi(s);
                 tc.addTaxi(t);
-                vehicles.push_back(&t);
+                vehicles.push_back(t);
                 break;
             }
             case 4: {
@@ -265,7 +268,7 @@ void Server::run() {
 
                 break;
             case 7:
-            Server::sendCommand(7);
+                Server::sendCommand(7);
                 run = 0;
                 break;
             default:
@@ -273,4 +276,3 @@ void Server::run() {
         }
     }
 }
-

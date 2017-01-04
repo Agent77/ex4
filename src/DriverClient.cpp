@@ -28,8 +28,9 @@ int main(int argc, char* argv[]) {
     Driver* driver = &dr;
 
     DriverClient client = DriverClient();
-
-    client.openSocket(driver, argv[2], atoi(argv[1]));
+    string ipStr= argv[1];
+    string portStr= argv[2];
+    client.openSocket(driver, ipStr, portStr);
     client.receiveVehicle();
     client.receiveCommand();
     return 0;
@@ -66,49 +67,51 @@ int DriverClient::receiveCommand() {
     boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s4(device2);
     boost::archive::binary_iarchive ia2(s4);
     ia2 >> command;
-    if(command == NEWPOINT) {
+    if(command == 9) {
         DriverClient::receiveNextPoint();
     }
-    if(command == NEWTRIP) {
+    if(command == 2) {
         DriverClient::receiveTrip();
     }
-    if(command == CLOSE) {
+    if(command == 7) {
         DriverClient::closeSocket();
     }
 }
 
 void DriverClient::closeSocket() {
- client->~Socket();
+    client->~Socket();
 }
 
 void DriverClient::receiveNextPoint() {
     char buffer[1024];
     Trip newTrip;
-        client->reciveData(buffer, sizeof(buffer));
-        Point* p;
-        string nextLocation = createString(buffer, sizeof(buffer));
-        boost::iostreams::basic_array_source<char> device3(nextLocation.c_str(), nextLocation.size());
-        boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s3(device3);
-        boost::archive::binary_iarchive ia(s3);
-        ia >> p;
-        Trip* tripP = driver.getTrip();
-        tripP->updateStartPoint(p);
-        driver.getTrip()->updateStartPoint(p);
-        delete p;
-        DriverClient::receiveCommand();
+    client->reciveData(buffer, sizeof(buffer));
+    Point* p;
+    string nextLocation = createString(buffer, sizeof(buffer));
+    boost::iostreams::basic_array_source<char> device3(nextLocation.c_str(), nextLocation.size());
+    boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s3(device3);
+    boost::archive::binary_iarchive ia(s3);
+    ia >> p;
+    Trip* tripP = driver.getTrip();
+    tripP->updateStartPoint(p);
+    driver.getTrip()->updateStartPoint(p);
+    delete p;
+    DriverClient::receiveCommand();
 }
 
 
 
-void DriverClient::openSocket(Driver *driverSent, string ip, int portNum) {
-
-    client = new Udp(0, portNum);
+void DriverClient::openSocket(Driver *driverSent, string currentIp, string port) {
+    driver = *driverSent;
+    portNum=stoi(port);
+    client = new Udp(0,portNum);
+    client->setIP(currentIp);
     int result = client->initialize();
-    client->setIP(ip);
+
     char buffer[1024];
     // SERIALIZATION
     cout << "RESULT: " <<result<<endl;
-    cout << "PORT NUM: "<<portNum<<endl;
+    //cout << "PORT NUM: "<<portNum<<endl;
     std::string serial_str;
     boost::iostreams::back_insert_device<std::string> inserter(serial_str);
     boost::iostreams::stream<boost::iostreams::back_insert_device<std::string> > s(inserter);
@@ -124,15 +127,15 @@ void DriverClient::receiveVehicle() {
 
     int resultData = client->reciveData(buffer, sizeof(buffer));
 
-     // DESERIALIZATION
-     string taxiString = createString(buffer, sizeof(buffer));
-     Taxi *taxi;
-     boost::iostreams::basic_array_source<char> device(taxiString.c_str(), taxiString.size());
-     boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s2(device);
-     boost::archive::binary_iarchive ia(s2);
-     ia >> taxi;
-     //Checking taxi deserialization
-     //GIVE DRIVER TAXI
+    // DESERIALIZATION
+    string taxiString = createString(buffer, sizeof(buffer));
+    Taxi *taxi;
+    boost::iostreams::basic_array_source<char> device(taxiString.c_str(), taxiString.size());
+    boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s2(device);
+    boost::archive::binary_iarchive ia(s2);
+    ia >> taxi;
+    //Checking taxi deserialization
+    //GIVE DRIVER TAXI
     driver.setTaxi(*taxi);
     delete taxi;
 }
