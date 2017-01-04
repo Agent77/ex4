@@ -239,10 +239,10 @@ void Server::sendNextLocation() {
     if(tc.getDrivers().size() > 0) {
         //Drives all drivers and sends next locations to clients
         for(int i=0; i<tc.getDrivers().size() && tc.getDrivers()[i].getTrip()->getTripTime()<clock.getTime(); i++) {
-            Trip* t = tc.getDrivers()[i].drive();
+            Trip t = tc.getDrivers()[i].drive();
             tc.updateDriverTrip(t, i);
-            x = t->getStartX();
-            y = t->getStartY();
+            x = t.getStartX();
+            y = t.getStartY();
             Point* ptrPoint = new Point(x, y);
 
             std::string nextLocation;
@@ -327,7 +327,7 @@ void Server::run() {
         cin >> action1;
         int action = (int)action1 - 48;
         switch(action) {
-            case insertDriver: //Insert Driver
+            case 1: //Insert Driver
             {
                 cin >> input; //how many drivers
                 // ASSIGNS A VEHICLE TO CLIENT ONLY IF TRIP TIME ARRIVES
@@ -335,31 +335,31 @@ void Server::run() {
                 Server::assignVehicleToClient();
                 break;
             }
-            case insertTrip: {
+            case 2: {
                 cin >> input;
                 Trip t = city.createTrip(input);
                 tc.addTrip(t);
                 break;
             }
-            case insertVehicle: {
+            case 3: {
                 cin >> s;
                 Taxi t = city.createTaxi(s);
                 tc.addTaxi(t);
                 vehicles.push_back(t);
                 break;
             }
-            case requestDriverId: {
+            case 4: {
                 cin >> driverId;
                 tc.requestDriverLocation(driverId);
                 break;
             }
-            case moveDrivers:
+            case 9:
                 // ADVANCE TIME
                 clock.increaseTime();
                 Server::SendTripToClient();
                 Server::sendNextLocation();
                 break;
-            case close:
+            case 7:
                 Server::sendCommand(7);
                 run = 0;
                 break;

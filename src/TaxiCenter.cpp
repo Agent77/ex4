@@ -170,7 +170,7 @@ Coordinate* TaxiCenter::driveAll() {
     cout << "in DRIVE ALL" << endl;
     assignDrivers();
     cout << "AFTER ASSIGN DRIVER"<< endl;
-    Trip* t;
+    Trip t;
     vector<Driver>::iterator currentDriver = drivers.begin();
    // while(currentDriver != drivers.end()) {
         (drivers).at(0).setMap(map);
@@ -178,8 +178,8 @@ Coordinate* TaxiCenter::driveAll() {
          t = drivers.at(0).drive();
       //  currentDriver++;
     //}
-    cout << "AFTER LOOP: " << t->getStart().getX();
-    Point p = t->getStart();
+    cout << "AFTER LOOP: " << t.getStart().getX();
+    Point p = t.getStart();
     Coordinate* c = &p;
     return c;
 }
@@ -202,7 +202,7 @@ void TaxiCenter::addDriver(int driverId, int age, char mStatus, int exp, int veh
     drivers.push_back(*d);
 }
 void TaxiCenter::updateDriverTrip(Trip newTrip, int place){
-    drivers.at(place).setTrip(&newTrip);
+    drivers.at(place).setTrip(newTrip);
 }
 
 void TaxiCenter::updateDriverTrip(Trip newTrip){

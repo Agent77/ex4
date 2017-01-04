@@ -57,7 +57,7 @@ public:
     void setTrip(Trip t);
     void rateMe(int rating);
     void addPassenger(Passenger p);
-    Trip* drive();
+    Trip drive();
     bool arrived();
     void setMap(Graph* map);
     void needNewTrip();

@@ -39,7 +39,7 @@ Driver::Driver(int driverId, int age, char mStatus, int exp, int vehicleId) {
 * using its grid, the driver uses a bfs algorithms to
 * continue travelling until it arrives at its destination.
 */
-Trip* Driver::drive() {
+Trip Driver::drive() {
     int moves = 0;
     cout << "IN DRIVE OF DRIVER"<< endl;
     cout <<endl;
@@ -61,14 +61,14 @@ Trip* Driver::drive() {
                                  myTrip.getEndY(), myTrip.getNumOfPassengers(), myTrip.getTariff(), myTrip.getTripTime());
         //myTrip->updateStartPoint(c);
           delete start;
-            delete end;
+        delete end;
 
         myTrip = *newTrip;
         delete newTrip;
         gps->resetGraph();
         moves ++;
     }
-    return &myTrip;
+    return myTrip;
 }
 
 int Driver::getAge() {

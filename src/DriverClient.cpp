@@ -107,7 +107,7 @@ int DriverClient::receiveCommand() {
 	* The Function operation: closes socket to server                      *
 	***********************************************************************/
 void DriverClient::closeSocket() {
-    client->~Socket();
+    delete client;
 }
 
 /***********************************************************************
