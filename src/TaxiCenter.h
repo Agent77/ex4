@@ -38,7 +38,15 @@ private:
 public:
     TaxiCenter(){};
     TaxiCenter(Graph* map1);
-    ~TaxiCenter() {};
+    ~TaxiCenter() {
+        taxis.clear();
+        vector<Taxi>().swap(taxis);
+        drivers.clear();
+        vector<Driver>().swap(drivers);
+        trips.clear();
+        vector<Trip>().swap(trips);
+        //delete map;
+    };
     int assignDrivers();
     Coordinate* driveAll();
     Driver findClosestDriver(Trip t);

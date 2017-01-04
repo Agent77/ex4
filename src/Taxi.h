@@ -41,6 +41,7 @@ public:
     virtual int getTariff();
     virtual int getId();
     virtual int getKms();
+    virtual int getType();
 };
 BOOST_SERIALIZATION_ASSUME_ABSTRACT(Taxi);
 

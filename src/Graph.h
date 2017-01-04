@@ -30,14 +30,25 @@ protected:
     int sizeY;
 public:
     Graph(){};
-    ~Graph(){};
+    ~Graph(){
+        cout << "IN DESTRUCTOR OF GRAPH"<<endl;
+        cout << "IN DELETE GRAPH"<<endl;
+        for (int i = 0; i < sizeX; i++) {
+            for (int j = 0; j < sizeY; j++) {
+                cout << "INSIDE LOOP" << endl;
+                Node* n = arrayOfPtrsToNodes[i][j];
+                delete n->getMyLocation();
+                delete n;
+            }
+        }
+    };
     virtual Node* getLocationOfPrev(Node* n) {};
     virtual std::vector<Node*> getNeighbors(Node* n)=0;
     virtual Node* getNode(Coordinate* p){};
-    virtual void deleteGraph() {};
     virtual void addObstacle(Coordinate* p){};
     virtual void resetGraph(){};
     virtual void getNodes() {};
+    virtual void deleteGraph() = 0;
 };
 BOOST_SERIALIZATION_ASSUME_ABSTRACT(Graph);
 

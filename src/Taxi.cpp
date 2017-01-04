@@ -31,6 +31,10 @@ int Taxi::getId() {
 return cabId;
 }
 
+int Taxi::getType() {
+    return cabType;
+}
+
 Taxi::Taxi(int id, int type, char manufacturer, char color) {
     cabId = id;
     cabType=type;

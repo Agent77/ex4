@@ -106,6 +106,7 @@ Node* Grid::getNode(Coordinate* p){
  * destructor for Grid.
  */
 Grid::~Grid() {
+    cout << "INSIDE GRID DESTRUCTOR"<<endl;
 }
 
 /*
@@ -113,8 +114,10 @@ Grid::~Grid() {
  * and deletes their Location Point and themselves.
  */
 void Grid::deleteGraph() {
+    cout << "IN DELETE GRAPH"<<endl;
     for (int i = 0; i < sizeX; i++) {
         for (int j = 0; j < sizeY; j++) {
+            cout << "INSIDE LOOP" << endl;
             Node* n = arrayOfPtrsToNodes[i][j];
             delete n->getMyLocation();
             delete n;
@@ -125,6 +128,7 @@ void Grid::deleteGraph() {
 void Grid::addObstacle(Coordinate* p) {
     Node* node = arrayOfPtrsToNodes[p->getNextCoordinate(0)][p->getNextCoordinate(1)];
     node->makeObstacle();
+    delete p;
 }
 
 /*

@@ -12,6 +12,7 @@ Driver::Driver() {
     this->maritalStatus='c';
     this->vehicleId=0;
     this->exp=0;
+    //this->myTrip = new Trip();
 }
 
 /*Driver::Driver(int driverId, int age, char mStatus, int exp, int vehicleId, Graph* map) {
@@ -31,7 +32,7 @@ Driver::Driver(int driverId, int age, char mStatus, int exp, int vehicleId) {
     this->maritalStatus=mStatus;
     this->exp=exp;
     this->vehicleId=vehicleId;
-    this->myTrip = new Trip();
+    //this->myTrip = new Trip();
 }
 
 /*
@@ -39,38 +40,35 @@ Driver::Driver(int driverId, int age, char mStatus, int exp, int vehicleId) {
 * continue travelling until it arrives at its destination.
 */
 Trip* Driver::drive() {
+    int moves = 0;
     cout << "IN DRIVE OF DRIVER"<< endl;
     cout <<endl;
     BFS bfs = BFS(gps);
-    cout << "INFO IN SERVER DRIVE OF DRIVER:" << endl;
-    cout << "DRIVER INFO: "<<endl;
-    cout << "ID: " << this->getDriverId()<<endl;
-    cout << "START OF TRIP: " << this->getTrip()->getStartX() << "," << this->getTrip()->getStartY()<<endl;
-    cout << "END OF TRIP: " << this->getTrip()->getEndX() << "," << this->getTrip()->getEndY()<<endl;
-    Coordinate* start;
-    int x = myTrip->getStartX();
-    int y = myTrip->getStartY();
-    start = new Point(x, y);
-    Coordinate* end;
-    x = myTrip->getEndX();
-    cout << "END X: "<< x << endl;
-    y = myTrip->getEndY();
-    cout << "END Y: "<< y << endl;
-    end = new Point(x, y);
-    Coordinate* c;
-    c  = bfs.getNextInPath(start, end);
-    cout << "** AFTER GET NEXT IN PATH" << endl;
-    Trip* newTrip = new Trip(myTrip->getId(), c->getCoordinates()[0], c->getCoordinates()[1], myTrip->getEndX(), myTrip->getEndY(),1,20,0);
-    //myTrip->updateStartPoint(c);
-  //  delete start;
-    //delete end;
-    cout << "NEWTRIP: "<<newTrip->getStartX() << "," << newTrip->getStartY() << endl;
+    while (moves < taxi.getType()) {
+        Coordinate *start;
+        int x = myTrip.getStartX();
+        int y = myTrip.getStartY();
+        start = new Point(x, y);
+        Coordinate *end;
+        x = myTrip.getEndX();
+        cout << "END X: " << x << endl;
+        y = myTrip.getEndY();
+        cout << "END Y: " << y << endl;
+        end = new Point(x, y);
+        Coordinate *c;
+        c = bfs.getNextInPath(start, end);
+        Trip *newTrip = new Trip(myTrip.getId(), c->getCoordinates()[0], c->getCoordinates()[1], myTrip.getEndX(),
+                                 myTrip.getEndY(), myTrip.getNumOfPassengers(), myTrip.getTariff(), myTrip.getTripTime());
+        //myTrip->updateStartPoint(c);
+          delete start;
+            delete end;
 
-    myTrip = newTrip;
-    cout << "MyTrip: " << myTrip->getStartX() << "," << myTrip->getStartY()<< endl;
-    cout << "** AFTER UPDATING START POINT OF DRIVER ** " << endl;
-    gps->resetGraph();
-    return myTrip;
+        myTrip = *newTrip;
+        delete newTrip;
+        gps->resetGraph();
+        moves ++;
+    }
+    return &myTrip;
 }
 
 int Driver::getAge() {
@@ -90,7 +88,7 @@ Taxi Driver::getTaxi() {
 }
 
 Trip* Driver::getTrip() {
-    return myTrip;
+    return &myTrip;
 }
 
 /*vector<Passenger> Driver::getPassengers() {
@@ -105,10 +103,10 @@ void Driver::setTaxi(Taxi t) {
     taxi = t;
 }
 
-void Driver::setTrip(Trip* t) {
-  //  delete myTrip;
-    myTrip = new Trip(t);
- //   delete t;
+void Driver::setTrip(Trip t) {
+    //delete myTrip;
+    myTrip =  Trip(t);
+    //delete t;
 }
 
 /*
@@ -132,17 +130,21 @@ int Driver::getVehicleId() {
      return vehicleId;
 }
 
+/*
+ * checks if the driver arrived at its destination.
+ */
 bool Driver::arrived() {
-    if (myTrip->getStartX() == myTrip->getEndX()) {
-        if(myTrip->getStartY() == myTrip->getEndY()) {
-            //this->needNewTrip();
+    if (myTrip.getStartX() == myTrip.getEndX()) {
+        if(myTrip.getStartY() == myTrip.getEndY()) {
             return true;
         }
     }
     return false;
 }
 
-
+/*
+ * sets the drivers map
+ */
 void Driver::setMap(Graph* map) {
     gps = map;
 }

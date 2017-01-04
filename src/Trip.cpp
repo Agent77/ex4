@@ -2,7 +2,12 @@
 #include "Trip.h"
 
 Trip::Trip() {
-    //end = NULL;
+    xStart = 0;
+    yStart = 0;
+    yEnd = 0;
+    xEnd = 0;
+    startTime = 0;
+    tripId = 0;
 }
 
 Trip::Trip(int tripId, int xStart, int yStart, int xEnd, int yEnd, int numOfPassengers, double tariff, int time) {

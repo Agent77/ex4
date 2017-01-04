@@ -27,6 +27,9 @@ public:
     int getTariff(){};
     int getId() {};
     int getKms(){};
+    int getType() {
+        return cabType;
+    }
 };
 
 
