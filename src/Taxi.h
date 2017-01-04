@@ -34,7 +34,7 @@ protected:
 public:
     Taxi();
     Taxi(int id, int type, char manufacturer, char color);
-    //~Taxi();
+    ~Taxi(){};
     virtual void updateKms();
     virtual int getSpeed();
     virtual char getManufacturer();

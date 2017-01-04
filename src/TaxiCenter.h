@@ -45,9 +45,7 @@ public:
         vector<Driver>().swap(drivers);
         trips.clear();
         vector<Trip>().swap(trips);
-        //delete map;
     };
-    int assignDrivers();
     Coordinate* driveAll();
     Driver findClosestDriver(Trip t);
     void addDriver(int driverId, int age, char mStatus, int vehicleId, int exp);

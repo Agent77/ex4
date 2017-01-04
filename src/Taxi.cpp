@@ -6,10 +6,6 @@ Taxi::Taxi() {
 
 }
 
-/*Taxi::~Taxi() {
-
-}*/
-
 void Taxi::updateKms() {
     this->kmPassed += 1;
 }

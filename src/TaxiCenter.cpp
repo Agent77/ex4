@@ -25,29 +25,6 @@ using namespace std;
 #include <string.h>
 
 using namespace std;
-/*int main() {
-    std::cout << "** IN TAXI CENTER MAIN **\n" << std::endl;
-
-    Socket* taxiCenterServer = new Udp(1, 5555);
-    int result = taxiCenterServer->initialize();
-    cout << "RESULT: " << result << endl;
-    std::cout << "** AFTER INITIALIZE **\n" << std::endl;
-
-    char buffer[1024];
-    taxiCenterServer->reciveData(buffer, sizeof(buffer));
-    std::cout << "** AFTER REC DATA **\n" << std::endl;
-
-    cout << buffer << endl;
-    taxiCenterServer->sendData("Hello from the server!\n");
-    return 0;
-}
-//RECEIVES ALL INITIAL INPUT
-//RECEIVES DRIVER OBJECT TO DESERIALIZE
-//RETURNS TO CLIENT A VEHICLE with serialization
-
-TaxiCenter::TaxiCenter() {
-    started = false;
-}*/
 
 TaxiCenter::TaxiCenter(Graph* map1) {
     map = map1;
@@ -60,7 +37,6 @@ Driver TaxiCenter::findClosestDriver(Trip t) {
 
 void TaxiCenter::addDriver(Driver d) {
     drivers.push_back(d);
-   // addDriver(d.getDriverId(), d.getAge(), d.getMaritalStatus(), d.getExp(), d.getVehicleId());
 
 }
 
@@ -167,9 +143,7 @@ vector <Driver> TaxiCenter::getDrivers (){
 * alerts all drivers to move.
 */
 Coordinate* TaxiCenter::driveAll() {
-    cout << "in DRIVE ALL" << endl;
     assignDrivers();
-    cout << "AFTER ASSIGN DRIVER"<< endl;
     Trip t;
     vector<Driver>::iterator currentDriver = drivers.begin();
    // while(currentDriver != drivers.end()) {
@@ -178,15 +152,18 @@ Coordinate* TaxiCenter::driveAll() {
          t = drivers.at(0).drive();
       //  currentDriver++;
     //}
-    cout << "AFTER LOOP: " << t.getStart().getX();
     Point p = t.getStart();
     Coordinate* c = &p;
     return c;
 }
 
+/*
+ * adds taxi to vector of taxis
+ */
 void TaxiCenter::addTaxi(Taxi t) {
     taxis.push_back(t);
 }
+
 
 vector<Trip> TaxiCenter::getTrips() {
     return trips;
@@ -201,6 +178,10 @@ void TaxiCenter::addDriver(int driverId, int age, char mStatus, int exp, int veh
    Driver *d = new Driver (driverId, age, mStatus, exp, vehicleId);
     drivers.push_back(*d);
 }
+
+/*
+ * updates the driver's trip
+ */
 void TaxiCenter::updateDriverTrip(Trip newTrip, int place){
     drivers.at(place).setTrip(newTrip);
 }
@@ -222,23 +203,28 @@ Taxi TaxiCenter::assignTaxi(int driverId){
     return *(taxi);
 }
 
+/*
+ * searches through the trips to find which trip has the same
+ * start time as the time that was sent to function
+ */
 Trip TaxiCenter::getNextTrip(int currentTime) {
-    cout << "IN GET NEXT TRIP" << endl;
-    cout << "TRIP SIZE: " << sizeof(trips)<<endl;
     vector<Trip>::iterator trip = trips.begin();
     while ((*(trip)).getTripTime()< currentTime && trip != trips.end()){ //TODO does this stop loop
         trip++;
-        cout << "IN LOOP of GET NEXT TRIP" << endl;
     }
     Trip nextTrip= *(trip);
+    //removes trip from possible trips to assign in future
     trips.erase(trip);
-    cout << "ERASE TRIP" << endl;
     return nextTrip;
 }
 
+/*
+ * checks how many trips we are expecting to
+ * assign at a certain time.
+ */
 int TaxiCenter::checkTripTimes(int currentTime) {
     int counter =0;
-    for (int i=0; i<trips.size();i++) {
+    for (int i = 0; i < trips.size();i++) {
         if (trips[i].getTripTime() == currentTime) {
             counter++;
         }
@@ -254,6 +240,12 @@ void TaxiCenter::resetDrivers(vector<Driver> ds) {
     drivers = ds;
 }
 
+/*
+ * deletes a driver from the taxi center,
+ * used when the driver has finished its first trip
+ * and is waiting to be assigned another one,
+ * and is then added back to taxi center
+ */
 void TaxiCenter::deleteDriver(int i) {
     drivers.erase(drivers.begin()+i);
 }

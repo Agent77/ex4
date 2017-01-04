@@ -1,6 +1,3 @@
-//
-// Created by Tiki Lobel on 12/15/16.
-//
 
 #ifndef GTESTEX3_SEARCHABLE_H
 #define GTESTEX3_SEARCHABLE_H
@@ -41,11 +38,30 @@ public:
     Searchable(Graph* g) {
         graph = g;
     };
+    /***********************************************************************
+	* function name: getPath											   *
+	* The Input: none		                                               *
+	* The output: none                                  		           *
+	* The Function operation: function to get entire path from bfs		   *
+	***********************************************************************/
     virtual void getPath() = 0;
     virtual void PrintPath(Node* s, Node* d) = 0;
+    /***********************************************************************
+	* function name: visitNeighbors										   *
+	* The Input: node to visit its neighbors        		               *
+	* The output: vector of all that nodes neighbors        	           *
+	* The Function operation: sending the input data to the socket         *
+	* who connect to this socket.										   *
+	***********************************************************************/
     virtual std::vector<Node*> visitNeighbors(Node* n) = 0;
     virtual Node* getDest(){};
     virtual Node* getSource(){};
+    /***********************************************************************
+	* function name: getNextInPath										   *
+	* The Input: start and end of path                  	               *
+	* The output: next location for driver              		           *
+	* The Function operation: gets the next point in bfs path			   *
+	***********************************************************************/
     virtual Coordinate* getNextInPath(Coordinate* sLoc, Coordinate* dLoc) = 0;
 };
 

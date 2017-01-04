@@ -3,6 +3,9 @@
 
 #include "Point.h"
 #include <boost/serialization/access.hpp>
+/*
+ * Passenger class which have a location.
+ */
 class Passenger {
     friend class boost::serialization::access;
 

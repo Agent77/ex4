@@ -10,6 +10,9 @@ Trip::Trip() {
     tripId = 0;
 }
 
+/*
+ * non-default constructor
+ */
 Trip::Trip(int tripId, int xStart, int yStart, int xEnd, int yEnd, int numOfPassengers, double tariff, int time) {
     this->tripId=tripId;
     this->xStart=xStart;
@@ -22,6 +25,10 @@ Trip::Trip(int tripId, int xStart, int yStart, int xEnd, int yEnd, int numOfPass
     this->tariff = tariff;
     this->startTime = time;
 }
+
+/*
+ * copy constructor for Trip.
+ */
 Trip::Trip(Trip* t) {
   this->tripId = t->getId();
   this-> xStart = t->getStartX();
@@ -42,13 +49,12 @@ int Trip::getStartX() {
 }
  int Trip::getStartY() {
      return yStart;
-
  }
 
-
 int Trip::getEndX() {
-      return xEnd;
+    return xEnd;
 }
+
 int Trip::getEndY() {
      return yEnd;
 }
@@ -68,6 +74,7 @@ int Trip::getNumOfPassengers() {
 double Trip::getTariff() {
     return tariff;
 }
+
 Point Trip::getStart() {
     return start;
 }
@@ -85,10 +92,6 @@ void Trip::addMeters() {
 void Trip::updateStartPoint(Point p){
     xStart = p.getCoordinates()[0];
     yStart = p.getCoordinates()[1];
-    ///yStart = c->getCoordinates()[1];
-    //cout << "ySTART: " << yStart <<   endl;
-    //start =   p;
-    //cout << "new start Y: " << start.getCoordinates()[1];
 }
 
 int Trip::getTripTime() {

@@ -1,6 +1,3 @@
-//
-// Created by nirbs on 14/12/16.
-//
 
 #ifndef TRY_STANDARDCAB_H
 #define TRY_STANDARDCAB_H
@@ -20,7 +17,6 @@ class StandardCab: public Taxi {
 public:
     StandardCab() {};
     StandardCab(int id, int type, char manufacturer, char color):Taxi(id, type, manufacturer, color){};
-    //~Taxi(){};
     void updateKms(){};
     int getSpeed(){};
     char getManufacturer(){};
