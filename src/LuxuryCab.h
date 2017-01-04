@@ -1,7 +1,3 @@
-//
-// Created by nirbs on 14/12/16.
-//
-
 #ifndef TRY_LUXURYCAB_H
 #define TRY_LUXURYCAB_H
 

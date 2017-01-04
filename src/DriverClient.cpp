@@ -97,7 +97,6 @@ int DriverClient::receiveCommand() {
     if(command == close) {
         DriverClient::closeSocket();
     }
-//    delete command;
 }
 
 /***********************************************************************

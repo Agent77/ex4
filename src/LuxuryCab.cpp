@@ -1,7 +1,3 @@
-//
-// Created by nirbs on 14/12/16.
-//
-
 #include "LuxuryCab.h"
 #include <boost/serialization/export.hpp>
 

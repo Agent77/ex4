@@ -68,7 +68,7 @@ void BFS::getPath() {
             c1 = (*(newSource)).getMyLocation();
             c2 = (*(destination)).getMyLocation();
     } while(!(c2->equalTo(c1)));
-//    BFS::PrintPath(source, destination);
+
 }
 
 /*
@@ -97,30 +97,30 @@ std::vector<Node*> BFS::visitNeighbors(Node* n) {
  * destination to source to get next place in path.
  */
 Coordinate* BFS::getNextInPath(Coordinate* sLoc, Coordinate* dLoc){
-    cout << "DLOC: "<<dLoc->getNextCoordinate(0) << endl;
     graph->getNodes();
     this->source =  graph->getNode(sLoc);
     this->source->visit();
     this->destination = graph->getNode(dLoc);
-    cout << "DESTINATION X: " << destination->getLocation()[0] << endl;
-
-    cout << "** AFTER SETTING SOURCE AND DESTINATION" << endl;
     this->getPath();
-    cout << "** AFTER GET PATH **"<<endl;
     Node *node= destination;
     Node* previousNode;
     while (node != source && node->getPrev()!= NULL){
         previousNode = node;
         node = node->getPrev();
-        cout << "REACHED WHILE LOOP" << endl;
     }
     return previousNode->getMyLocation();
 }
 
+/*
+ * The function returns a node pointer of the source
+ */
 Node* BFS::getSource() {
     return source;
 }
 
+/*
+ * The function returns a node pointer of the destination
+ */
 Node* BFS::getDest() {
     return destination;
 }

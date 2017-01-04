@@ -1,11 +1,12 @@
-//
-// Created by nirbs on 27/12/16.
-//
 
 #ifndef PRACTICE6_CLOCK_H
 #define PRACTICE6_CLOCK_H
 #include <boost/serialization/access.hpp>
 
+/*
+ * Class which represents the clock of the program.
+ * It says the time whenever it is needed for the flow.
+ */
 class Clock {
 private:
     int time;

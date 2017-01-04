@@ -19,7 +19,6 @@ class Graph {
 
     void serialize(Archive &ar, const unsigned int version)
     {
-        //ar & arrayOfPtrsToNodes;
         ar & sizeX;
         ar & sizeY;
     }
@@ -31,11 +30,8 @@ protected:
 public:
     Graph(){};
     ~Graph(){
-        cout << "IN DESTRUCTOR OF GRAPH"<<endl;
-        cout << "IN DELETE GRAPH"<<endl;
         for (int i = 0; i < sizeX; i++) {
             for (int j = 0; j < sizeY; j++) {
-                cout << "INSIDE LOOP" << endl;
                 Node* n = arrayOfPtrsToNodes[i][j];
                 delete n->getMyLocation();
                 delete n;

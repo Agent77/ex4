@@ -12,7 +12,6 @@ Driver::Driver() {
     this->maritalStatus='c';
     this->vehicleId=0;
     this->exp=0;
-    //this->myTrip = new Trip();
 }
 
 /*Driver::Driver(int driverId, int age, char mStatus, int exp, int vehicleId, Graph* map) {
@@ -26,13 +25,12 @@ Driver::Driver() {
 }*/
 
 Driver::Driver(int driverId, int age, char mStatus, int exp, int vehicleId) {
-    //numberOfcustomers=0;
     this->driverId=driverId;
     this->age=age;
     this->maritalStatus=mStatus;
     this->exp=exp;
     this->vehicleId=vehicleId;
-    //this->myTrip = new Trip();
+
 }
 
 /*
@@ -104,9 +102,8 @@ void Driver::setTaxi(Taxi t) {
 }
 
 void Driver::setTrip(Trip t) {
-    //delete myTrip;
     myTrip =  Trip(t);
-    //delete t;
+
 }
 
 /*

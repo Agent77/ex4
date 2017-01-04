@@ -6,6 +6,10 @@
 #include "Trip.h"
 #include "Passenger.h"
 #include "Taxi.h"
+/*
+ * Driver class represents a driver. It holds the driver fields and
+ * in charge of moving on the graph.
+ */
 class Driver {
     friend class boost::serialization::access;
 
@@ -18,10 +22,6 @@ class Driver {
         ar & maritalStatus;
         ar & exp;
         ar & vehicleId;
-        /*ar & totalRate;
-        ar & avgSatisfaction;
-        ar & maritalStatus;
-        ar & gps;*/
     }
 private:
     int driverId;
@@ -61,10 +61,6 @@ public:
     bool arrived();
     void setMap(Graph* map);
     void needNewTrip();
-
-
-
-
 };
 
 #endif //EX2_DRIVER_H
